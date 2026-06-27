@@ -2910,27 +2910,28 @@ function shareCompletion(){
 }
 
 try{initQuiz()}catch(e){console.error('initQuiz:',e)}
+const GFORM_URL='https://docs.google.com/forms/u/0/d/e/1FAIpQLSeVuT43qu5PxuSMF0aq4zcrJK1NYU289nMgXlrZ_FThmSUPDw/formResponse';
+
 function submitEmail(){
-  const input=document.getElementById('sub-email');
-  const email=input.value.trim();
+  const emailEl=document.getElementById('sub-email');
+  const email=emailEl?emailEl.value.trim():'';
   const re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if(!re.test(email)){
-    input.style.borderColor='rgba(220,38,38,.8)';
-    input.focus();
-    setTimeout(()=>{input.style.borderColor='';},1500);
+    emailEl.style.borderColor='rgba(220,38,38,.8)';
+    emailEl.focus();
+    setTimeout(()=>{emailEl.style.borderColor='';},1500);
     toast('Please enter a valid email address');
     return;
   }
-  // Store locally (replace with your email service endpoint)
-  try{
-    const subs=JSON.parse(localStorage.getItem('ic_subs')||'[]');
-    if(!subs.includes(email)) subs.push(email);
-    localStorage.setItem('ic_subs',JSON.stringify(subs));
-  }catch(e){}
-  // Show success state
-  document.getElementById('email-sub-form-wrap').style.display='none';
-  document.getElementById('email-sub-success').style.display='block';
-  toast('Welcome! 🔥 First report arrives Monday.');
+  const body=new FormData();
+  body.append('entry.1404257243', 'Subscriber');
+  body.append('entry.555030497', email);
+  fetch(GFORM_URL,{method:'POST',mode:'no-cors',body})
+    .finally(()=>{
+      document.getElementById('email-sub-form-wrap').style.display='none';
+      document.getElementById('email-sub-success').style.display='block';
+      toast('Subscribed! 🔥');
+    });
 }
 
 try{initQuiz()}catch(e){console.error('initQuiz:',e)}
