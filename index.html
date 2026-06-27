@@ -95,6 +95,12 @@ nav{
 }
 .ntab:hover{color: var(--t1); background: var(--page)}
 .ntab.on{color: var(--t1); background: var(--page); font-weight: 600}
+.ntab-num{
+  font-family:'Space Mono',monospace;
+  font-size:9px; font-weight:700;
+  color:var(--red); margin-right:3px;
+  opacity:.7;
+}
 .live-badge{
   flex-shrink: 0; display: flex; align-items: center; gap: 5px;
   font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace;
@@ -853,7 +859,103 @@ h1 em{color: var(--red); font-style: normal}
 .mbti-preview-emoji{font-size:26px;margin-bottom:6px}
 .mbti-preview-name{font-size:11px;font-weight:600;color:var(--t2)}
 
-/* ── EMAIL SUBSCRIBE ── */
+/* ── JOURNEY PROGRESS ── */
+.journey-bar{
+  background:var(--card); border-bottom:1px solid var(--border);
+  padding:8px 16px; display:flex; align-items:center;
+  gap:12px; position:sticky; top:52px; z-index:99;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.journey-steps{display:flex; gap:4px; flex:1}
+.journey-step{
+  height:4px; border-radius:2px; flex:1;
+  background:var(--border); transition:background .3s ease;
+}
+.journey-step.done{background:var(--red)}
+.journey-step.active{background:#F87171}
+.journey-label{
+  font-family:'Space Mono',monospace; font-size:9px;
+  letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--t3); white-space:nowrap; font-weight:700;
+}
+
+/* ── NEXT CTA ── */
+.next-cta{
+  margin-top:12px;
+}
+.next-cta-label{
+  font-family:'Space Mono',monospace; font-size:9px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--t3); margin-bottom:8px; display:block;
+}
+.next-cta-btn{
+  display:flex; align-items:center; gap:12px;
+  background:var(--card); border:1.5px solid var(--border);
+  border-radius:var(--radius); padding:16px 20px;
+  cursor:pointer; width:100%; transition:all .15s;
+  text-align:left;
+}
+.next-cta-btn:hover{
+  border-color:var(--red);
+  box-shadow:0 4px 16px rgba(220,38,38,.1);
+  transform:translateY(-1px);
+}
+.next-cta-arrow{
+  font-size:22px; flex-shrink:0; color:var(--red);
+  transition:transform .15s; font-weight:700;
+}
+.next-cta-btn:hover .next-cta-arrow{transform:translateX(4px)}
+.next-cta-title{font-size:15px; font-weight:700; color:var(--t1); margin-bottom:3px}
+.next-cta-sub{font-size:12px; color:var(--t3)}
+
+/* ── COMPLETION CARD ── */
+.completion-card{
+  background:linear-gradient(135deg,#0f1a0f,#0a2010);
+  border:1px solid rgba(5,150,105,.3);
+  border-radius:var(--radius); padding:32px 24px;
+  text-align:center; margin-top:16px; display:none;
+}
+.completion-emoji{font-size:52px; display:block; margin-bottom:16px}
+.completion-title{
+  font-size:clamp(20px,4vw,28px); font-weight:700;
+  color:#fff; margin-bottom:6px;
+}
+.completion-sub{font-size:14px; color:rgba(255,255,255,.5); margin-bottom:20px}
+.completion-score{
+  font-family:'Space Mono',monospace;
+  font-size:56px; font-weight:700; color:#34D399;
+  line-height:1; margin-bottom:4px;
+}
+.completion-score-label{
+  font-family:'Space Mono',monospace; font-size:10px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,.4); margin-bottom:20px;
+}
+.completion-actions{display:flex; gap:8px; flex-wrap:wrap; justify-content:center}
+
+/* ── LOADING OVERLAY ── */
+.ignite-loading{
+  display:none; flex-direction:column; align-items:center;
+  gap:10px; padding:28px; background:var(--card);
+  border:1px solid var(--border); border-radius:var(--radius);
+  margin-top:12px;
+}
+.ignite-loading-step{
+  font-family:'Space Mono',monospace; font-size:12px;
+  color:var(--t3); opacity:0; transition:opacity .3s;
+  display:flex; align-items:center; gap:8px;
+}
+.ignite-loading-step.visible{opacity:1}
+.ignite-loading-step.done-step{color:var(--green)}
+.ignite-dot{
+  width:6px; height:6px; border-radius:50%;
+  background:var(--red); flex-shrink:0;
+  animation:pulse 1s infinite;
+}
+.ignite-loading-step.done-step .ignite-dot{
+  background:var(--green); animation:none;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .email-subscribe{
   background:var(--card);
   border:1px solid var(--border);
@@ -966,16 +1068,29 @@ footer{
 <nav style="position:relative;z-index:100">
   <a class="logo" href="#" onclick="showPage('dash');return false">🔥 MONEY BURN</a>
   <div class="nav-tabs">
-    <button class="ntab on"  onclick="showPage('dash')">Live Tracker</button>
-    <button class="ntab"     onclick="showPage('wage')">Real Wage</button>
-    <button class="ntab"     onclick="showPage('personal')">My Inflation</button>
-    <button class="ntab"     onclick="showPage('world')">World Pain</button>
-    <button class="ntab"     onclick="showPage('report')">📊 My Report</button>
-    <button class="ntab"     onclick="showPage('mbti')">🧠 My Type</button>
-    <button class="ntab"     onclick="showPage('sleep')">😴 While You Slept</button>
+    <button class="ntab on"  onclick="showPage('dash')"><span class="ntab-num">①</span> Live Tracker</button>
+    <button class="ntab"     onclick="showPage('wage')"><span class="ntab-num">②</span> Real Wage</button>
+    <button class="ntab"     onclick="showPage('personal')"><span class="ntab-num">③</span> My Inflation</button>
+    <button class="ntab"     onclick="showPage('world')"><span class="ntab-num">④</span> World Pain</button>
+    <button class="ntab"     onclick="showPage('report')"><span class="ntab-num">⑤</span> My Report</button>
+    <button class="ntab"     onclick="showPage('sleep')"><span class="ntab-num">⑥</span> While You Slept</button>
   </div>
   <div class="live-badge"><div class="live-dot"></div>LIVE</div>
 </nav>
+
+<!-- JOURNEY PROGRESS BAR -->
+<div class="journey-bar" id="journey-bar" style="display:none">
+  <div class="journey-steps">
+    <div class="journey-step" id="js-0"></div>
+    <div class="journey-step" id="js-1"></div>
+    <div class="journey-step" id="js-2"></div>
+    <div class="journey-step" id="js-3"></div>
+    <div class="journey-step" id="js-4"></div>
+    <div class="journey-step" id="js-5"></div>
+    <div class="journey-step" id="js-6"></div>
+  </div>
+  <div class="journey-label" id="journey-label">STEP 1 OF 7</div>
+</div>
 
 <!-- PAGE 1: LIVE TRACKER -->
 <div id="pg-dash" class="pg on" style="position:relative;z-index:1">
@@ -1059,8 +1174,15 @@ footer{
           <option value="37">37% (top)</option>
         </select>
       </div>
-      <button class="btn-primary" onclick="ignite()">🔥 Calculate</button>
+      <button class="btn-primary" onclick="igniteWithLoading()">🔥 Calculate My Loss →</button>
     </div>
+  </div>
+
+  <!-- LOADING OVERLAY -->
+  <div class="ignite-loading" id="ignite-loading">
+    <div class="ignite-loading-step" id="il-1"><div class="ignite-dot"></div>Calculating inflation drag...</div>
+    <div class="ignite-loading-step" id="il-2"><div class="ignite-dot"></div>Checking tax bracket impact...</div>
+    <div class="ignite-loading-step" id="il-3"><div class="ignite-dot"></div>Measuring purchasing power loss...</div>
   </div>
 
   <div class="comm-bar">
@@ -1157,6 +1279,29 @@ footer{
     <p id="reality-txt"></p>
   </div>
 
+  <!-- SCORE PREVIEW (shows after Calculate) -->
+  <div id="dash-score-preview" style="display:none;margin-top:8px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:4px">Your Defense Score</div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span id="dash-preview-score" style="font-family:'Space Mono',monospace;font-size:36px;font-weight:700;line-height:1">—</span>
+          <span style="font-family:'Space Mono',monospace;font-size:14px;color:var(--t3)">/100</span>
+        </div>
+      </div>
+      <button class="btn-secondary" onclick="journeyNext('report')" style="white-space:nowrap">📊 Full Report →</button>
+    </div>
+
+    <!-- SLEEP TEASER -->
+    <div style="background:#0f0c29;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:16px 20px;margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;cursor:pointer" onclick="journeyNext('sleep')">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:4px">😴 Curious?</div>
+        <div style="font-size:14px;font-weight:600;color:#fff;line-height:1.4">See how much money disappeared<br>while you slept last night.</div>
+      </div>
+      <div style="font-size:22px;color:#F87171">→</div>
+    </div>
+  </div>
+
   <div style="font-size:10px;font-size:12px;color:#374151;line-height:1.9;border-top:2px solid var(--border);padding-top:16px;background:#F9FAFB;padding:18px;border-radius:10px;margin-top:8px;font-family:'Space Mono',monospace">
     <strong style="color:#111827;font-size:13px">📅 Data last updated: June 2026</strong><br>
     <span style="color:#374151">USD 3.81% · CAD 2.7% · EUR 2.2% · GBP 3.4% · AUD 3.2% · JPY 3.0% · KRW 2.6%<br>CHF 1.1% · CNY 0.4% · RUB 9.1% · INR 4.8% · BRL 5.1% · MXN 4.2% · ZAR 4.8% · TRY 38.0% · ARG 211%</span><br>
@@ -1182,6 +1327,19 @@ footer{
       <div class="email-sub-success-msg">You're subscribed.</div>
       <div class="email-sub-success-sub">First report arrives Monday.</div>
     </div>
+  </div>
+  </div>
+
+  <!-- NEXT: shown after Calculate -->
+  <div class="next-cta" id="dash-next-cta" style="display:none">
+    <span class="next-cta-label">② Up next</span>
+    <button class="next-cta-btn" onclick="journeyNext('wage')">
+      <div style="flex:1">
+        <div class="next-cta-title">See how inflation changed your REAL salary →</div>
+        <div class="next-cta-sub">After tax and inflation, your hourly wage is not what you think</div>
+      </div>
+      <div class="next-cta-arrow">→</div>
+    </button>
   </div>
 
 </div>
@@ -1254,6 +1412,18 @@ footer{
       <span class="sec-label" style="margin-bottom:12px">What 1 hour of your real wage buys</span>
       <div class="stat-grid" id="w-buys"></div>
     </div>
+
+    <!-- NEXT CTA -->
+    <div class="next-cta">
+      <span class="next-cta-label">③ Up next</span>
+      <button class="next-cta-btn" onclick="journeyNext('personal')">
+        <div style="flex:1">
+          <div class="next-cta-title">Calculate YOUR inflation rate →</div>
+          <div class="next-cta-sub">The government's 3.81% isn't your number — find your real rate</div>
+        </div>
+        <div class="next-cta-arrow">→</div>
+      </button>
+    </div>
   </div>
 </div>
 </div>
@@ -1294,6 +1464,18 @@ footer{
     <span class="sec-label" style="margin-bottom:12px">US CPI component breakdown (2026)</span>
     <div id="cpi-components"></div>
   </div>
+
+  <!-- NEXT CTA -->
+  <div class="next-cta">
+    <span class="next-cta-label">④ Up next</span>
+    <button class="next-cta-btn" onclick="journeyNext('world')">
+      <div style="flex:1">
+        <div class="next-cta-title">Compare yourself to the world →</div>
+        <div class="next-cta-sub">See which countries are burning fastest — and where you rank</div>
+      </div>
+      <div class="next-cta-arrow">→</div>
+    </button>
+  </div>
 </div>
 </div>
 
@@ -1326,6 +1508,18 @@ footer{
   <div class="card" style="padding:20px">
     <span class="sec-label" style="margin-bottom:14px">Inflation rate comparison — top 10 countries</span>
     <div style="position:relative;height:260px"><canvas id="worldChart"></canvas></div>
+  </div>
+
+  <!-- NEXT CTA -->
+  <div class="next-cta">
+    <span class="next-cta-label">⑤ Up next</span>
+    <button class="next-cta-btn" onclick="journeyNext('report')">
+      <div style="flex:1">
+        <div class="next-cta-title">Generate your personal Damage Report →</div>
+        <div class="next-cta-sub">Your defense score, annual loss, and the #1 action to take right now</div>
+      </div>
+      <div class="next-cta-arrow">→</div>
+    </button>
   </div>
 </div>
 </div>
@@ -1423,6 +1617,18 @@ footer{
       <div class="insight-ey">📡 Today's Insight — <span id="insight-date"></span></div>
       <div class="insight-txt" id="insight-txt"></div>
       <div class="insight-impact" id="insight-impact"></div>
+    </div>
+
+    <!-- NEXT CTA -->
+    <div class="next-cta">
+      <span class="next-cta-label">⑥ Final step</span>
+      <button class="next-cta-btn" onclick="journeyNext('sleep')">
+        <div style="flex:1">
+          <div class="next-cta-title">😴 See what happened while you slept →</div>
+          <div class="next-cta-sub">Every night, inflation runs while you don't. See the exact number.</div>
+        </div>
+        <div class="next-cta-arrow">→</div>
+      </button>
     </div>
 
   </div>
@@ -1567,6 +1773,29 @@ footer{
         <button class="btn-primary" onclick="sleepShare()">𝕏 Share This</button>
         <button class="btn-secondary" onclick="sleepCopy()">🔗 Copy Text</button>
         <button class="btn-secondary" onclick="showPage('dash')">🔥 See Live Counter</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION CARD -->
+    <div class="completion-card" id="completion-card">
+      <span class="completion-emoji">✔</span>
+      <div class="completion-title">Inflation Check Complete.</div>
+      <div class="completion-sub" style="margin-bottom:20px">You've seen the full picture of what inflation is doing to your money.</div>
+
+      <div style="text-align:left;max-width:320px;margin:0 auto 20px">
+        <div id="cc-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-bottom:16px">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px">Your Defense Score</div>
+        <div class="completion-score" id="completion-score">—</div>
+        <div class="completion-score-label">/ 100</div>
+      </div>
+
+      <div class="completion-actions">
+        <button class="btn-primary" onclick="shareCompletion()">𝕏 Share My Score</button>
+        <button class="btn-secondary" onclick="showPage('report')">📊 Full Report</button>
+        <button class="btn-secondary" onclick="showPage('dash')">🔥 Restart</button>
       </div>
     </div>
 
@@ -1865,6 +2094,9 @@ function showPage(id){
     if(id==='world') renderWorld();
     if(id==='personal') renderPersonal();
     if(id==='report') renderReport();
+    // Journey bar
+    updateJourneyBar(id);
+    markVisited(id);
   }catch(e){console.error('showPage error:',e)}
 }
 
@@ -2158,7 +2390,7 @@ function buildDefense(){
       strats.push({p:'p3',icon:'💬',name:'You\'re leaving '+upg+'/yr behind vs best available rates',desc:'Your account earns '+earn+'% while top HYSAs pay 4.5%. On '+sym+amt.toLocaleString()+' that gap is '+upg+'/yr. Call your bank or switch. Zero risk, 10 minutes.',tag:'low',tagLabel:'+'+upg+'/YR EASY WIN'});
     }
 
-    document.getElementById('def-list').innerHTML=strats.slice(0,6).map(s=>`
+        document.getElementById('def-list').innerHTML=strats.slice(0,6).map(s=>`
       <div class="def-item ${s.p}">
         <div class="def-icon">${s.icon}</div>
         <div class="def-body">
@@ -2167,6 +2399,15 @@ function buildDefense(){
           <span class="def-tag ${s.tag}">${s.tagLabel}</span>
         </div>
       </div>`).join('');
+
+    // Update score preview in Live Tracker
+    const prev=document.getElementById('dash-preview-score');
+    if(prev){
+      prev.textContent=score;
+      prev.style.color=col;
+    }
+    const previewBox=document.getElementById('dash-score-preview');
+    if(previewBox) previewBox.style.display='block';
   }catch(e){console.error('buildDefense:',e)}
 }
 
@@ -2546,7 +2787,129 @@ try{document.getElementById('amount').addEventListener('keydown',e=>{if(e.key===
 try{document.getElementById('w-salary').addEventListener('keydown',e=>{if(e.key==='Enter')calcWage()})}catch(e){}
 
 // ── INIT ──────────────────────────────────────────────────────────
-// ── EMAIL SUBSCRIBE ──────────────────────────────────────────────
+// ── JOURNEY SYSTEM ───────────────────────────────────────────────
+const JOURNEY_PAGES=['dash','wage','personal','world','report','mbti','sleep'];
+const JOURNEY_LABELS=['Live Tracker','Real Wage','My Inflation','World Pain','My Report','My Type','While You Slept'];
+let journeyStarted=false;
+
+function journeyNext(page){
+  journeyStarted=true;
+  showPage(page);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function updateJourneyBar(pageId){
+  const idx=JOURNEY_PAGES.indexOf(pageId);
+  const bar=document.getElementById('journey-bar');
+  if(!bar) return;
+
+  if(idx===-1||!journeyStarted){
+    bar.style.display='none';
+    return;
+  }
+  bar.style.display='flex';
+
+  JOURNEY_PAGES.forEach((_,i)=>{
+    const el=document.getElementById('js-'+i);
+    if(!el) return;
+    el.className='journey-step'+(i<idx?' done':i===idx?' active':'');
+  });
+  document.getElementById('journey-label').textContent=
+    'STEP '+(idx+1)+' OF '+JOURNEY_PAGES.length;
+}
+
+// ── IGNITE WITH LOADING ANIMATION ────────────────────────────────
+function igniteWithLoading(){
+  const a=parseFloat(document.getElementById('amount').value);
+  if(!a||a<=0){
+    const el=document.getElementById('amount');
+    el.focus(); el.style.borderColor='var(--red)';
+    el.style.boxShadow='0 0 0 3px rgba(220,38,38,.15)';
+    setTimeout(()=>{el.style.borderColor='';el.style.boxShadow=''},1500);
+    return;
+  }
+
+  const loader=document.getElementById('ignite-loading');
+  loader.style.display='flex';
+  journeyStarted=true;
+  updateJourneyBar('dash');
+
+  const steps=[
+    {id:'il-1',delay:0},
+    {id:'il-2',delay:380},
+    {id:'il-3',delay:750}
+  ];
+
+  steps.forEach(s=>{
+    setTimeout(()=>{
+      const el=document.getElementById(s.id);
+      if(el) el.classList.add('visible');
+    },s.delay);
+  });
+
+  // Mark each as done as they complete
+  setTimeout(()=>{ const e=document.getElementById('il-1'); if(e){e.classList.add('done-step'); e.querySelector('.ignite-dot').style.animation='none';}},600);
+  setTimeout(()=>{ const e=document.getElementById('il-2'); if(e){e.classList.add('done-step'); e.querySelector('.ignite-dot').style.animation='none';}},950);
+  setTimeout(()=>{ const e=document.getElementById('il-3'); if(e){e.classList.add('done-step'); e.querySelector('.ignite-dot').style.animation='none';}},1150);
+
+  setTimeout(()=>{
+    loader.style.display='none';
+    // Reset steps
+    ['il-1','il-2','il-3'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el){el.classList.remove('visible','done-step');const d=el.querySelector('.ignite-dot');if(d)d.style.animation='';}
+    });
+    ignite();
+    // Show next CTA after results load
+    setTimeout(()=>{
+      const nc=document.getElementById('dash-next-cta');
+      if(nc) nc.style.display='flex';
+    },300);
+  },1300);
+}
+
+// ── COMPLETION ────────────────────────────────────────────────────
+const JOURNEY_VISITED=new Set();
+
+function markVisited(page){
+  JOURNEY_VISITED.add(page);
+}
+
+function showCompletion(){
+  const card=document.getElementById('completion-card');
+  if(!card) return;
+  const scoreEl=document.getElementById('rpt-score');
+  const score=scoreEl?scoreEl.textContent:'—';
+  document.getElementById('completion-score').textContent=score;
+
+  const checks=[
+    {page:'dash',  label:'① Live Tracker'},
+    {page:'wage',  label:'② Real Wage'},
+    {page:'personal', label:'③ My Inflation'},
+    {page:'world', label:'④ World Pain'},
+    {page:'report',label:'⑤ My Report'},
+    {page:'sleep', label:'⑥ While You Slept'},
+  ];
+  const list=document.getElementById('cc-list');
+  if(list){
+    list.innerHTML=checks.map(c=>{
+      const done=JOURNEY_VISITED.has(c.page)||c.page==='sleep';
+      return '<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,'+(done?.85:.3)+');font-weight:'+(done?600:400)+'">'
+        +'<span style="color:'+(done?'#34D399':'rgba(255,255,255,.2)')+';font-size:16px">'+(done?'✓':'○')+'</span>'
+        +c.label+'</div>';
+    }).join('');
+  }
+  card.style.display='block';
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+}
+
+function shareCompletion(){
+  const score=document.getElementById('completion-score')?.textContent||'—';
+  const txt='I just completed Money Burn.\n\nMy Total Damage Score: '+score+'/100\n\nSee how much inflation is burning YOUR money:\ninflationclock.com';
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(txt),'_blank');
+}
+
+try{initQuiz()}catch(e){console.error('initQuiz:',e)}
 function submitEmail(){
   const input=document.getElementById('sub-email');
   const email=input.value.trim();
@@ -2703,6 +3066,8 @@ function calcSleep(){
   setTimeout(()=>{
     document.getElementById('sl-result').scrollIntoView({behavior:'smooth',block:'nearest'});
   },100);
+  // Show completion card after a moment
+  setTimeout(()=>showCompletion(), 600);
 }
 
 function sleepShare(){
