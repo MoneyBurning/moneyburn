@@ -6,6 +6,7 @@
 <title>Money Burn — Real-Time Inflation & Tax Damage Tracker</title>
 <meta name="description" content="Watch your savings lose value live. After-tax inflation counter, personal inflation rate, bracket creep detector, real hourly wage, world pain index.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
@@ -222,9 +223,9 @@ h1 em{color: var(--red); font-style: normal}
   padding: 18px 20px; margin-bottom: 12px;
 }
 .quiz-ey{
-  font-family:'Space Mono',monospace; font-size:10px;
+  font-family:'Space Mono',monospace; font-size:9px;
   letter-spacing:2px; text-transform:uppercase;
-  color:#B45309; font-weight:700; margin-bottom:8px;
+  color:var(--amber); font-weight:700; margin-bottom:8px;
 }
 .quiz-q{font-size:14px; font-weight:600; color:var(--t1); margin-bottom:12px; line-height:1.5}
 .quiz-opts{display:flex; gap:6px; flex-wrap:wrap}
@@ -286,8 +287,8 @@ h1 em{color: var(--red); font-style: normal}
   font-weight:700; color:var(--red); line-height:1;
 }
 .comm-lbl{
-  font-size:10px; letter-spacing:1px; text-transform:uppercase;
-  color:#374151; margin-top:3px; font-weight:600;
+  font-size:9px; letter-spacing:1px; text-transform:uppercase;
+  color:var(--t3); margin-top:3px; font-weight:600;
 }
 
 /* ── DUAL COUNTER ── */
@@ -668,7 +669,7 @@ h1 em{color: var(--red); font-style: normal}
 .rpt-action-txt{font-size:13px; color:var(--t1); line-height:1.6; font-weight:500}
 .rpt-watermark{
   text-align:center; font-family:'Space Mono',monospace;
-  font-size:10px; color:#4B5563; letter-spacing:2px;
+  font-size:10px; color:var(--t4); letter-spacing:2px;
 }
 .rpt-share-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px}
 .proj-card{
@@ -742,7 +743,7 @@ h1 em{color: var(--red); font-style: normal}
 
 /* ── FOOTER ── */
 footer{
-  background:#F3F4F6; border-top:2px solid #D1D5DB;
+  background:#F9FAFB; border-top:2px solid var(--border);
   padding:28px 16px; margin-top:40px;
 }
 .foot-inner{
@@ -750,14 +751,14 @@ footer{
   display:flex; justify-content:space-between;
   align-items:center; flex-wrap:wrap; gap:12px;
 }
-.foot-brand{font-family:'Space Mono',monospace; font-size:12px; font-weight:700; color:var(--red)}
+.foot-brand{font-family:'Space Mono',monospace; font-size:13px; font-weight:700; color:var(--red)}
 .foot-links{display:flex; gap:14px; flex-wrap:wrap}
 .foot-links a{font-size:12px; color:var(--t3); text-decoration:none; transition:color .15s}
 .foot-links a:hover{color:var(--t1)}
 .foot-note{
   max-width:860px; margin:10px auto 0;
-  font-size:12px; color:#374151;
-  font-family:'Space Mono',monospace; line-height:1.9;
+  font-size:10px; color:var(--t4);
+  font-family:'Space Mono',monospace; line-height:1.7;
 }
 
 /* ── RESPONSIVE ── */
@@ -835,7 +836,7 @@ footer{
         <label>Your Savings / Cash</label>
         <input type="number" id="amount" placeholder="100000" min="0"/>
       </div>
-      <div class="ifield" style="min-width:175px;flex:1.2">
+      <div class="ifield" style="max-width:118px">
         <label>Currency</label>
         <select id="currency">
           <option value="USD">🇺🇸 USD — 3.81%</option>
@@ -981,11 +982,11 @@ footer{
     <p id="reality-txt"></p>
   </div>
 
-  <div style="font-size:10px;color:#4B5563;line-height:1.8;border-top:1px solid var(--border);padding-top:16px;font-family:'Space Mono',monospace">
+  <div style="font-size:10px;font-size:12px;color:#374151;line-height:1.9;border-top:2px solid var(--border);padding-top:16px;background:#F9FAFB;padding:18px;border-radius:10px;margin-top:8px;font-family:'Space Mono',monospace">
     <strong style="color:#111827;font-size:13px">📅 Data last updated: June 2026</strong><br>
     <span style="color:#374151">USD 3.81% · CAD 2.7% · EUR 2.2% · GBP 3.4% · AUD 3.2% · JPY 3.0% · KRW 2.6%<br>CHF 1.1% · CNY 0.4% · RUB 9.1% · INR 4.8% · BRL 5.1% · MXN 4.2% · ZAR 4.8% · TRY 38.0% · ARG 211%</span><br>
     <span style="color:#374151">Sources: FRED · BLS · ECB · ONS · TUIK · Statistics Bureau of Japan</span><br>
-    <span style="color:var(--red);font-weight:700;font-size:13px">⚠️ NOT FINANCIAL ADVICE.</span> <span style="color:#374151">Educational use only.</span>
+    <span style="color:var(--red);font-weight:700">NOT FINANCIAL ADVICE.</span> Educational use only.
     <a href="#" onclick="showPage('disclaimer');return false" style="color:var(--blue)">Full disclaimer →</a>
   </div>
 </div>
@@ -1160,7 +1161,7 @@ footer{
         <div class="rpt-score-area">
           <div class="rpt-score-lbl">Defense Score</div>
           <div class="rpt-score-num" id="rpt-score">—</div>
-          <div style="font-size:10px;color:#4B5563;font-family:'Space Mono',monospace">/ 100</div>
+          <div style="font-size:10px;color:var(--t4);font-family:'Space Mono',monospace">/ 100</div>
         </div>
       </div>
 
@@ -1197,7 +1198,7 @@ footer{
         <div class="rpt-action-txt" id="rpt-action">—</div>
       </div>
 
-      <div class="rpt-watermark">https://inflationclock.com/</div>
+      <div class="rpt-watermark">inflationclock.com</div>
     </div>
 
     <div class="rpt-share-grid">
@@ -1297,7 +1298,7 @@ footer{
   <div class="card" style="padding:24px;margin-bottom:12px">
     <h3 style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)">©️ Intellectual Property</h3>
     <p style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">
-      © 2026 https://inflationclock.com/. All rights reserved.
+      © 2026 inflationclock.com. All rights reserved.
     </p>
     <p style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">
       The design, layout, code, written content, tool logic, and unique combination of features on this website are protected by copyright law. Unauthorized reproduction, distribution, or derivative use of this website's content or code is prohibited without express written permission.
@@ -1310,7 +1311,7 @@ footer{
   <div class="card" style="padding:24px;margin-bottom:12px">
     <h3 style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)">🔒 No Liability</h3>
     <p style="font-size:13px;color:var(--t2);line-height:1.8">
-      https://inflationclock.com/ and its operators accept no liability for any financial loss, investment decisions, or damages arising from the use of this tool. All calculations are approximations. Actual inflation impact on individual finances will vary based on personal spending patterns, account types, geographic location, and other factors not captured by this tool.
+      inflationclock.com and its operators accept no liability for any financial loss, investment decisions, or damages arising from the use of this tool. All calculations are approximations. Actual inflation impact on individual finances will vary based on personal spending patterns, account types, geographic location, and other factors not captured by this tool.
     </p>
   </div>
 
@@ -1397,23 +1398,817 @@ footer{
     </div>
   </div>
   <div class="foot-note">
-    © 2026 https://inflationclock.com/ · All rights reserved · Unauthorized reproduction prohibited<br>
-    CPI data: FRED (Federal Reserve Bank of St. Louis) · BLS (US Bureau of Labor Statistics) · ECB (European Central Bank)<br>
-    Tax data: IRS · OECD · Data updated monthly · *Estimates based on publicly available macroeconomic data<br>
-    <span style="color:var(--red)">NOT FINANCIAL ADVICE.</span> This tool is for educational and informational purposes only. Always consult a qualified financial advisor before making investment decisions.
+    <strong style="color:#111827">© 2026 inflationclock.com</strong> · All rights reserved · Unauthorized reproduction prohibited<br>
+    <strong style="color:#111827">CPI data:</strong> FRED (Federal Reserve Bank of St. Louis) · BLS (US Bureau of Labor Statistics) · ECB (European Central Bank)<br>
+    <strong style="color:#111827">Tax data:</strong> IRS · OECD · Data updated monthly · *Estimates based on publicly available macroeconomic data<br>
+    <span style="color:var(--red);font-weight:700">⚠️ NOT FINANCIAL ADVICE.</span> <span style="color:#1F2937">This tool is for educational and informational purposes only. Always consult a qualified financial advisor before making investment decisions.</span>
     <br><br>
     <a href="#" onclick="showPage('disclaimer');return false" style="color:var(--blue);text-decoration:underline">📋 Full Disclaimer & Terms</a> &nbsp;·&nbsp;
     <a href="#" onclick="showPage('sources');return false" style="color:var(--blue);text-decoration:underline">📊 Data Sources</a>
   </div>
 </footer>
 <script>
-/* 
- * © 2026 https://inflationclock.com/ — All Rights Reserved
- * Unauthorized reproduction or distribution is prohibited.
- * Protected by copyright law. Data: FRED·BLS·ECB·IRS·OECD (public domain)
- * Not financial advice. Educational purposes only.
- */
-const a0_0x36a696=a0_0x589b;(function(_0x2567e3,_0xb35af9){const _0x2e8755=a0_0x589b,_0x311360=_0x2567e3();while(!![]){try{const _0x25dad3=-parseInt(_0x2e8755(0x2a3))/0x1+parseInt(_0x2e8755(0x27f))/0x2+parseInt(_0x2e8755(0x294))/0x3+parseInt(_0x2e8755(0x2cc))/0x4+parseInt(_0x2e8755(0x10d))/0x5*(-parseInt(_0x2e8755(0x231))/0x6)+parseInt(_0x2e8755(0x183))/0x7+-parseInt(_0x2e8755(0x112))/0x8*(parseInt(_0x2e8755(0x16d))/0x9);if(_0x25dad3===_0xb35af9)break;else _0x311360['push'](_0x311360['shift']());}catch(_0x861a8a){_0x311360['push'](_0x311360['shift']());}}}(a0_0x2a69,0x7feba));const INF={'USD':3.81,'EUR':2.2,'GBP':3.4,'JPY':0x3,'KRW':2.6,'BRL':5.1,'INR':4.8,'TRY':0x26,'CAD':2.7,'CNY':0.4,'RUB':9.1,'AUD':3.2,'MXN':4.2,'CHF':1.1,'SGD':2.8,'AED':2.3,'SAR':1.9,'ZAR':4.8,'ARG':0xd3,'VND':3.8},SYM={'USD':'$','EUR':'€','GBP':'£','JPY':'¥','KRW':'₩','BRL':'R$','INR':'₹','TRY':'₺','CAD':'C$','CNY':'¥','RUB':'₽','AUD':'A$','MXN':'$','CHF':'Fr','SGD':'S$','AED':a0_0x36a696(0x2cd),'SAR':'﷼','ZAR':'R','ARG':'$','VND':'₫'},YS=365.25*0x18*0xe10,CPI_COMPS=[{'name':'Housing\x20/\x20Rent','key':'housing','rate':5.2,'weight':0x21,'icon':'🏠'},{'name':a0_0x36a696(0xe8),'key':a0_0x36a696(0x138),'rate':3.5,'weight':0xe,'icon':'🛒'},{'name':'Transportation','key':'transport','rate':1.2,'weight':0xf,'icon':'🚗'},{'name':a0_0x36a696(0x16f),'key':a0_0x36a696(0x136),'rate':3.1,'weight':0x9,'icon':'🏥'},{'name':a0_0x36a696(0x296),'key':a0_0x36a696(0x100),'rate':-5.7,'weight':0x7,'icon':'⚡'},{'name':a0_0x36a696(0x148),'key':'edu','rate':4.1,'weight':0x6,'icon':'📚'},{'name':'Clothing','key':a0_0x36a696(0x27a),'rate':0.3,'weight':0x3,'icon':'👕'},{'name':a0_0x36a696(0x168),'key':a0_0x36a696(0x1bf),'rate':1.8,'weight':0x5,'icon':'🎭'},{'name':a0_0x36a696(0xd4),'key':'other','rate':2.9,'weight':0x8,'icon':'📦'}],COUNTRIES=[{'flag':a0_0x36a696(0x110),'name':a0_0x36a696(0x280),'inf':0xd3,'tax':0x23,'note':a0_0x36a696(0x14e)},{'flag':a0_0x36a696(0x273),'name':'Turkey','inf':0x26,'tax':0x28,'note':a0_0x36a696(0x2be)},{'flag':a0_0x36a696(0x1a2),'name':a0_0x36a696(0x233),'inf':9.1,'tax':0xf,'note':a0_0x36a696(0x1c6)},{'flag':a0_0x36a696(0x258),'name':a0_0x36a696(0xd2),'inf':5.1,'tax':27.5,'note':a0_0x36a696(0x2bd)},{'flag':a0_0x36a696(0x162),'name':a0_0x36a696(0x180),'inf':4.8,'tax':0x1e,'note':a0_0x36a696(0x196)},{'flag':a0_0x36a696(0x19a),'name':a0_0x36a696(0x1ad),'inf':4.2,'tax':0x23,'note':'Peso\x20pressure'},{'flag':a0_0x36a696(0x125),'name':a0_0x36a696(0x1a8),'inf':4.8,'tax':0x2d,'note':a0_0x36a696(0x255)},{'flag':a0_0x36a696(0x20b),'name':a0_0x36a696(0xed),'inf':3.81,'tax':0x25,'note':'High\x20top\x20bracket'},{'flag':a0_0x36a696(0x14a),'name':'UK','inf':3.4,'tax':0x2d,'note':a0_0x36a696(0x153)},{'flag':a0_0x36a696(0x1cd),'name':a0_0x36a696(0x1e2),'inf':3.8,'tax':0x23,'note':a0_0x36a696(0x27b)},{'flag':a0_0x36a696(0x103),'name':a0_0x36a696(0x290),'inf':0x3,'tax':0x2d,'note':a0_0x36a696(0xff)},{'flag':a0_0x36a696(0x28f),'name':a0_0x36a696(0x1a1),'inf':3.2,'tax':0x2d,'note':a0_0x36a696(0x245)},{'flag':a0_0x36a696(0x295),'name':'S.\x20Korea','inf':2.6,'tax':0x2d,'note':a0_0x36a696(0x24b)},{'flag':a0_0x36a696(0x13c),'name':a0_0x36a696(0x24d),'inf':2.7,'tax':0x21,'note':a0_0x36a696(0x117)},{'flag':a0_0x36a696(0x1fb),'name':a0_0x36a696(0x204),'inf':2.4,'tax':0x2d,'note':a0_0x36a696(0xca)},{'flag':a0_0x36a696(0x2a2),'name':'Singapore','inf':2.8,'tax':0x16,'note':a0_0x36a696(0x1f5)},{'flag':a0_0x36a696(0x135),'name':a0_0x36a696(0x298),'inf':2.1,'tax':0x2d,'note':a0_0x36a696(0x2a6)},{'flag':'🇦🇪','name':a0_0x36a696(0x115),'inf':2.3,'tax':0x0,'note':'No\x20income\x20tax'},{'flag':a0_0x36a696(0x2cf),'name':a0_0x36a696(0x261),'inf':0.4,'tax':0x2d,'note':a0_0x36a696(0x1b7)},{'flag':a0_0x36a696(0x24e),'name':a0_0x36a696(0x230),'inf':1.1,'tax':11.5,'note':a0_0x36a696(0x2c0)}],QUIZZES=[{'q':a0_0x36a696(0xf0),'opts':[a0_0x36a696(0x250),a0_0x36a696(0x1ab),a0_0x36a696(0x17d),a0_0x36a696(0x1b1)],'ans':0x1,'ex':a0_0x36a696(0x1d6)},{'q':a0_0x36a696(0x18e),'opts':[a0_0x36a696(0x240),a0_0x36a696(0xc9),a0_0x36a696(0x28a),a0_0x36a696(0x1d1)],'ans':0x2,'ex':'The\x20<strong>government\x20collects\x20more\x20tax</strong>\x20without\x20passing\x20any\x20new\x20law.\x20Your\x20real\x20income\x20stagnates\x20but\x20your\x20tax\x20bill\x20grows\x20silently.'},{'q':'If\x20inflation\x20is\x205%\x20and\x20your\x20HYSA\x20pays\x204%,\x20what\x20is\x20your\x20real\x20return?','opts':[a0_0x36a696(0x1ec),'0%',a0_0x36a696(0x29e),a0_0x36a696(0x21e)],'ans':0x3,'ex':'<strong>It\x20depends\x20on\x20your\x20tax\x20bracket.</strong>\x20At\x2022%,\x20the\x204%\x20interest\x20nets\x20~3.12%\x20after\x20tax\x20—\x20still\x20below\x205%\x20inflation.\x20Real\x20return:\x20-0.88%.'},{'q':'The\x20S&P\x20500\x20has\x20beaten\x20inflation\x20in\x20every\x2020-year\x20period\x20since\x201928.\x20True\x20or\x20false?','opts':[a0_0x36a696(0x192),a0_0x36a696(0x2ad),a0_0x36a696(0x2c9),'Only\x20after\x201980'],'ans':0x0,'ex':a0_0x36a696(0xe1)},{'q':a0_0x36a696(0xd3),'opts':[a0_0x36a696(0xc1),a0_0x36a696(0x244),a0_0x36a696(0x17a),a0_0x36a696(0x146)],'ans':0x2,'ex':a0_0x36a696(0x1b5)},{'q':'What\x20percentage\x20of\x20US\x20workers\x20received\x20a\x20real\x20pay\x20raise\x20(above\x20inflation)\x20in\x202024?','opts':[a0_0x36a696(0x25f),a0_0x36a696(0x23f),a0_0x36a696(0x1da),'29%'],'ans':0x2,'ex':a0_0x36a696(0xe2)},{'q':a0_0x36a696(0x14d),'opts':[a0_0x36a696(0x2b3),'2%\x20on\x20$500k\x20($10k)',a0_0x36a696(0x159),a0_0x36a696(0x21e)],'ans':0x1,'ex':a0_0x36a696(0x1d7)},{'q':a0_0x36a696(0x1c3),'opts':['Food\x20prices','Energy\x20costs',a0_0x36a696(0xae),a0_0x36a696(0x1c1)],'ans':0x2,'ex':a0_0x36a696(0x1dc)},{'q':'China\x20CPI\x20is\x20unusually\x20low\x20at\x200.4%\x20in\x202026.\x20What\x20economic\x20risk\x20does\x20this\x20signal?','opts':[a0_0x36a696(0x1de),a0_0x36a696(0x113),a0_0x36a696(0x271),a0_0x36a696(0x235)],'ans':0x1,'ex':a0_0x36a696(0x251)},{'q':a0_0x36a696(0xeb),'opts':['Energy\x20subsidies',a0_0x36a696(0x210),'Strong\x20ruble','Low\x20interest\x20rates'],'ans':0x1,'ex':a0_0x36a696(0xb6)},{'q':a0_0x36a696(0x253),'opts':['France\x20is\x20better',a0_0x36a696(0xb2),a0_0x36a696(0x1d5),a0_0x36a696(0x26b)],'ans':0x1,'ex':'<strong>UAE\x20is\x20dramatically\x20better\x20for\x20high\x20earners.</strong>\x20A\x20French\x20earner\x20in\x20the\x20top\x20bracket\x20faces\x2047.1%\x20combined\x20pain\x20vs\x20UAE\x202.3%.\x20On\x20€500k\x20income\x20the\x20difference\x20is\x20over\x20€200,000/year.'},{'q':'Argentina\x20211%\x20inflation:\x20prices\x20double\x20roughly\x20every\x20how\x20many\x20months?','opts':[a0_0x36a696(0x1ba),a0_0x36a696(0x1d4),'Every\x204\x20months',a0_0x36a696(0x2b9)],'ans':0x2,'ex':'At\x20211%\x20annual\x20inflation,\x20using\x20the\x20Rule\x20of\x2070:\x2070\x20÷\x20211\x20≈\x20<strong>4\x20months</strong>\x20to\x20double.\x20Argentines\x20must\x20convert\x20pesos\x20to\x20USD\x20immediately\x20upon\x20receiving\x20income.'},{'q':a0_0x36a696(0x22d),'opts':['High\x20wages\x20only','Low\x20inflation\x20+\x20low\x20tax',a0_0x36a696(0x2d6),a0_0x36a696(0x1a6)],'ans':0x1,'ex':'Switzerland\x20combines\x20<strong>1.1%\x20inflation</strong>\x20(one\x20of\x20the\x20world\x20lowest)\x20with\x20<strong>11.5%\x20top\x20tax\x20rate</strong>\x20(far\x20below\x20most\x20developed\x20nations).\x20This\x20makes\x20it\x20the\x20best\x20environment\x20for\x20savers\x20globally.'},{'q':a0_0x36a696(0x189),'opts':[a0_0x36a696(0xd0),a0_0x36a696(0x1c4),a0_0x36a696(0xc8),a0_0x36a696(0x1eb)],'ans':0x3,'ex':a0_0x36a696(0x17b)}],INSIGHTS=[{'txt':a0_0x36a696(0x101),'impact':a0_0x36a696(0x200)},{'txt':'Housing\x20inflation\x20is\x20running\x20at\x205.2%\x20—\x20more\x20than\x20double\x20the\x20headline\x20CPI.\x20If\x20rent\x20is\x20your\x20biggest\x20expense,\x20your\x20personal\x20inflation\x20rate\x20is\x20significantly\x20higher\x20than\x20what\x20the\x20government\x20reports.','impact':a0_0x36a696(0x265)},{'txt':a0_0x36a696(0x158),'impact':a0_0x36a696(0x2ac)},{'txt':'I-Bond\x20rates\x20reset\x20every\x20May\x20and\x20November\x20based\x20on\x20CPI.\x20The\x20current\x20composite\x20rate\x20is\x203.98%\x20—\x20the\x20only\x20investment\x20legally\x20guaranteed\x20to\x20track\x20inflation.','impact':a0_0x36a696(0x25b)},{'txt':a0_0x36a696(0x28c),'impact':'A\x20$80,000\x20earner\x20with\x20a\x203.8%\x20raise\x20paid\x20$629\x20more\x20in\x20federal\x20tax\x20on\x20income\x20that\x20bought\x20nothing\x20new.'},{'txt':a0_0x36a696(0xad),'impact':a0_0x36a696(0xbc)},{'txt':'Argentina\x20reported\x20211%\x20annual\x20inflation\x20in\x202023.\x20Ordinary\x20Argentines\x20convert\x20pesos\x20to\x20USD\x20the\x20same\x20day\x20salaries\x20arrive,\x20before\x20prices\x20rise\x20further.','impact':a0_0x36a696(0x2af)}],st={'amount':0x0,'currency':a0_0x36a696(0x212),'earn':0x0,'tax':0x16,'inf':3.81};let startTime=null,rafId=null,lossPS=0x0,netLossPS=0x0,lastSec=-0x1,lossChart=null,worldChart=null,projChart=null;function fmt(_0x1ba961,_0x3aa80e){const _0x4b4f1e=a0_0x36a696,_0x1ac3e7=SYM[_0x3aa80e]||'$',_0x5bf339=Math[_0x4b4f1e(0x102)](_0x1ba961),_0x3972a6=_0x1ba961<0x0?'-':'';if(_0x3aa80e===_0x4b4f1e(0x1f3)||_0x3aa80e==='JPY')return _0x3972a6+_0x1ac3e7+Math['round'](_0x5bf339)['toLocaleString']();if(_0x5bf339>=0xf4240)return _0x3972a6+_0x1ac3e7+(_0x5bf339/0xf4240)[_0x4b4f1e(0x1e5)](0x2)+'M';if(_0x5bf339>=0x3e8)return _0x3972a6+_0x1ac3e7+_0x5bf339[_0x4b4f1e(0x144)](_0x4b4f1e(0xfc),{'minimumFractionDigits':0x2,'maximumFractionDigits':0x2});return _0x3972a6+_0x1ac3e7+_0x5bf339['toFixed'](0x2);}function fmtLive(_0x2ca23b,_0x55f31e){const _0x2b3bf7=a0_0x36a696,_0x273331=SYM[_0x55f31e]||'$',_0x5632b2=Math[_0x2b3bf7(0x102)](_0x2ca23b);return'–'+_0x273331+(_0x55f31e===_0x2b3bf7(0x1f3)||_0x55f31e===_0x2b3bf7(0x1aa)?_0x5632b2['toFixed'](0x2):_0x5632b2[_0x2b3bf7(0x1e5)](0x6));}function toast(_0x34a951){const _0x1db7c0=a0_0x36a696,_0x2d95a1=document[_0x1db7c0(0x20d)](_0x1db7c0(0x1a9));_0x2d95a1['textContent']=_0x34a951,_0x2d95a1['classList'][_0x1db7c0(0x116)](_0x1db7c0(0xb4)),setTimeout(()=>_0x2d95a1[_0x1db7c0(0x24a)][_0x1db7c0(0xde)]('show'),0xbb8);}function showPage(_0x51aa18){const _0x7cfd3=a0_0x36a696;try{document['querySelectorAll'](_0x7cfd3(0x11e))[_0x7cfd3(0x2ba)](_0x19dd58=>_0x19dd58[_0x7cfd3(0x24a)]['remove']('on')),document[_0x7cfd3(0x179)](_0x7cfd3(0x1a0))[_0x7cfd3(0x2ba)](_0x23b32b=>_0x23b32b[_0x7cfd3(0x24a)][_0x7cfd3(0xde)]('on'));const _0x55ba60=document[_0x7cfd3(0x20d)](_0x7cfd3(0x241)+_0x51aa18);if(_0x55ba60)_0x55ba60['classList'][_0x7cfd3(0x116)]('on');const _0x460cc0={'dash':0x0,'wage':0x1,'personal':0x2,'world':0x3,'report':0x4,'disclaimer':0x63,'sources':0x63},_0x105bc5=document[_0x7cfd3(0x179)]('.ntab');if(_0x460cc0[_0x51aa18]!==undefined&&_0x105bc5[_0x460cc0[_0x51aa18]])_0x105bc5[_0x460cc0[_0x51aa18]]['classList']['add']('on');window['scrollTo']({'top':0x0,'behavior':'smooth'});if(_0x51aa18===_0x7cfd3(0xf5))renderWorld();if(_0x51aa18===_0x7cfd3(0x18c))renderPersonal();if(_0x51aa18===_0x7cfd3(0x20c))renderReport();}catch(_0x499ceb){console[_0x7cfd3(0x27e)](_0x7cfd3(0x1e0),_0x499ceb);}}function initQuiz(){const _0xa93022=a0_0x36a696;try{const _0x16bf88=new Date(),_0x484ab3=Math[_0xa93022(0x23d)]((_0x16bf88-new Date(_0x16bf88[_0xa93022(0xe6)](),0x0,0x0))/0x5265c00),_0x2de339=QUIZZES[_0x484ab3%QUIZZES[_0xa93022(0x1f1)]];document['getElementById'](_0xa93022(0x139))[_0xa93022(0x151)]=_0x16bf88['toLocaleDateString'](_0xa93022(0xfc),{'month':_0xa93022(0x131),'day':_0xa93022(0x1ed),'year':'numeric'}),document[_0xa93022(0x20d)]('qq')[_0xa93022(0x151)]=_0x2de339['q'];const _0x284a0d=document[_0xa93022(0x20d)](_0xa93022(0x292));_0x284a0d[_0xa93022(0xb7)]='',_0x2de339[_0xa93022(0x283)][_0xa93022(0x2ba)]((_0x5e057f,_0x3b0f8e)=>{const _0xfaf2ec=_0xa93022,_0x3658dc=document[_0xfaf2ec(0x129)](_0xfaf2ec(0x1ea));_0x3658dc[_0xfaf2ec(0x223)]=_0xfaf2ec(0xc4),_0x3658dc[_0xfaf2ec(0x151)]=_0x5e057f,_0x3658dc['onclick']=()=>answerQ(_0x3b0f8e,_0x2de339['ans'],_0x2de339['ex']),_0x284a0d[_0xfaf2ec(0x176)](_0x3658dc);});const _0x186847=localStorage[_0xa93022(0x20a)](_0xa93022(0xaf));if(_0x186847===_0x16bf88[_0xa93022(0xea)]())renderQAns(parseInt(localStorage[_0xa93022(0x20a)]('mb_qa')||'-1'),_0x2de339[_0xa93022(0x225)],_0x2de339['ex']);}catch(_0x17cb93){console['error'](_0xa93022(0x13e),_0x17cb93);}}function answerQ(_0x33e1cf,_0x5ad064,_0x160634){const _0xe42182=a0_0x36a696;localStorage['setItem']('mb_qd',new Date()[_0xe42182(0xea)]()),localStorage[_0xe42182(0xcb)](_0xe42182(0x2ab),_0x33e1cf),renderQAns(_0x33e1cf,_0x5ad064,_0x160634);}function renderQAns(_0x23dc2f,_0x518c8c,_0x369cae){const _0x659c85=a0_0x36a696;document[_0x659c85(0x179)](_0x659c85(0x213))[_0x659c85(0x2ba)]((_0x1e213e,_0x565017)=>{const _0x3b458d=_0x659c85;_0x1e213e[_0x3b458d(0x11f)]=!![];if(_0x565017===_0x518c8c)_0x1e213e[_0x3b458d(0x24a)][_0x3b458d(0x116)](_0x3b458d(0xc2));else{if(_0x565017===_0x23dc2f)_0x1e213e[_0x3b458d(0x24a)][_0x3b458d(0x116)]('wrong');}});const _0x4c0aa1=document[_0x659c85(0x20d)]('qres');_0x4c0aa1[_0x659c85(0x205)]['display']=_0x659c85(0x2d1),_0x4c0aa1[_0x659c85(0xb7)]=(_0x23dc2f===_0x518c8c?'✅\x20Correct!\x20':_0x659c85(0xb0))+_0x369cae;}function a0_0x2a69(){const _0x47beda=['CgvYC29UywW','qwz0zxiTDgf4ihjLywWGBg9ZCZOG4Oct','qNjHy2TLDcbJCMvLCcbOyxbWzw5ZihDOzw4GAw5MBgf0Aw9Uihb1C2HLCYb5B3vYihnHBgfYEsbPBNrVigeGAgLNAgvYihrHEcbICMfJA2v0lIbxAg8GyMvUzwzPDhm/','ChLU','cIaGica8zgL2ignSyxnZpsjJCgKTy29TCc1YB3CIpGOGicaGica8C3bHBIbJBgfZCZ0Iy3bPlwnVBxaTBMfTzsi+','CgKTz2fW','vhj1zq','tw92zsbZyxzPBMDZig5VDcbUzwvKzwqGzM9YiduRihLLyxjZigLUDg8Gyw4GuYzqiduWmcbPBMrLEcbMDw5KlIbzB3vYia','C2XPy2u','tM93','rMfZDc1NCM93Aw5NignVC3rZ','Cg93','ww91CIbHy2nVDw50icG','Dgf4CMf0zq','8j+hSVcFH70','pc9ZCgfUpJWVDgq+','pc9ZDhjVBMC+pc90zd4','sw5MBgf0Aw9UihjHDgu6ia','rMfZDcbMB29KignVBwjV','DMfSDwu','lM50ywi','qxvZDhjHBgLH','8j+hT/cFH7O','r2fSBg9Uig9MigDHCW','zgfZAa','BM9Uzq','u3rYB25Nigv4Cg9YDhm','BwjFyW','uY4GqwzYAwnH','Dg9HC3q','sLbz','jdiSoty0','lZeWmc4Gu2vLihLVDxjZipcFLkuGEw91CM1VBMv5AxnIDxjUAw5NlMnVBq','twv4AwnV','r3jVC3mGCMvHBcbSB3nZoIaGicaG','jsbYzxr1CM4GWRCG','jsbPBMzSyxrPB24GBwf0y2G','jdqSotaW','ww91j3jLigXLyxzPBMCG','jsWGzxzLCNKGjdeSmdaWigLUDg8Gysa0mdeOAYKGC2f2zxmGEw91icq','4Psa4PsaiduTwuvbuIbquK9krunusu9oiokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGa','qxqGoduLigLUzMXHDgLVBIbWCMLJzxmGBMvHCMX5igrVDwjSzwqUifLVDxiG4Ok6mtaWldaWmcbOywqGDgHLihb1CMnOyxnPBMCGCg93zxiGB2yGCM91z2HSEsa8C3rYB25NpUkcUJu0ldaWmdWVC3rYB25NpIbIEsbezwnLBwjLCIaYmdiYlG','ihrVieHzu0eG4Ocuihn0B3aGBg9ZAw5Nia','rgvMBgf0Aw9Uyxj5ihbYzxnZDxjL','BwjFyq','y3bPlwjHzgDL','rxzLCNKGmtiGBw9UDgHZ','zgvZyW','ihrOyxqGz2fWigLZia','jsbYzxr1CM4GyMvMB3jLigLUDMvZDg1LBNrZigjLz2LUlIbnyxGGBgLTAxrZoIaKmJmSntaWicG0mdfRksaRicq3ldaWmcaOsvjbksa9icqZmcW1mdaVExiU','js95CG','CMvJ','Aw5KzxG','sw1WB3j0ihbYAwnLCW','i0yZrJrgnG','q2fUywrHoIb3Agf0igrYAxzLCYbPBMzSyxrPB24GDgHLig1VC3q/','nZaL','BgLUzq','u2fUy3rPB25ZlwrYAxzLBIbPBMzSyxrPB24','jsbNyxaGpsa','ww91CIbHy2nVDw50igvHCM5Zia','Aw5PDenVBw11BML0EtO','zgvMlxjPBMC','ugvYigrHEtOGicaGicaGicaGicaG','DMfYkc0Tyw1IzxiP','8j+hU/cFH7m','DMfYkc0TCMvKlwjNkq','BMfTzq','pc90zd48l3rYpG','tM9IB2r5','Ahr0Chm6lY90D2L0DgvYlMnVBs9PBNrLBNqVDhDLzxq/Dgv4Dd0','ChjPy2u','rxzLCNKGnIbTB250Ahm','vgHLEsbHCMuGC2LTAwXHCG','sw5MBgf0Aw9UignVC3rZicqZldGWmcbIDxqGywz0zxiTDgf4ihrOzsbYzwfSigXVC3mGAxmGFIqYldK2nc4GvgHLihrHEcbKzwr1y3rPB24GB2zMC2v0CYbZB21Lig9MihrOzsbSB3nZlIa8C3rYB25NpLrOAxmGAxmGD2H5igfMDgvYlxrHEcbTyxr0zxjZlJWVC3rYB25NpG','mIuGB24GjduWmgSGpsa8C3rYB25NpIqXmcWWmdaVEwvHCJWVC3rYB25NpIb2CYa0jsbVBIaKmJaWAYa9icq4ldaWmc4Gphn0CM9UzZ5uB3rHBcbIywXHBMnLig1HDhrLCNmGBw9Yzsb0AgfUihjHDguGywXVBMuUpc9ZDhjVBMC+','yMmTDgf4lxbJDa','phn0CM9UzZ5uB21VCNjVDZOG','mZGL','CgKTBg9ZCW','phn0CM9UzZ5iB3vZAw5NignVC3rZpc9ZDhjVBMC+igfYzsb0AguGChjPBwfYEsbKCML2zxiGB2yGq2fUywrPyw4GAw5MBgf0Aw9UlIbdyw5HzgLHBIbOB21LihbYAwnLCYbYB3nLig92zxiGntaLigzYB20GmJaYmc0YmdiYlcbTywTPBMCGC2HLBhrLCIb0AguGzg9TAw5HBNqGq1bjignVBxbVBMvUDc4','zMLUza','rwnVBM9TAwmGC3rYzw5NDgG','l3LYigf0igDVDMvYBM1LBNqTBgv2zwWGC2fMzxr5','C2HVD1bHz2uGzxjYB3i6','C29YDa','vMLLDg5HBq','msbvyMvYig1PBgu','ihrVigeGsgLNAc1zAwvSzcbtyxzPBMDZiefJy291BNqUifLVDsbHCMuGBg9ZAw5Nia','Dg9gAxHLza','AgLNAa','phrKihn0EwXLpsjMB250lwzHBwLSEtONu3bHy2uGtw9UBYCSBw9UB3nWywnLo2nVBg9YoNzHCIGTlwjSDwuPo2zVBNqTD2vPz2H0oJCWmci+','zgvMlxn1yG','ss1cB25KicHYzwfSidaLkq','yNv0Dg9U','otCL','kZeL','BNvTzxjPyW','yY1PyM9Uza','y2HLy2Tszxq6','DMfYkc0Tz3jLzw4P','BgvUz3rO','DgHLBG','s1jx','u3rHCMj1y2TZigXHDhrL','tg93ihrHEcbLzMzPy2LLBMn5','uYzqiduWmcaOFJeWjsbYzwfSkq','q2fZAcaOmcuGBM9TAw5HBcK','jsbPBMzSyxrPB248l3n0CM9UzZ4GDNmGEw91CIa8C3rYB25NpG','igXVC3qGCgvYihLLyxiUifmMuca1mdaGAgLZDg9YAwnHBcb+mtaLl3LYihDVDwXKigDLBMvYyxrLia','4PwA4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4Pwq4PwD','8j+hQFcFH6O','4Psa4PsaifLpvviGu0Luvufusu9oiokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGokuGa','ihbLCIb5zwfYihrVigLUzMXHDgLVBIaO','tgLUAYbJB3bPzwqG4OcuihnOyxjLihrOzsbKyw1Hz2uG8j+uPq','CMvHBgL0Es10Ehq','t24GjdeWmcWWmdaGAw4Gy2fZAdOGjdeWlJq0igXVC3qGDg9KyxKGAw4GChvYy2HHC2LUzYbWB3DLCI4','sgLNAcbsAxnRiokaLcbtAwDUAwzPy2fUDcbmB3nZzxmGrgfPBhK','jsbPBMnVBwuGDgf4igfUzca','imk3ieXVC2LUzYa','r2vYBwfUEq','C3r5Bgu','jsbUB21PBMfSkq','DY1YzwfSlxjVDW','twf4idqWmsHRks9juKeG4OcuihLVDxiG','CMf3','z2v0sxrLBq','8j+hUVcFH7G','CMvWB3j0','z2v0rwXLBwvUDej5swq','Dg9mB2nHBgveyxrLu3rYAw5N','iZLdqtnbrG','v2fYihnWzw5KAw5NicSGC2fUy3rPB25Z','q2XLyxjLzc4Grw50zxiGBMv3ihzHBhvLCYbIzwXVDY4','vvne','lNfVChq','phrKpJXZDhjVBMC+','D2fYBG','D3jPDgvuzxH0','mJaYnI0Wos0Xma','l2HYpc9ZDhjVBMC+iokaLcbHigDHCcbVzIa8C3rYB25NpIq','jtWVzgL2pGOGicaGica8l2rPDJ4kicaGidWVzgL2pG','jsbPBMzSyxrPB24SihLVDxiGCMvHBcbOB3vYBhKGChvYy2HHC2LUzYbWB3DLCIbPCYa8C3rYB25Nihn0EwXLpsjJB2XVCJO','iJ4K','yMmTzhjHzY1MAwXS','CMvHBc1NB29K','rgvWzw5KCYbVBIb0yxG','r29SzcaOFJCLihjLywWP','z3jVC3mTBNvT','ldeWmcuSmZaLldaP','su5s','y2XHC3noyw1L','zNjVBq','yw5Z','BMv0lw51Bq','i0qXrdveqG','jtWVC3rYB25NpIb0yxGGyNjHy2TLDcdIGjqGEw91igXVC2uGphn0CM9UzZ4','igLUigLTBwvKAwf0zsb0yxGG4OcuigfUigLUC3rHBNqG','l3LYihn0yxj0Aw5NihrOAxmGD2vLAY4GvgfRzxmGmtaGBwLUDxrLCYbVBMXPBMuU','phnWyw4GC3r5Bgu9iMnVBg9YoG','phrKihn0EwXLpsjMB250lwzHBwLSEtONu3bHy2uGtw9UBYCSBw9UB3nWywnLo2nVBg9YoNzHCIGTlwfTyMvYktTMB250lxDLAwDODdO3mdaIpG','u3DPDhPLCMXHBMqGAgfZihrOzsbSB3DLC3qGq29TyMLUzwqGugfPBIbjBMrLEcbHDcaXmI42js4Gv2HHDcbTywTLCYbPDcbZCgvJAwfSpW','yM9YzgvYq29SB3i','ww91CIbZzxr1CcbPCYbHyM92zsbHDMvYywDLlIbgAw5Llxr1BMu6ignHBgn1Bgf0zsb5B3vYihbLCNnVBMfSigLUzMXHDgLVBIbYyxrLicHnEsbjBMzSyxrPB24GDgfIksbHBMqGzw5ZDxjLihLVDxiGywnJB3vUDcbWyxLZigf0igXLyxn0idqUnsuU','u3DPDhPLCMXHBMq','mZb0zg9PAgC','BgLMzq','uNvZC2LH','pc9KAxy+pgrPDIbJBgfZCZ0IC2iTDMfSia','vhjHzguGC3vYCgX1CW','CgL2lq','C2L6zq','qxqGphn0CM9UzZ4','z2v0tw9UDgG','yw1VDw50','phrKihn0EwXLpsjMB250lxnPEMu6mtfWEdTJB2XVCJP2yxiOls10mYKIpG','DhjHBNnWyxjLBNq','zMXVB3i','tw92zsa','nteL','ww91','CgCT','yMmTDMvYzgLJDa','ywrKrxzLBNrmAxn0zw5LCG','4Ok6oduSmdaW','sgLNAcb0yxGSig1VzgvYyxrLigLUzI4','qwz0zxiTDgf4ihjLywWGBg9ZCZOG','q29UDMvYDcb0BYbvu0qGB3iGrvvsigLTBwvKAwf0zwX5','yMmTAw5MlwzPBgW','DMfYkc0Tz3jLzw4TyMCP','y2XHC3nmAxn0','sgLNAcb0zwnOlcbOAwDOignVC3q','CMfUzg9T','q2fUywrH','8j+hQpcFH60','AxrLBq','jdeSodyW','phn0CM9UzZ5ezwzSyxrPB24GCMLZAY48l3n0CM9UzZ4Gv2HLBIbPBMzSyxrPB24GzMfSBhmGyMvSB3CGmcuSihbYAwnLCYbMywXSiokaLcb3AgLJAcbZB3vUzhmGz29VzcbIDxqGy2f1C2vZihbLB3bSzsb0BYbKzwXHEsbWDxjJAgfZzxmSigH1CNrPBMCGzwnVBM9TAwmGz3jVD3rOlIbkyxbHBIbZDwzMzxjLzcb0AgLZigzVCIbKzwnHzgvZlG','C3bSAwnL','rNjHBMnLigHHCYa0nsuGDg9WihrHEcbYyxrLicSGmI4XjsbPBMzSyxrPB24UieHVDYbKB2vZihrOAxmGy29TCgfYzsb0BYbvquuGkdaLihrHEcWGmI4ZjsbPBMzSyxrPB24PpW','yMfY','sgLNAcbPBMvXDwfSAxr5igrYywC','DgfN','l1Lsifjfq09wrvjbqKXf','8j+hP/cFH7C','sw50zxi','y29SB3i','jdeWldaWmcbPBIbjlujVBMrZihzZigeGmc41jsbZyxzPBMDZigfJy291BNq6icqZndGGz3vHCMfUDgvLzcbKAwzMzxjLBMnLihbLCIb5zwfYlG','pc90yM9KEt4','l3LYigjLAgLUzcb2CYbIzxn0igf2ywLSywjSzsbYyxrLCW','A2v5zg93BG','nJCL','qvDbuKvorvnt','q2HPBMe','z3jLzw4','cIaGicaGidXKAxyGy2XHC3m9iMrLzI1PDgvTia','jsbPBMzSyxrPB24GWRCG','uMvUDgvYCYbSB3nLihb1CMnOyxnPBMCGCg93zxiGmZCLigzHC3rLCIb0AgfUigHVBwvVD25LCNmGB24GyxzLCMfNzs4','zgLZCgXHEq','C2WTAw5MlxzHBa','Aw1Wywn0','zcbHz288l3n0CM9UzZ4Sih48C3rYB25NpG','pc9KAxy+cIaGicaGidXKAxyGy2XHC3m9iNbPlxjVDYi+cIaGicaGicaGpgLUChv0ihr5Cgu9iNjHBMDLiIbJBgfZCZ0ICgKTC2XPzgvYiIbPzd0ICgKT','rgvWzw5KCYbVBIbPBMnVBwu','BwfW','mJaYnI0Woc0XmG','CgKTCMvZDwX0','mY02ig1VBNrOifrYzwfZDxj5iejPBgXZihLPzwXKidqUoc01lJeLlIbgB3iG','iJ4kicaGicaGica8zgL2ignSyxnZpsjKzwyTAwnVBIi+','q3vYCMvUy3KGBwfUAxb1Bgf0Aw9U','DY1PBNnPz2H0','8j+hUFcFH7C','txKG','pc9KAxy+cIaGicaGicaGpgrPDIbJBgfZCZ0IzgvMlwjVzhKIpGOGicaGicaGicaGpgrPDIbJBgfZCZ0IzgvMlw5HBwuIpG','iZfgmJKZnW','r3jVy2vYEsbPDgvTCYaOyxzNkq','pc9ZCgfUpJXZCgfUignSyxnZpsjJBxaTCgn0iIbZDhLSzt0Iy29SB3i6','v2vSBcbqCM90zwn0zwqG4Ocuie1PBM9Yifr1BMuTvxbZief2ywLSywjSzq','y2XVDgHPBMC','r3jVD2LUzYbLy29UB215ihbYzxnZDxjL','C2v0tw9UDgG','4OcuigfKANvZDcb0BYbYzwfJAcaXmdaL','zxjYB3i','odm3nduYEeHVveLc','qxjNzw50Aw5H','AgvPz2H0','BwvK','B3b0CW','qxqG','iZzcnZi4ma','zMXLEa','D2vPz2H0','iZa1oty2oq','Bg93','vgHLigDVDMvYBM1LBNq','8j+tHsbjtIa','qNjHy2TLDcbJCMvLCcbTB3zLzcbHBIbLC3rPBwf0zwqGnc4Yig1PBgXPB24Gqw1LCMLJyw5ZigLUDg8GAgLNAgvYihrHEcbICMfJA2v0CYbPBIaYmdi1ihDPDgHVDxqGyw55ihjLywWGAw5JB21LigLUy3jLyxnLlIbuAguGsvjtigjYywnRzxqGywrQDxn0BwvUDcbSywDNzwqGywn0DwfSienqssbIEsaXigz1BgWGCg9PBNqU','Aw5ZAwDODc10Ehq','CMvTB3zLsxrLBq','8j+hPVcFH7O','sMfWyw4','zgvZDhjVEq','Cw9WDhm','jsb3AgLSzsb0B3aGsfLtqxmGCgf5idqUnsuUie9Uia','mJG5mZyZmMLSrwfMzW','8j+hSpcFH7C','rw5LCMD5','CMvWB3j0lwvTChr5','rNjHBMnL','yMfJA2DYB3vUza','zgvMlxrPDgXL','y291BNrLCI1ZAw5Jzq','Dgf4','pc9ZCgfUpGOGicaGica8zgL2ignSyxnZpsjJCgKTy29TCc1YAwDODci+cIaGicaGicaGphnWyw4Gy2XHC3m9iMnWAs1JB21WlxD0iJ5dueKGD2vPz2H0oIa','lteL','sw5MBgf0Aw9Uicu','BM90zq','tw9KzxjHDguGuMLZAYdIGjqGuMvHBcbnB25LEsbmzwfRAw5N','8j+hUpcFH6W','nde2mtm3y0jnDMnJ','vgf4igjYywnRzxq6icaGia','l3LYign1CNjLBNrSEsbSB3n0','sgLNAcb3zwXMyxjLihn0yxrLignVC3q','iZa4otfcmG','phn0CM9UzZ5ozxH0oIa','l1Lsievbu1KGv0Lo','l3LYigfIB3zLigLUzMXHDgLVBI4Gtw9UzxKGEw91ihDVBID0ig5LzwqGzM9YiduRihLLyxjZigjLBg9Uz3mGAw4Gzxf1AxrPzxmU','BwjFCwe','u21HBgWGzgfPBhKGChvYy2HHC2vZihjLDMvHBcbPBMzSyxrPB24NCYbJB21WB3vUzgLUzYbLzMzLy3qGyMv0DgvYihrOyw4Gyw55ihn0yxrPC3rPyY4','rMfSC2u','pc9KAxy+cIaGicaGicaGica8zgL2ignSyxnZpsjKzwyTzgvZyYi+','sw4GAgLNAc1PBMzSyxrPB24Gzw52AxjVBM1LBNrZlcbOB2XKAw5NihrOzsbSB2nHBcbJDxjYzw5JEsbLDMvUig92zxjUAwDODcbPCYbHigzPBMfUy2LHBcbKzwnPC2LVBI4','8j+uTcbtt09o','r2vUzxjHDgvKoIa','8j+pM++4JW','ncuGB24GjdiWmgSGkcq4AYK','jsbTyxKGBM90ihjLzMXLy3qGEw91CIbHy3r1ywWGC3bLBMrPBMCUieLMihLVDsbZCgvUzcbOzwf2AwX5ig9UigHVDxnPBMCGkhvWiduUmIuPigfUzcbMB29KicH1CcaZlJuLksWGEw91CIbWzxjZB25HBcbYyxrLig1HEsbIzsaXltiGCg9PBNrZigHPz2HLCIdIGjqGy2HHBMDPBMCGEw91CIb0yxjNzxqGCMv0DxjUlG','i0rdmJyYnG','BwLU','i0y5rKfgqG','zMXHzW','rxzLCNKGmIbTB250Ahm','zM9YrwfJAa','z2v0q29UDgv4Da','igrHExm8l3n0CM9UzZ4U','sgLNAcbPBMzSyxrPB24GkYb0yxG','q3vYCMvUy3KGy3jPC2LZig9Uz29PBMC','igLZigXVC2LUzYa8C3rYB25NpG','tg93zxn0ignVBwjPBMvKihbHAw4','zgvMzw5Zzs1JyxjK','vvjhru5u','ywrKq29SB3jtDg9W','l3LYlIbbDMfPBgfIBguGzNjLzsbHDcbuCMvHC3vYEurPCMvJDc5NB3yGD2L0AcbUBYbMzwvZigfUzcbUBYbJB3vUDgvYCgfYDhKGCMLZAY4','iZm3nde1mq','CM91BMq','z2v0sg91CNm','yY1ZCa','t25SEsbPBIb0AguGvvm','yY1LyxjU','4Psa4PsaiefotLvbtcbequ1br0uG4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa4Psa','nda4oti0ngzVwfPfrG','2k8U2ku','D29YBgrdAgfYDa','8j+hQpcFH7m','CMv0','yMXVy2S','CNb0lwrHEq','DMfYkc0TCMvKkq','vg90ywW6ia','sNvSEsaXncdIGjqGsNvUzsbdueKGkfvtkq','tM8GAw5JB21LihrHEa','DY1OB3vYCW','yMvNAw5qyxrO','vgHLifmMuca1mdaGAgfZigjLyxrLBIbPBMzSyxrPB24GAw4GzxzLCNKGmJaTEwvHCIbWzxjPB2qGC2LUy2uGmtKYoc4GvgHLignOywXSzw5NzsbPCYbUB3qGDgHLig1HDgGG4OcuigL0igLZihn0yxLPBMCGAw52zxn0zwqGzhvYAw5NihrOzsaZmc00mcuGzhjHD2rVD25ZihrOyxqGAgfWCgvUigfSB25NihrOzsb3yxKU','sg91C2LUzYbJB3n0CW','BwjFCwq','4P2mifDYB25NiokaLca','icGR','vuffigLZig11y2GGyMv0DgvY','twf4Aw1PEMuGndaXkgSPigfUzcbjuKeGy29UDhjPyNv0Aw9UCY4GqxqG','C2HVDW','CNb0lw5LDa','phn0CM9UzZ5xyxiGC3bLBMrPBMCGyw5KifDLC3rLCM4GC2fUy3rPB25Zpc9ZDhjVBMC+igHHDMuGzhjPDMvUifj1C3nPyw4GAw5MBgf0Aw9UlIbnAwXPDgfYEsbZCgvUzgLUzYbJCMvHDgvZigrLBwfUzcb3AxrOB3v0ihn1ChbSEsWGD2HPBguGC2fUy3rPB25ZihjLC3rYAwn0igLTCg9YDgvKigDVB2rZiokaLcbHignSyxnZAwmGAw5MBgf0Aw9UihjLy2LWzs4','Aw5Uzxjive1m','l2HYpc9ZDhjVBMC+lIbbzNrLCIa','y3bPlxr4Da','i0q5nZCWnG','y3bPlwnVBxbVBMvUDhm','jdeWldaWmcbPBNzLC3rLzcbPBIaXotCWid0GjdeUmK0GDg9KyxKUicqXmcWWmdaGAw4Gy2fZAcbPBIaXotCWid0GjduYldaWmc4GrgLMzMvYzw5JztOGjdeUmtvnlG','jsb0yxGGyNjHy2TLDcKUifDHDgnOigL0igj1CM4GBgL2zsdWN5sL','yY1LyxjUlwXIBa','ChjVAKnOyxj0','pc9ZDhjVBMC+iokaLcbvuYbdueKGAw4Gphn0CM9UzZ4','4Ok6mtaWldaWma','y29YCMvJDa','yY1JyxnO','Cw9WDa','CNb0lxrHEa','C2WTAw5M','z2v0twLUDxrLCW','otaL','ww91CIbLBxbSB3LLCG','rvuGAw5KDxn0CMLHBcbNAwfUDa','C2v0sxrLBq','Aw5M','Bg9UzW','jsbQDxn0ihrVihn0yxKGzxzLBI4GvgHHDcbYzxf1AxjLCYbZAwDUAwzPy2fUDcbLCxvPDhKGzxHWB3n1CMuU','yMmTzhjHzY1Wy3q','ndaL','jsbJB21IAw5LzcbKCMfNlcb5B3uGBMvLzcbPBNzLC3rTzw50CYbYzxr1CM5PBMCGB3zLCIa','qNjHEMLS','qxqGoduLigLUzMXHDgLVBIaOvhvYA2v5idiWmJiPlcb5B3vYiokcUJeWmcWWmdaGAgfKihDOyxqGChvYy2HHC2LUzYbWB3DLCIbIEsb5zwfYigvUzd8','t3rOzxi','zMXHC2G','rw50zxi','iZi1nJnfqG','jsbJB21IAw5LzcbKCMfNlcbHigrLy2vUDcbiwvnbig9YigLUzgv4igz1BMqGy2fUig1Lyw5PBMDMDwXSEsbIzwf0ihLVDxiGAhvYzgXLihjHDguUifLVDsDYzsbPBIbHigjLDhrLCIbWB3nPDgLVBIb0AgfUig1VC3qU','pc9KAxy+pc9KAxy+','phrYpJX0zd48C3bHBIbJBgfZCZ0ICMfUAY1UDw0Iihn0EwXLpsjIywnRz3jVDw5KoG','jsbYyxrLlca','o2jVCMrLCI1YywrPDxm6mNb4iJ48l2rPDJ4','AhjLzG','CMvTB3zL','qLjm','zwfYBG','phn0CM9UzZ5uCNvLlJWVC3rYB25NpIbfDMvYEsaYmc15zwfYihjVBgXPBMCGCgvYAw9KihnPBMnLide5mJGSihrOzsbtjLaGntaWigHHCYbIzwf0zw4GAw5MBgf0Aw9UlIbuAguGy2HHBgXLBMDLigLZihn1CNzPDMLUzYaZmc00mcuGzhjHD2rVD25ZlG','t25SEsbHyM91Dca8C3rYB25NpJm4jsbVzIb3B3jRzxjZpc9ZDhjVBMC+ihjLy2vPDMvKihjHAxnLCYb0Agf0igjLyxqGAw5MBgf0Aw9UlIbuAguGCMvZDcb0B29RigfUigvMzMvJDgL2zsbWyxKGy3v0igLUihb1CMnOyxnPBMCGCg93zxiGDgvYBxmU','jsWGzxzLCNKGjdeSmdaWignVBNrYAwj1DgvKihnHDMvZicq','yxnZAwDU','D2fNzs1Yzxn1Bhq','z2v0rNvSBfLLyxi','yM9YzgvYlxrVCdOYlJvWEcbKyxnOzwqG','rM9VzcaMieDYB2nLCMLLCW','DY1UB21PBMfS','Dg9eyxrLu3rYAw5N','uNvZC2LHigLUzMXHDgLVBIbPCYbYDw5UAw5Nigf0idKUmsuGAw4GmJaYnI4Gv2HHDcbPCYb0AguGChjPBwfYEsbJyxvZzt8','CMvHBgL0Es1JyxjK','vvnb','Aw5ZAwDODc1PBxbHy3q','vgHLigHLywrSAw5Lia','qxqGmY44jsbPBMzSyxrPB24GkYaYmIuGDgf4lcb5B3vYicqXmdbRignHC2GGC2f2Aw5NCYbOyxmGD2HHDcbYzwfSigfMDgvYlxrHEcbHBM51ywWGBg9ZCZ8','jsbjtLnuqu5uifjfvfvstG','pgrPDIbJBgfZCZ0IBgvNzw5KlwL0zw0IpJXKAxyGy2XHC3m9iMXLz2vUzc1SAw5LiIbZDhLSzt0I','AwnVBG','yMmTDgf4lwzPBgW','D29YBgq','BwjFza','cIaGica8zgL2ignSyxnZpsjWAs1PDgvTiJ4kicaGicaGpgrPDIbJBgfZCZ0ICgKTBMfTzsi+','l2HYpc9ZDhjVBMC+icGK','CMvK','x2jSyw5R','vfjz','zw4Tvvm','igXVC2vZia','Aw5PDenqstO','v2vHAYb5zw4GzwzMzwn0','zw5LCMD5','vgHLiezLzcDZidiLigLUzMXHDgLVBIb0yxjNzxqGyw5KigfJDhvHBcaZlJGXjsbPBMzSyxrPB24GBwvHBNmGEw91CIbZyxzPBMDZigXVC2uGDMfSDwuGoteLigzHC3rLCIb0AgfUihrOzsbJzw50CMfSigjHBMSGy29UC2LKzxjZigfJy2vWDgfIBguU','ywjZ','8j+hR/cFH7u','BM93','ChvZAa','qNv5ieKTqM9UzhmG4OcuigD1yxjHBNrLzwqG','ww91CIbHy2nVDw50igvHCM5ZidXZDhjVBMC+','CMvZAxPL','l3LYihrVigLUzMXHDgLVBIbMB3iGzNjLzs4GqsbiwvnbihbHExmGnc41ltuLihDPDgGGEMvYBYbYAxnRlG','CNb0lwfJDgLVBG','Bg9JyxrPB24','DY1ZywXHCNK','mtaWndi0nunnALbfBG','y291BNrLCI13CMfW','CNb0lwLUzG','8j+hPVcFH7C','CMf0zq','mZm5ndqWoeTtAuHRCG','rgvMBgf0Aw9UihjPC2S','l2rHEtWVC3rYB25NpI4Gqwz0zxiGDgf4lcb0AguGCMvHBcbHBM51ywWGzgfTywDLigLZidXZDhjVBMC+','vuff','ywrK','sg91C2LUzY1KCML2zw4GAw5MBgf0Aw9U','phn0CM9UzZ5nyw5Hz2vHyMXLlJWVC3rYB25NpIbbDca','iIbVBMLUChv0psj1CgrHDgvqAvrVDgfSkcKIpGOGicaGicaGidXKAxyGy2XHC3m9iNbPlxzHBciGAwq9iNbPDI0','C2WTzwfYBI12ywW','l3LY','jsbPBMzSyxrPB24UifLVDsDYzsbHAgvHzcbVzIbTB3n0lIbxyxrJAcb0AguGyNjHy2TLDcbJCMvLCcb3yxjUAw5NigfIB3zLiokaLcb0yxGGzhjHzYbPCYb0AguGCMvTywLUAw5NihjPC2SU','CgKTz3jPza','lNbN','zgLZywjSzwq','Dgv4Dc9WBgfPBG','C2nYB2XSsw50B1zPzxC','vc1cAwXSCZOG','seLhscbjtvbbq1q','AhnSysG','8j+hV/cFH6y','C2WTzwfYBG','DY10yxG','yM94u2HHzg93','y3jLyxrLrwXLBwvUDa','D2LKDgG','ldeWmcuSntuLla','y2XLyxjszwn0','pc9KAxy+cIaGicaGicaGica8C3bHBIbJBgfZCZ0IzgvMlxrHzYa','BwjFzq','Bg9ZC0nOyxj0','CgKTCMf0zq','C2HVCNq','AhvL','y3vYCMvUy3K','jsbICMfJA2v0ig1HA2vZihrOAxmGDxjNzw50','8j+hQ/cFH7C','BwvKAwnHBa','CMvWB3j0lwnVBNrLBNq','zM9Vza','CwrHDgu','jsbPBMzSyxrPB24GzxjHC2vZia','pc9ZDhjVBMC+lG','8j+hQpcFH6y','z2v0u2vJB25KCW','Aw5PDff1AxO6','o2jHy2TNCM91BMq6DhjHBNnWyxjLBNq7','igv2zxj5ihLLyxiUieeGsfLtqsbWyxLZidqUns01jsb3AxrOihPLCM8GCMLZAYbHBMqGEMvYBYbSB2nRDxaG4OcuihrOyxqGAxmG','l2HY','Ew91CM1VBMv5AxnIDxjUAw5NlMnVBq','jsbPBMzSyxrPB24Gpsa','Dg9mB2nHBgvtDhjPBMC','Bwf4','4Ok6mtuSmdaW','DY1YzwfS','rwr1y2f0Aw9U','B3bLBG','8j+hRpcFH6C','iIbTAw49iJaIig1HEd0InJaIihzHBhvLpsi','tM90igzPBMfUy2LHBcbHzhzPy2uUierHDge6iezsruqVqKXtl0vdqG','v2HPy2GGAxmGDgHLigjPz2DLCIbHBM51ywWGBg9ZCZOGncuGAw5MBgf0Aw9Uig9UicqYmdbRlcbVCIaYjsbPBMzSyxrPB24GB24GjduWmgS/','q2HYB25PyYbOExbLCMLUzMXHDgLVBG','phn0CM9UzZ5iAwDOihbYzxnZDxjLlJWVC3rYB25NpIbbDca','ww91CIbOzwfKBgLUzsb3ywDLigLZidXZDhjVBMC+ja','Dgv4DenVBNrLBNq','AM9PBG','sgLNAcb0B3aGDgf4ihjHDgu','qwnJB3vUDcbLyxjUCZOGia','icJIGjm','igLUigLTBwvKAwf0zsb0yxGG4OcuihLVDxiGAgLNAgvZDc1Yzxr1CM4GyxzHAwXHyMXLig1VDMuGCMLNAhqGBM93lG','yMmTAw5MlxbJDa','q29MzMvLihbYAwnLCYbHCMuGDxaGmJaUmYuGEwvHCI1VDMvYlxLLyxiG4OcuihrOzsbSyxjNzxn0ihnPBMDSzs1JyxrLz29YEsbQDw1WigLUihrOzsbdueKGyMfZA2v0lIbzB3vYig1VCM5PBMCGy29MzMvLig5VDYbJB3n0CYb3Agf0igX1BMnOihvZzwqGDg8Gy29ZDcbMAxzLihLLyxjZigfNBY4','vgHLEsbHCMuGzxf1ywW','CgKT','zgf0zq','q2fSy3vSyxrLihLVDxiGCgvYC29UywWGAw5MBgf0Aw9UihjHDguGke15ieLUzMXHDgLVBIb0ywiP','iJ48l2rPDJ48l2rPDJ48l3rKpG','phn0CM9UzZ7WN5s0ienqssbYzwXLyxnLzcbut0rbwse8l3n0CM9UzZ4GtMv3ifvtigLUzMXHDgLVBIbKyxrHigP1C3qGChvIBgLZAgvKiokaLcb1CgrHDguGEw91CIbUDw1IzxjZlG','ihrOyxqGAxmG','DY1PBMy','u3bHy2uGtw9UBW','8j+hRVcFH7m','jtWVC3bHBJ4kicaGicaGica8C3bHBIbJBgfZCZ0Iy3bPlwnVBxaTCMf0zsiGC3r5Bgu9iMnVBg9YoG','mJaYnI0WnY0Xna','BgfIzwW','jtTIywnRz3jVDw5KoG','DMfYkc0Tyw1IzxiTyMCP','uMvJCMvHDgLVBG','yY1NB2XK','tw92zsb5B3vYia','CNb0ltvZCa','zMLSBa','mtHctfbQv3O','y3jLyxrLuMfKAwfSr3jHzgLLBNq','twvKAwnHBcbdyxjL','jtWVC3bHBJ4','A2v5','CNb0lxnJB3jL','y291BNrYEs10yMW','y2XPCgjVyxjK','jsbYzxr1CM4GDNmG','yxbWzw5Kq2HPBgq','zgvJyxK','BwjFDa','CxvLCNLtzwXLy3rVCKfSBa','4Ok6ntqSmdaW','vgHLigrVBgXHCIbOyxmGBg9ZDca8C3rYB25NpJK3jsbVzIbPDhmGChvYy2HHC2LUzYbWB3DLCJWVC3rYB25NpIbZAw5JzsaXoteZlIbxAgf0ignVC3qGjdeGDgHLBIbJB3n0CYbHChbYB3HPBwf0zwX5icqZmIb0B2rHEs4GvgHPCYbPCYb0AguGy3vTDwXHDgL2zsbLzMzLy3qGB2yGmteWihLLyxjZig9MihbLCNnPC3rLBNqGAw5MBgf0Aw9UlG','y29TCgfYzs1JyxjK','jdmSodaW','yNjHy2TLDc1JyxjK','zgvMlwXPC3q','sw5KAwe','jtWVDgq+','phn0CM9UzZ5dCML0AwnHBc48l3n0CM9UzZ4GqxqG','mJCXmtu1nxzJs3jsCW','CMDIysGZnYW5osWYmZuSlJm1kq','jsbPBMzSyxrPB24GEw91CIbSB2nHBcbJDxjYzw5JEsbSB3nLCYb2ywX1zsbMyxn0zxiGDgHHBIbHBNKGAw52zxn0BwvUDcbJyw4Gy29TCgvUC2f0zs4Gq29UDMvYDcbZyxzPBMDZihrVifvtrc9fvviGyxmGC29VBIbHCYbWB3nZAwjSzsdIGjqGDgHPCYbPCYb0AguGChjPBwfYEsbZDxj2AxzHBcbZDhjHDgvNEsbPBIbOAwDOlwLUzMXHDgLVBIbLy29UB21PzxmU','jtWVC3rYB25NpIbYzxr1CM4Gyw5KidXZDhjVBMC+','DY1HzNrLCNrHEa','cIaGica8zgL2ihn0EwXLpsjKAxnWBgf5oMzSzxG7ywXPz24TAxrLBxm6y2vUDgvYo2DHCdO2ChG7zM9UDc1ZAxPLoJeXChG7y29SB3i6DMfYkc0TDdiPo2zVBNqTD2vPz2H0oJuWmci+cIaGicaGidXKAxyGC3r5Bgu9iNDPzhrOoJe4ChG7AgvPz2H0oJnWEdTIywnRz3jVDw5KoG','vgHLifvtigrVBgXHCIbOyxmGBg9ZDcb3Agf0ihbLCMnLBNrHz2uGB2yGAxrZihb1CMnOyxnPBMCGCg93zxiGC2LUy2uGmtKXmYaOD2HLBIb0AguGrMvKihDHCYbJCMvHDgvKkt8','Bw9UzxKTyNvYBI1YzxbVCNqUDhH0','q2fZAcaOzg9PBMCGBM90AgLUzYK6ia'];a0_0x2a69=function(){return _0x47beda;};return a0_0x2a69();}function initCPI(){const _0x407012=a0_0x36a696;try{const _0x52e15a=new Date();_0x52e15a['setHours'](0x0,0x0,0x0,0x0);const _0x22c3b9=[{'date':_0x407012(0x164),'label':_0x407012(0x2d5)},{'date':_0x407012(0x26d),'label':'Aug\x2012\x20—\x20July\x20CPI\x20(US)'},{'date':_0x407012(0x217),'label':'Sep\x2010\x20—\x20Aug\x20CPI\x20(US)'}],_0x1601ad=_0x22c3b9[_0x407012(0x1dd)](_0x33b8d9=>new Date(_0x33b8d9[_0x407012(0x15b)])>=_0x52e15a)||_0x22c3b9[_0x22c3b9[_0x407012(0x1f1)]-0x1],_0x2fdfe2=Math['round']((new Date(_0x1601ad[_0x407012(0x15b)])-_0x52e15a)/0x5265c00);document['getElementById'](_0x407012(0xb9))[_0x407012(0xb7)]=_0x2fdfe2===0x0?_0x407012(0x15e):_0x2fdfe2===0x1?_0x407012(0x1d9)+_0x1601ad[_0x407012(0x165)]+'</strong>\x20—\x20New\x20inflation\x20data\x20drops\x20tomorrow.':_0x407012(0x2a8)+_0x1601ad[_0x407012(0x165)]+_0x407012(0xc0)+_0x2fdfe2+_0x407012(0x2bc),document[_0x407012(0x20d)](_0x407012(0x1b9))['textContent']=_0x2fdfe2<=0x1?_0x407012(0x2b0):_0x407012(0x28b)+_0x2fdfe2+'D';}catch(_0x3fc677){console[_0x407012(0x27e)](_0x407012(0xfe),_0x3fc677);}}function initCommunity(){function _0x55f85a(){const _0x526987=a0_0x589b;try{const _0xa1dbea=new Date(),_0x235f50=(_0xa1dbea[_0x526987(0x2c7)]()*0xe10+_0xa1dbea[_0x526987(0xc7)]()*0x3c+_0xa1dbea[_0x526987(0x13d)]())/0x15180,_0x58e245=0x7bfa480*0x12d4/0x16d*_0x235f50,_0x12eb65=document[_0x526987(0x20d)]('ct');if(_0x12eb65)_0x12eb65['textContent']='$'+(_0x58e245/0x3b9aca00)[_0x526987(0x1e5)](0x2)+'B';}catch(_0x425f98){}}_0x55f85a(),setInterval(_0x55f85a,0xea60);}function checkRet(){const _0x153dc9=a0_0x36a696;try{const _0x5ed0de=localStorage[_0x153dc9(0x20a)](_0x153dc9(0x1b8));if(!_0x5ed0de)return;const _0x3a0e6c=parseFloat(_0x5ed0de),_0x4c61c8=localStorage['getItem']('mb_c')||_0x153dc9(0x212),_0x41035e=parseFloat(localStorage[_0x153dc9(0x20a)](_0x153dc9(0x12e))||'0'),_0x43c132=parseFloat(localStorage['getItem'](_0x153dc9(0x178))||'22'),_0xf45352=localStorage[_0x153dc9(0x20a)](_0x153dc9(0xf6)),_0x3dd4e1=INF[_0x4c61c8]||3.81,_0x22cd8f=_0x3a0e6c*(Math[_0x153dc9(0x145)](_0x3dd4e1-_0x41035e,0x0)/0x64)/YS;let _0x28a576='';if(_0xf45352){const _0x29c523=Math[_0x153dc9(0x2c6)]((Date[_0x153dc9(0x104)]()-parseInt(_0xf45352))/0x5265c00);if(_0x29c523>0x0)_0x28a576='\x20Since\x20<strong>'+_0x29c523+_0x153dc9(0x269)+fmt(_0x22cd8f*_0x29c523*0x15180,_0x4c61c8)+'</strong>\x20erased.';}document[_0x153dc9(0x20d)]('ret-txt')[_0x153dc9(0xb7)]='Welcome\x20back.\x20'+(SYM[_0x4c61c8]||'$')+_0x3a0e6c[_0x153dc9(0x144)]()+'\x20'+_0x4c61c8+_0x153dc9(0x2bf)+fmt(_0x22cd8f*0x15180,_0x4c61c8)+'/day</strong>.'+_0x28a576,document[_0x153dc9(0x20d)]('amount')[_0x153dc9(0x19f)]=_0x3a0e6c,document['getElementById'](_0x153dc9(0x133))[_0x153dc9(0x19f)]=_0x4c61c8,document[_0x153dc9(0x20d)]('earn')[_0x153dc9(0x19f)]=_0x41035e,document[_0x153dc9(0x20d)](_0x153dc9(0x199))[_0x153dc9(0x19f)]=_0x43c132,document['getElementById'](_0x153dc9(0x2d0))[_0x153dc9(0x205)][_0x153dc9(0x266)]=_0x153dc9(0x2d1);}catch(_0x215757){console[_0x153dc9(0x27e)](_0x153dc9(0x1ef),_0x215757);}}function loadSaved(){const _0x3832bf=a0_0x36a696;document[_0x3832bf(0x20d)](_0x3832bf(0x2d0))[_0x3832bf(0x205)]['display']=_0x3832bf(0x1a5),ignite();}function clearSaved(){const _0x3d5c20=a0_0x36a696;[_0x3d5c20(0x1b8),'mb_c',_0x3d5c20(0x12e),_0x3d5c20(0x178),_0x3d5c20(0xf6)][_0x3d5c20(0x2ba)](_0x1b80dc=>localStorage[_0x3d5c20(0x28e)](_0x1b80dc)),document['getElementById'](_0x3d5c20(0x2d0))['style'][_0x3d5c20(0x266)]=_0x3d5c20(0x1a5),document[_0x3d5c20(0x20d)]('amount')[_0x3d5c20(0x19f)]='',toast(_0x3d5c20(0x211));}function ignite(){const _0x16e0ab=a0_0x36a696,_0xf98fcc=parseFloat(document[_0x16e0ab(0x20d)]('amount')[_0x16e0ab(0x19f)]);if(!_0xf98fcc||_0xf98fcc<=0x0){const _0x2d1703=document[_0x16e0ab(0x20d)]('amount');_0x2d1703['focus'](),_0x2d1703[_0x16e0ab(0x205)][_0x16e0ab(0x22e)]=_0x16e0ab(0x2d3),_0x2d1703[_0x16e0ab(0x205)][_0x16e0ab(0x128)]='0\x200\x200\x203px\x20rgba(220,38,38,.15)',setTimeout(()=>{const _0xa17b54=_0x16e0ab;_0x2d1703[_0xa17b54(0x205)]['borderColor']='',_0x2d1703[_0xa17b54(0x205)][_0xa17b54(0x128)]='';},0x5dc);return;}st[_0x16e0ab(0x23a)]=_0xf98fcc,st[_0x16e0ab(0x133)]=document[_0x16e0ab(0x20d)](_0x16e0ab(0x133))[_0x16e0ab(0x19f)],st['earn']=parseFloat(document[_0x16e0ab(0x20d)](_0x16e0ab(0xe0))['value']),st[_0x16e0ab(0x29c)]=parseFloat(document['getElementById']('taxrate')[_0x16e0ab(0x19f)]),st[_0x16e0ab(0xcc)]=INF[st[_0x16e0ab(0x133)]]||3.81,localStorage[_0x16e0ab(0xcb)](_0x16e0ab(0x1b8),_0xf98fcc),localStorage[_0x16e0ab(0xcb)](_0x16e0ab(0x1a7),st[_0x16e0ab(0x133)]),localStorage[_0x16e0ab(0xcb)](_0x16e0ab(0x12e),st[_0x16e0ab(0xe0)]),localStorage[_0x16e0ab(0xcb)](_0x16e0ab(0x178),st[_0x16e0ab(0x29c)]),localStorage[_0x16e0ab(0xcb)]('mb_d',Date['now']());const _0x126711=Math[_0x16e0ab(0x145)](st[_0x16e0ab(0xcc)]-st[_0x16e0ab(0xe0)],0x0);lossPS=_0xf98fcc*(_0x126711/0x64)/YS,netLossPS=lossPS*(0x1-st[_0x16e0ab(0x29c)]/0x64*0.5);const _0x6dcd07=SYM[st[_0x16e0ab(0x133)]]||'$';[_0x16e0ab(0x10e),_0x16e0ab(0x17e),'chart-card',_0x16e0ab(0x17c),_0x16e0ab(0x2c1),_0x16e0ab(0xec)]['forEach'](_0x38e050=>{const _0x523ce7=_0x16e0ab,_0x10103a=document[_0x523ce7(0x20d)](_0x38e050);if(_0x10103a)_0x10103a[_0x523ce7(0x205)][_0x523ce7(0x266)]='block';});const _0x23f239=document['getElementById']('share-row');if(_0x23f239)_0x23f239['style'][_0x16e0ab(0x266)]='flex';const _0x131a6a=lossPS*0x15180,_0x3464d7=lossPS*YS,_0x4628e7=netLossPS*YS;document[_0x16e0ab(0x20d)]('ps')['textContent']=fmt(lossPS,st[_0x16e0ab(0x133)])+'/s',document[_0x16e0ab(0x20d)]('pm')[_0x16e0ab(0x151)]=fmt(lossPS*0x3c,st[_0x16e0ab(0x133)]),document[_0x16e0ab(0x20d)]('ph')[_0x16e0ab(0x151)]=fmt(lossPS*0xe10,st[_0x16e0ab(0x133)]),document[_0x16e0ab(0x20d)]('pd')[_0x16e0ab(0x151)]=fmt(_0x131a6a,st[_0x16e0ab(0x133)]),document['getElementById']('py')[_0x16e0ab(0x151)]=fmt(_0x3464d7,st[_0x16e0ab(0x133)]),document[_0x16e0ab(0x20d)](_0x16e0ab(0x18f))['textContent']=fmt(_0x4628e7,st[_0x16e0ab(0x133)]);const _0x4fd78c=st[_0x16e0ab(0xcc)]+st[_0x16e0ab(0x29c)];document[_0x16e0ab(0x20d)](_0x16e0ab(0x248))[_0x16e0ab(0x205)][_0x16e0ab(0x12a)]=Math[_0x16e0ab(0x2b6)](st[_0x16e0ab(0xcc)]/0x32*0x64,0x64)+'%',document[_0x16e0ab(0x20d)](_0x16e0ab(0xf4))[_0x16e0ab(0x205)][_0x16e0ab(0x12a)]=Math['min'](st[_0x16e0ab(0x29c)]/0x32*0x64,0x64)+'%',document['getElementById'](_0x16e0ab(0x21c))[_0x16e0ab(0x205)][_0x16e0ab(0x12a)]=Math['min'](_0x4fd78c/0x64*0x64,0x64)+'%',document['getElementById'](_0x16e0ab(0x157))[_0x16e0ab(0x151)]=st['inf']+'%',document[_0x16e0ab(0x20d)](_0x16e0ab(0x1d8))['textContent']=st[_0x16e0ab(0x29c)]+'%',document[_0x16e0ab(0x20d)](_0x16e0ab(0xcf))[_0x16e0ab(0x151)]=_0x4fd78c[_0x16e0ab(0x1e5)](0x1)+'%',document[_0x16e0ab(0x20d)](_0x16e0ab(0x242))[_0x16e0ab(0xb7)]=_0x4fd78c>0x32?_0x16e0ab(0x182)+_0x4fd78c['toFixed'](0x1)+_0x16e0ab(0xd1)+_0x4fd78c['toFixed'](0x1)+_0x16e0ab(0xce):_0x4fd78c>0x23?_0x16e0ab(0x14f)+_0x4fd78c[_0x16e0ab(0x1e5)](0x1)+'%\x20combined\x20drag,\x20a\x20good\x20index\x20fund\x20(~10%/yr)\x20barely\x20beats\x20your\x20hurdle\x20rate.\x20Every\x20%\x20of\x20account\x20interest\x20matters.':_0x16e0ab(0x118)+_0x4fd78c['toFixed'](0x1)+_0x16e0ab(0xd8);const _0x53b8c9=_0xf98fcc*(st[_0x16e0ab(0xcc)]/0x64),_0x1e0e2b=_0xf98fcc*(st[_0x16e0ab(0xe0)]/0x64);function _0x3daf4f(_0x143067){const _0x49b111=_0x16e0ab,_0x4e2fc9=_0x143067>=0x0?'+':'',_0x1fa65d=(_0x143067/_0xf98fcc*0x64)[_0x49b111(0x1e5)](0x1),_0x175d49=_0x143067>=0x0?'var(--green)':_0x49b111(0x2d3);return _0x49b111(0x22b)+_0x175d49+'\x22>'+_0x4e2fc9+fmt(_0x143067,st[_0x49b111(0x133)])+_0x49b111(0x278)+_0x175d49+'\x22>'+_0x4e2fc9+_0x1fa65d+_0x49b111(0x170);}document[_0x16e0ab(0x20d)](_0x16e0ab(0xc3))[_0x16e0ab(0xb7)]=_0x3daf4f(-_0x53b8c9),document[_0x16e0ab(0x20d)](_0x16e0ab(0x2c8))['innerHTML']=_0x3daf4f(_0xf98fcc*0.1-_0x53b8c9),document[_0x16e0ab(0x20d)](_0x16e0ab(0x169))[_0x16e0ab(0xb7)]=_0x3daf4f(_0xf98fcc*0.07-_0x53b8c9),document['getElementById'](_0x16e0ab(0x1ee))[_0x16e0ab(0xb7)]=_0x3daf4f(0x0),document[_0x16e0ab(0x20d)](_0x16e0ab(0x2ca))['innerHTML']=_0x3daf4f(_0x1e0e2b-_0x53b8c9),document[_0x16e0ab(0x20d)](_0x16e0ab(0xbe))[_0x16e0ab(0x151)]=st[_0x16e0ab(0xe0)]+'%',document[_0x16e0ab(0x20d)](_0x16e0ab(0x1ff))[_0x16e0ab(0xb7)]=_0x126711>0x0?_0x16e0ab(0x238)+st[_0x16e0ab(0xcc)]+_0x16e0ab(0x1f8)+st[_0x16e0ab(0xe0)]+_0x16e0ab(0x186)+st['tax']+_0x16e0ab(0x228)+fmt(_0x131a6a,st['currency'])+_0x16e0ab(0x114)+fmt(_0x4628e7,st['currency'])+_0x16e0ab(0x13b):_0x16e0ab(0x107)+st[_0x16e0ab(0xe0)]+'%</strong>,\x20which\x20currently\x20beats\x20'+st[_0x16e0ab(0xcc)]+_0x16e0ab(0x11c),buildChart(),buildDefense();if(rafId)cancelAnimationFrame(rafId);startTime=performance[_0x16e0ab(0x104)](),lastSec=-0x1,tick(),setTimeout(()=>{const _0x1ef89b=_0x16e0ab,_0x3d75b1=document[_0x1ef89b(0x20d)](_0x1ef89b(0x10e));if(_0x3d75b1)_0x3d75b1[_0x1ef89b(0x121)]({'behavior':'smooth','block':'nearest'});},0x64);}function a0_0x589b(_0x30481c,_0x15da52){_0x30481c=_0x30481c-0xac;const _0x2a69e8=a0_0x2a69();let _0x589b44=_0x2a69e8[_0x30481c];if(a0_0x589b['SoySZL']===undefined){var _0x4f009b=function(_0x35cdef){const _0x148951='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x1ba961='',_0x3aa80e='';for(let _0x1ac3e7=0x0,_0x5bf339,_0x3972a6,_0x2ca23b=0x0;_0x3972a6=_0x35cdef['charAt'](_0x2ca23b++);~_0x3972a6&&(_0x5bf339=_0x1ac3e7%0x4?_0x5bf339*0x40+_0x3972a6:_0x3972a6,_0x1ac3e7++%0x4)?_0x1ba961+=String['fromCharCode'](0xff&_0x5bf339>>(-0x2*_0x1ac3e7&0x6)):0x0){_0x3972a6=_0x148951['indexOf'](_0x3972a6);}for(let _0x55f31e=0x0,_0x273331=_0x1ba961['length'];_0x55f31e<_0x273331;_0x55f31e++){_0x3aa80e+='%'+('00'+_0x1ba961['charCodeAt'](_0x55f31e)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x3aa80e);};a0_0x589b['kRKebP']=_0x4f009b,a0_0x589b['fdIjgo']={},a0_0x589b['SoySZL']=!![];}const _0x34b3e0=_0x2a69e8[0x0],_0x306457=_0x30481c+_0x34b3e0,_0x52097f=a0_0x589b['fdIjgo'][_0x306457];return!_0x52097f?(_0x589b44=a0_0x589b['kRKebP'](_0x589b44),a0_0x589b['fdIjgo'][_0x306457]=_0x589b44):_0x589b44=_0x52097f,_0x589b44;}function tick(){const _0x34e6e5=a0_0x36a696,_0x386e53=(performance[_0x34e6e5(0x104)]()-startTime)/0x3e8;document['getElementById'](_0x34e6e5(0x220))['textContent']=fmtLive(lossPS*_0x386e53,st[_0x34e6e5(0x133)]),document[_0x34e6e5(0x20d)](_0x34e6e5(0x226))[_0x34e6e5(0x151)]=fmtLive(netLossPS*_0x386e53,st['currency']);const _0xc6aa4a=Math[_0x34e6e5(0x23d)](_0x386e53);_0xc6aa4a!==lastSec&&(lastSec=_0xc6aa4a,document[_0x34e6e5(0x20d)](_0x34e6e5(0x29b))[_0x34e6e5(0x151)]=_0xc6aa4a+'s\x20since\x20you\x20opened\x20this\x20page',_0xc6aa4a>0x0&&_0xc6aa4a%0xa===0x0&&[_0x34e6e5(0x220),_0x34e6e5(0x226)][_0x34e6e5(0x2ba)](_0x5edc7d=>{const _0x12c197=_0x34e6e5,_0x5bf270=document[_0x12c197(0x20d)](_0x5edc7d);_0x5bf270[_0x12c197(0x24a)][_0x12c197(0xde)](_0x12c197(0xd5)),void _0x5bf270['offsetWidth'],_0x5bf270[_0x12c197(0x24a)]['add'](_0x12c197(0xd5));})),rafId=requestAnimationFrame(tick);}function buildChart(){const _0x1e382b=a0_0x36a696,_0x4350d2=Array[_0x1e382b(0x224)]({'length':0xd},(_0x2d923e,_0x2808ce)=>{const _0x530756=_0x1e382b,_0x36e8aa=new Date();return _0x36e8aa[_0x530756(0x27c)](_0x36e8aa[_0x530756(0x239)]()+_0x2808ce),_0x36e8aa[_0x530756(0x20e)]('en-US',{'month':_0x530756(0x131)});}),_0x2b5543=st[_0x1e382b(0xe0)]/0x64,_0x3046e4=[{'label':_0x1e382b(0x1f7),'color':'#DC2626','rate':-(st['inf']/0x64),'dash':[],'w':2.5},{'label':_0x1e382b(0x198)+st[_0x1e382b(0xe0)]+_0x1e382b(0x206),'color':_0x1e382b(0xba),'rate':_0x2b5543,'dash':[0x6,0x3],'w':2.5},{'label':_0x1e382b(0x1e9),'color':_0x1e382b(0x2a7),'rate':0x0,'dash':[0x4,0x4],'w':1.5},{'label':_0x1e382b(0x21f),'color':_0x1e382b(0x285),'rate':(0x7-st[_0x1e382b(0xcc)])/0x64,'dash':[],'w':1.5},{'label':'S&P\x20500\x20(~10%\x20real)','color':'#2563EB','rate':(0xa-st[_0x1e382b(0xcc)])/0x64,'dash':[],'w':0x2}],_0x3e95ab=_0x3046e4[_0x1e382b(0x26c)](_0x1a2af1=>({'label':_0x1a2af1[_0x1e382b(0x165)],'data':_0x4350d2[_0x1e382b(0x26c)]((_0x595fa3,_0x3902b7)=>+(st[_0x1e382b(0x23a)]*Math[_0x1e382b(0x197)](0x1+_0x1a2af1[_0x1e382b(0x111)]/0xc,_0x3902b7))[_0x1e382b(0x1e5)](0x2)),'borderColor':_0x1a2af1[_0x1e382b(0x25a)],'backgroundColor':_0x1e382b(0x23c),'borderWidth':_0x1a2af1['w'],'pointRadius':0x0,'tension':0.3,'borderDash':_0x1a2af1[_0x1e382b(0x1a4)]})),_0x59944e=document[_0x1e382b(0x20d)](_0x1e382b(0x12f))['getContext']('2d');if(lossChart)lossChart[_0x1e382b(0x291)]();lossChart=new Chart(_0x59944e,{'type':'line','data':{'labels':_0x4350d2,'datasets':_0x3e95ab},'options':{'responsive':!![],'maintainAspectRatio':![],'interaction':{'mode':_0x1e382b(0x1c0),'intersect':![]},'plugins':{'legend':{'display':![]},'tooltip':{'backgroundColor':_0x1e382b(0x276),'borderColor':'#374151','borderWidth':0x1,'titleColor':_0x1e382b(0x2b7),'bodyColor':_0x1e382b(0x227),'padding':0xa,'callbacks':{'label':_0x869f85=>'\x20'+_0x869f85['dataset']['label']+':\x20'+fmt(_0x869f85[_0x1e382b(0x209)],st[_0x1e382b(0x133)])}}},'scales':{'x':{'grid':{'color':'#F3F4F6'},'ticks':{'color':_0x1e382b(0x20f),'font':{'family':'Space\x20Mono','size':0xa}}},'y':{'grid':{'color':_0x1e382b(0x1c2)},'ticks':{'color':_0x1e382b(0x20f),'font':{'family':_0x1e382b(0x161),'size':0xa},'callback':_0x5bacd8=>fmt(_0x5bacd8,st[_0x1e382b(0x133)])}}}}}),document[_0x1e382b(0x20d)]('chart-legend')['innerHTML']=_0x3046e4[_0x1e382b(0x26c)](_0x16958a=>{const _0x18ebe2=_0x1e382b,_0x2c2a79=_0x16958a[_0x18ebe2(0x1a4)][_0x18ebe2(0x1f1)]?_0x18ebe2(0xe7)+_0x16958a[_0x18ebe2(0x25a)]+_0x18ebe2(0x13f):'background:'+_0x16958a['color']+';';return _0x18ebe2(0xf2)+_0x2c2a79+'\x22></div>'+_0x16958a['label']+'</div>';})['join']('');}function buildDefense(){const _0x387f19=a0_0x36a696;try{const _0x40aded=st[_0x387f19(0xcc)],_0x5cf0e3=st['tax'],_0x5c3d03=st[_0x387f19(0xe0)],_0x52d511=st[_0x387f19(0x23a)],_0x45557a=st[_0x387f19(0x133)],_0x32bb5b=Math[_0x387f19(0x145)](_0x40aded-_0x5c3d03,0x0),_0x325190=SYM[_0x45557a]||'$',_0x49aaa7=_0x5c3d03===0x0,_0x4c10bf=_0x5cf0e3>=0x20,_0x4eb237=_0x40aded>=0x5,_0x1c6aa4=_0x45557a===_0x387f19(0xfb)||_0x45557a===_0x387f19(0xdf)||_0x45557a===_0x387f19(0x222),_0x5d46ac=_0x52d511>=0x186a0;let _0x28bfde=0x64;if(_0x32bb5b>0x0)_0x28bfde-=Math[_0x387f19(0x2b6)](_0x32bb5b*0x9,0x2d);if(_0x49aaa7)_0x28bfde-=0x14;else{if(_0x5c3d03<_0x40aded*0.5)_0x28bfde-=0xa;}if(_0x4c10bf&&_0x32bb5b>0x0)_0x28bfde-=0xc;if(_0x1c6aa4)_0x28bfde-=0x19;else{if(_0x4eb237)_0x28bfde-=0x8;}if(_0x49aaa7&&_0x5d46ac)_0x28bfde-=0x8;if(_0x5c3d03>=_0x40aded)_0x28bfde+=0xa;if(_0x5c3d03>=_0x40aded+0x1)_0x28bfde+=0x5;_0x28bfde=Math[_0x387f19(0x145)](0x0,Math[_0x387f19(0x2b6)](0x64,Math[_0x387f19(0x2c6)](_0x28bfde)));const _0x1f9d4d=_0x28bfde>=0x46?_0x387f19(0x1f0):_0x28bfde>=0x28?'var(--amber)':_0x387f19(0x2d3),_0x16bf59=document['getElementById'](_0x387f19(0x1ca));_0x16bf59[_0x387f19(0x151)]=_0x28bfde,_0x16bf59[_0x387f19(0x205)]['color']=_0x1f9d4d,_0x16bf59[_0x387f19(0x205)][_0x387f19(0x22e)]=_0x1f9d4d,_0x16bf59[_0x387f19(0x205)][_0x387f19(0x299)]=_0x28bfde>=0x46?_0x387f19(0x249):_0x28bfde>=0x28?_0x387f19(0x167):_0x387f19(0x1ce);const _0x4ecef1=_0x28bfde>=0x50?_0x387f19(0x279):_0x28bfde>=0x41?'Decent\x20Defense\x20—\x201-2\x20Gaps\x20to\x20Close':_0x28bfde>=0x2d?_0x387f19(0x2a1):_0x28bfde>=0x19?_0x387f19(0x201):'Critical\x20—\x20Urgent\x20Action\x20Required';document[_0x387f19(0x20d)](_0x387f19(0x29a))[_0x387f19(0x151)]=_0x4ecef1;const _0x3ecbdd=fmt(_0x52d511*(_0x32bb5b/0x64),_0x45557a);document['getElementById'](_0x387f19(0x1e8))[_0x387f19(0x151)]=_0x40aded+_0x387f19(0x264)+_0x5cf0e3+'%\x20tax\x20·\x20'+_0x5c3d03+_0x387f19(0x1af)+_0x325190+_0x52d511[_0x387f19(0x144)]()+'\x20'+_0x45557a+(_0x32bb5b>0x0?_0x387f19(0x203)+_0x3ecbdd+_0x387f19(0x11b):'');const _0x50e5b8=[],_0x4bb43c=fmt(_0x52d511*0.045,_0x45557a),_0x248b6b=fmt(_0x52d511*(_0x40aded/0x64),_0x45557a),_0x2e567d=fmt(_0x52d511*(_0x32bb5b/0x64),_0x45557a),_0x2e6399=fmt(_0x52d511*(0xa-_0x40aded)/0x64,_0x45557a);if(_0x49aaa7)_0x50e5b8['push']({'p':'p1','icon':'🏦','name':_0x387f19(0x23e)+_0x325190+_0x52d511['toLocaleString']()+_0x387f19(0x1b6)+_0x248b6b+_0x387f19(0x11b),'desc':'You\x20earn\x200%\x20while\x20'+_0x40aded+_0x387f19(0x13a)+_0x248b6b+_0x387f19(0x140)+_0x4bb43c+_0x387f19(0x22a),'tag':'high','tagLabel':_0x387f19(0x123)});if(_0x1c6aa4)_0x50e5b8['push']({'p':'p1','icon':'💵','name':_0x387f19(0x247),'desc':'At\x20'+_0x40aded+_0x387f19(0x185),'tag':'high','tagLabel':_0x387f19(0x2c2)});if(_0x4eb237&&!_0x1c6aa4)_0x50e5b8[_0x387f19(0x105)]({'p':'p1','icon':'🔒','name':_0x387f19(0x106)+_0x40aded+_0x387f19(0x1b0),'desc':'I-Bonds\x20are\x20the\x20only\x20legally\x20guaranteed\x20inflation-matching\x20investment.\x20Max\x20$10,000/person\x20per\x20year\x20at\x20TreasuryDirect.gov.\x20Zero\x20credit\x20risk,\x20zero\x20inflation\x20loss\x20on\x20this\x20portion.','tag':_0x387f19(0x1e6),'tagLabel':'GUARANTEED'});if(_0x32bb5b>0x2&&!_0x1c6aa4)_0x50e5b8[_0x387f19(0x105)]({'p':'p1','icon':'📈','name':'Index\x20funds\x20could\x20recover\x20'+_0x2e567d+_0x387f19(0x2a5),'desc':'Your\x20'+_0x5c3d03+_0x387f19(0x175)+_0x40aded+_0x387f19(0x143)+_0x32bb5b[_0x387f19(0x1e5)](0x1)+_0x387f19(0x1c7)+_0x2e567d+_0x387f19(0x1f9)+_0x2e6399+_0x387f19(0x2aa),'tag':'high','tagLabel':_0x2e567d+_0x387f19(0x257)});if(_0x4c10bf)_0x50e5b8[_0x387f19(0x105)]({'p':'p2','icon':'🧾','name':_0x387f19(0x208)+_0x5cf0e3+_0x387f19(0x134),'desc':_0x387f19(0x284)+_0x5cf0e3+_0x387f19(0x1b3)+_0x5cf0e3*0xa+_0x387f19(0x229)+_0x5cf0e3+_0x387f19(0x1bd),'tag':_0x387f19(0x282),'tagLabel':_0x5cf0e3+_0x387f19(0xf1)});if(_0x5d46ac&&!_0x1c6aa4)_0x50e5b8[_0x387f19(0x105)]({'p':'p2','icon':_0x387f19(0x2b2),'name':_0x387f19(0x122)+fmt(_0x52d511*0.048,_0x45557a)+_0x387f19(0x1df),'desc':_0x387f19(0x26f)+_0x325190+_0x52d511[_0x387f19(0x144)]()+_0x387f19(0x15f)+fmt(_0x52d511*0.048,_0x45557a)+_0x387f19(0x2c4),'tag':_0x387f19(0x282),'tagLabel':fmt(_0x52d511*0.048,_0x45557a)+'/YR\x20AVAILABLE'});_0x50e5b8[_0x387f19(0x105)]({'p':'p3','icon':'📊','name':_0x387f19(0x15c),'desc':_0x387f19(0xef)+_0x40aded+_0x387f19(0x2b4),'tag':'low','tagLabel':_0x387f19(0x260)});if(_0x5c3d03>0x0&&_0x5c3d03<_0x40aded){const _0x1f9097=fmt(_0x52d511*Math[_0x387f19(0x145)](0x0,4.5-_0x5c3d03)/0x64,_0x45557a);_0x50e5b8[_0x387f19(0x105)]({'p':'p3','icon':'💬','name':_0x387f19(0x1b2)+_0x1f9097+_0x387f19(0x25d),'desc':_0x387f19(0x1c8)+_0x5c3d03+_0x387f19(0x293)+_0x325190+_0x52d511[_0x387f19(0x144)]()+_0x387f19(0x1bc)+_0x1f9097+'/yr.\x20Call\x20your\x20bank\x20or\x20switch.\x20Zero\x20risk,\x2010\x20minutes.','tag':_0x387f19(0x289),'tagLabel':'+'+_0x1f9097+_0x387f19(0x2a9)});}document[_0x387f19(0x20d)](_0x387f19(0x17f))['innerHTML']=_0x50e5b8[_0x387f19(0x194)](0x0,0x6)[_0x387f19(0x26c)](_0x58b500=>_0x387f19(0x263)+_0x58b500['p']+_0x387f19(0x270)+_0x58b500['icon']+_0x387f19(0x275)+_0x58b500[_0x387f19(0x1cf)]+_0x387f19(0x2ae)+_0x58b500[_0x387f19(0x1bb)]+_0x387f19(0x12d)+_0x58b500[_0x387f19(0x256)]+'\x22>'+_0x58b500['tagLabel']+'</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20</div>')[_0x387f19(0x152)]('');}catch(_0x5c5ba2){console['error']('buildDefense:',_0x5c5ba2);}}function calcWage(){const _0x38aa83=a0_0x36a696,_0x45a972=parseFloat(document[_0x38aa83(0x20d)](_0x38aa83(0x10c))[_0x38aa83(0x19f)]),_0x2e19fc=parseFloat(document[_0x38aa83(0x20d)](_0x38aa83(0x2d7))[_0x38aa83(0x19f)])||0x28,_0x5a82a3=parseFloat(document['getElementById'](_0x38aa83(0x127))[_0x38aa83(0x19f)]),_0x2f10f8=parseFloat(document[_0x38aa83(0x20d)](_0x38aa83(0x160))['value']);if(!_0x45a972||_0x45a972<=0x0)return;const _0x26b51b=_0x45a972/(_0x2e19fc*0x34),_0x3edd25=_0x26b51b*(0x1-_0x5a82a3/0x64),_0x159353=_0x3edd25*(0x1-_0x2f10f8/0x64),_0x659a1e=_0x159353>=_0x3edd25*0.98,_0x1a8607=_0x26b51b-_0x159353;document[_0x38aa83(0x20d)](_0x38aa83(0xe9))['textContent']='$'+_0x26b51b[_0x38aa83(0x1e5)](0x2)+_0x38aa83(0x141),document[_0x38aa83(0x20d)](_0x38aa83(0x187))['textContent']='$'+_0x3edd25['toFixed'](0x2)+_0x38aa83(0x141),document['getElementById'](_0x38aa83(0x147))['textContent']='$'+_0x159353['toFixed'](0x2)+'/hr',document[_0x38aa83(0x20d)](_0x38aa83(0x147))[_0x38aa83(0x205)][_0x38aa83(0x25a)]=_0x659a1e?_0x38aa83(0x1f0):'var(--red)';const _0x1e8ba8=document[_0x38aa83(0x20d)](_0x38aa83(0x207));_0x1e8ba8[_0x38aa83(0x223)]='wage-row\x20'+(_0x659a1e?_0x38aa83(0x21d):'real-bad'),document['getElementById'](_0x38aa83(0x272))['innerHTML']=_0x38aa83(0x150)+_0x26b51b[_0x38aa83(0x1e5)](0x2)+_0x38aa83(0xb8)+_0x5a82a3+_0x38aa83(0x202)+_0x2f10f8+_0x38aa83(0x21a)+(_0x659a1e?_0x38aa83(0x1f0):_0x38aa83(0x2d3))+_0x38aa83(0x21b)+_0x159353['toFixed'](0x2)+_0x38aa83(0x218)+_0x1a8607[_0x38aa83(0x1e5)](0x2)+_0x38aa83(0xf8)+Math[_0x38aa83(0x2c6)](_0x1a8607*_0x2e19fc*0x34)[_0x38aa83(0x144)]()+'/yr)\x20that\x20tax\x20and\x20inflation\x20silently\x20take.\x20To\x20maintain\x20this\x20real\x20wage\x20next\x20year,\x20you\x20need\x20a\x20raise\x20of\x20at\x20least\x20<strong>'+(_0x2f10f8/(0x1-_0x5a82a3/0x64))['toFixed'](0x1)+'%</strong>.';const _0x28fb51=[{'item':_0x38aa83(0x1f4),'price':7.5,'icon':'☕'},{'item':_0x38aa83(0x1a3),'price':3.4,'icon':'⛽'},{'item':_0x38aa83(0x277),'price':0x8,'icon':'🛒'},{'item':'Netflix\x20month','price':15.5,'icon':'📺'},{'item':_0x38aa83(0x19e),'price':0xc,'icon':'🍔'},{'item':_0x38aa83(0x1e3),'price':2.5,'icon':'🚗'}];document['getElementById']('w-buys')[_0x38aa83(0xb7)]=_0x28fb51[_0x38aa83(0x26c)](_0x4660aa=>{const _0x6d2aa0=_0x38aa83,_0x3eeaac=_0x159353/_0x4660aa[_0x6d2aa0(0x1d3)];return'<div\x20class=\x22stat-box\x22><div\x20class=\x22sb-label\x22>'+_0x4660aa[_0x6d2aa0(0xf3)]+'\x20'+_0x4660aa[_0x6d2aa0(0x24f)]+_0x6d2aa0(0x234)+(_0x3eeaac>=0x1?_0x6d2aa0(0x262):_0x6d2aa0(0xf9))+'\x22>'+(_0x3eeaac>=0x1?_0x3eeaac[_0x6d2aa0(0x1e5)](0x1)+'×':Math[_0x6d2aa0(0x2c6)](_0x3eeaac*0x64)+'%')+_0x6d2aa0(0xd9);})[_0x38aa83(0x152)](''),document[_0x38aa83(0x20d)](_0x38aa83(0xe5))[_0x38aa83(0x205)]['display']='block';}function renderPersonal(){const _0x5e5ebb=a0_0x36a696,_0x2fe20a=document['getElementById'](_0x5e5ebb(0x11d));if(!_0x2fe20a||_0x2fe20a[_0x5e5ebb(0xb7)])return;_0x2fe20a[_0x5e5ebb(0xb7)]=CPI_COMPS[_0x5e5ebb(0x26c)](_0x22e68a=>_0x5e5ebb(0xf7)+_0x22e68a[_0x5e5ebb(0xf3)]+'\x20'+_0x22e68a[_0x5e5ebb(0x1cf)]+_0x5e5ebb(0x26a)+_0x22e68a[_0x5e5ebb(0x171)]+_0x5e5ebb(0x14b)+_0x22e68a[_0x5e5ebb(0x287)]+_0x5e5ebb(0x119)+_0x22e68a[_0x5e5ebb(0x171)]+'\x22>'+_0x22e68a['weight']+_0x5e5ebb(0x219))[_0x5e5ebb(0x152)]('');const _0x17c941=document[_0x5e5ebb(0x20d)](_0x5e5ebb(0xbb));if(_0x17c941)_0x17c941[_0x5e5ebb(0xb7)]=CPI_COMPS['map'](_0x252fa9=>_0x5e5ebb(0x190)+_0x252fa9['icon']+'\x20'+_0x252fa9[_0x5e5ebb(0x1cf)]+_0x5e5ebb(0x29d)+_0x252fa9[_0x5e5ebb(0x287)]+_0x5e5ebb(0x163)+(_0x252fa9[_0x5e5ebb(0x111)]<0x0?_0x5e5ebb(0x1f0):_0x252fa9['rate']>0x5?'var(--red)':_0x5e5ebb(0x1cc))+'\x22>'+(_0x252fa9[_0x5e5ebb(0x111)]>0x0?'+':'')+_0x252fa9[_0x5e5ebb(0x111)]+'%</span>\x0a\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</div>')[_0x5e5ebb(0x152)]('');updatePiTotal();}function updatePiTotal(){const _0x15e9eb=a0_0x36a696;let _0x511071=0x0;CPI_COMPS[_0x15e9eb(0x2ba)](_0x103e93=>{const _0x54e4be=_0x15e9eb,_0xb392d1=parseInt(document[_0x54e4be(0x20d)](_0x54e4be(0x15a)+_0x103e93['key'])?.['value']||_0x103e93[_0x54e4be(0x287)]),_0x1746ff=document[_0x54e4be(0x20d)](_0x54e4be(0x236)+_0x103e93['key']);if(_0x1746ff)_0x1746ff[_0x54e4be(0x151)]=_0xb392d1+'%';_0x511071+=_0xb392d1;});const _0x284be2=document['getElementById']('pi-total-check');_0x284be2&&(_0x284be2['textContent']=_0x15e9eb(0x2d4)+_0x511071+'%\x20'+(_0x511071===0x64?'✓':_0x15e9eb(0x27d)),_0x284be2[_0x15e9eb(0x205)][_0x15e9eb(0x25a)]=_0x511071===0x64?_0x15e9eb(0x1f0):_0x15e9eb(0x1cc));}function calcPersonal(){const _0x2f102b=a0_0x36a696;let _0xcde5da=0x0,_0x43b7cc=0x0;CPI_COMPS[_0x2f102b(0x2ba)](_0x1709fb=>{const _0x57c211=_0x2f102b,_0x49a22f=parseInt(document[_0x57c211(0x20d)](_0x57c211(0x15a)+_0x1709fb[_0x57c211(0x171)])?.[_0x57c211(0x19f)]||_0x1709fb[_0x57c211(0x287)]);_0xcde5da+=_0x49a22f,_0x43b7cc+=_0x49a22f*_0x1709fb[_0x57c211(0x111)];});const _0x3186df=_0xcde5da>0x0?_0x43b7cc/_0xcde5da:3.81,_0x12b8b7=_0x3186df-3.81,_0x27a197=_0x3186df>0x5?_0x2f102b(0x2d3):_0x3186df>0x3?_0x2f102b(0x1cc):_0x2f102b(0x1f0);document[_0x2f102b(0x20d)](_0x2f102b(0x130))['textContent']=_0x3186df['toFixed'](0x2)+'%',document[_0x2f102b(0x20d)](_0x2f102b(0x130))['style']['color']=_0x27a197,document[_0x2f102b(0x20d)]('pi-yours')[_0x2f102b(0x151)]=_0x3186df['toFixed'](0x2)+'%',document[_0x2f102b(0x20d)]('pi-yours')[_0x2f102b(0x205)][_0x2f102b(0x25a)]=_0x27a197,document[_0x2f102b(0x20d)](_0x2f102b(0x191))[_0x2f102b(0xb7)]='<span\x20style=\x22color:'+(_0x12b8b7>0x0?_0x2f102b(0x2d3):'var(--green)')+'\x22>'+(_0x12b8b7>=0x0?'+':'')+_0x12b8b7[_0x2f102b(0x1e5)](0x2)+_0x2f102b(0x170),document[_0x2f102b(0x20d)](_0x2f102b(0x1db))[_0x2f102b(0x151)]='$'+Math[_0x2f102b(0x2c6)](0x186a0*_0x3186df/0x64)[_0x2f102b(0x144)]();const _0x53bf76=document[_0x2f102b(0x20d)](_0x2f102b(0x26e));_0x53bf76[_0x2f102b(0x205)]['display']=_0x2f102b(0x286);}function renderWorld(){const _0x52a08a=a0_0x36a696,_0x5b4dca=document['getElementById'](_0x52a08a(0x173));if(!_0x5b4dca||_0x5b4dca[_0x52a08a(0xb7)])return;const _0x3870dd=[...COUNTRIES][_0x52a08a(0x1e1)]((_0x3b8a06,_0x41c063)=>_0x41c063[_0x52a08a(0xcc)]+_0x41c063[_0x52a08a(0x29c)]-(_0x3b8a06[_0x52a08a(0xcc)]+_0x3b8a06[_0x52a08a(0x29c)])),_0x4782d3=_0x3870dd[0x0][_0x52a08a(0xcc)]+_0x3870dd[0x0][_0x52a08a(0x29c)];_0x5b4dca[_0x52a08a(0xb7)]='<thead><tr><th>#</th><th>Country</th><th>Inflation</th><th>Top\x20Tax</th><th>Combined\x20Pain</th><th>Note</th></tr></thead><tbody>'+_0x3870dd['map']((_0x13abd7,_0x525afb)=>{const _0x40703b=_0x52a08a,_0x3554b8=_0x13abd7[_0x40703b(0xcc)]+_0x13abd7[_0x40703b(0x29c)],_0x45824e=_0x3554b8/_0x4782d3*0x64,_0x3fadd7=_0x3554b8>0x3c?_0x40703b(0x2b5):_0x3554b8>0x28?_0x40703b(0xba):_0x40703b(0x288);return _0x40703b(0xda)+_0x3fadd7+'\x22>'+(_0x525afb+0x1)+_0x40703b(0x19b)+_0x40703b(0x214)+_0x13abd7[_0x40703b(0x2b8)]+'\x20'+_0x13abd7[_0x40703b(0x1cf)]+_0x40703b(0x19c)+_0x40703b(0x22c)+_0x13abd7[_0x40703b(0xcc)]+_0x40703b(0x181)+_0x40703b(0x1e7)+_0x13abd7['tax']+_0x40703b(0x181)+'<td><span\x20style=\x22font-family:\x27Space\x20Mono\x27,monospace;font-weight:700;color:'+_0x3fadd7+'\x22>'+_0x3554b8[_0x40703b(0x1e5)](0x1)+_0x40703b(0x170)+'<div\x20class=\x22pain-bar-wrap\x22><div\x20class=\x22pain-bar-fill\x22\x20style=\x22width:'+_0x45824e+_0x40703b(0x166)+_0x3fadd7+_0x40703b(0x15d)+_0x40703b(0x23b)+_0x13abd7[_0x40703b(0x2a0)]+_0x40703b(0x1d0);})['join']('')+_0x52a08a(0x25c);const _0x3a9672=document[_0x52a08a(0x20d)](_0x52a08a(0x2ce))['getContext']('2d');if(worldChart)worldChart[_0x52a08a(0x291)]();const _0x481a52=[...COUNTRIES]['sort']((_0x210b66,_0x2907b5)=>_0x2907b5[_0x52a08a(0xcc)]-_0x210b66['inf'])[_0x52a08a(0x194)](0x0,0xa);worldChart=new Chart(_0x3a9672,{'type':_0x52a08a(0x254),'data':{'labels':_0x481a52[_0x52a08a(0x26c)](_0x175738=>_0x175738[_0x52a08a(0x2b8)]+'\x20'+_0x175738[_0x52a08a(0x1cf)]),'datasets':[{'label':_0x52a08a(0x29f),'data':_0x481a52[_0x52a08a(0x26c)](_0x3929ea=>_0x3929ea['inf']),'backgroundColor':'rgba(220,38,38,.7)','borderRadius':0x4},{'label':'Top\x20Tax\x20Rate\x20%','data':_0x481a52[_0x52a08a(0x26c)](_0x3340f5=>_0x3340f5['tax']),'backgroundColor':_0x52a08a(0x184),'borderRadius':0x4}]},'options':{'responsive':!![],'maintainAspectRatio':![],'plugins':{'legend':{'labels':{'color':_0x52a08a(0x2c5),'font':{'family':_0x52a08a(0x259),'size':0xb}}},'tooltip':{'backgroundColor':_0x52a08a(0x276),'borderColor':_0x52a08a(0x2c5),'borderWidth':0x1,'titleColor':_0x52a08a(0x2b7),'bodyColor':_0x52a08a(0x227)}},'scales':{'x':{'grid':{'color':_0x52a08a(0x1c2)},'ticks':{'color':_0x52a08a(0x285),'font':{'size':0xb}}},'y':{'grid':{'color':_0x52a08a(0x1c2)},'ticks':{'color':_0x52a08a(0x285),'font':{'family':'Space\x20Mono','size':0xa},'callback':_0x3523ce=>_0x3523ce+'%'}}}}});}let projChartInst=null;function renderReport(){const _0x3f8b1c=a0_0x36a696,_0x30b516=new Date(),_0x384d84=Math[_0x3f8b1c(0x23d)]((_0x30b516-new Date(_0x30b516[_0x3f8b1c(0xe6)](),0x0,0x0))/0x5265c00),_0x2f6151=INSIGHTS[_0x384d84%INSIGHTS[_0x3f8b1c(0x1f1)]];document[_0x3f8b1c(0x20d)]('insight-date')[_0x3f8b1c(0x151)]=_0x30b516[_0x3f8b1c(0x20e)](_0x3f8b1c(0xfc),{'month':_0x3f8b1c(0xcd),'day':_0x3f8b1c(0x1ed),'year':_0x3f8b1c(0x1ed)}),document['getElementById'](_0x3f8b1c(0x28d))[_0x3f8b1c(0x151)]=_0x2f6151['txt'],document['getElementById'](_0x3f8b1c(0xee))['textContent']='→\x20'+_0x2f6151[_0x3f8b1c(0x268)];if(!st[_0x3f8b1c(0x23a)]||st[_0x3f8b1c(0x23a)]<=0x0){document[_0x3f8b1c(0x20d)](_0x3f8b1c(0x297))[_0x3f8b1c(0x205)][_0x3f8b1c(0x266)]=_0x3f8b1c(0x2d1),document[_0x3f8b1c(0x20d)](_0x3f8b1c(0x137))[_0x3f8b1c(0x205)][_0x3f8b1c(0x266)]='none';return;}document[_0x3f8b1c(0x20d)]('report-empty')[_0x3f8b1c(0x205)][_0x3f8b1c(0x266)]='none',document[_0x3f8b1c(0x20d)](_0x3f8b1c(0x137))[_0x3f8b1c(0x205)][_0x3f8b1c(0x266)]='block';const _0x2d7fd5=SYM[st[_0x3f8b1c(0x133)]]||'$',_0xecdbf2=st['inf'],_0x3135da=st['tax'],_0x289ffa=st['earn'],_0xf7ac29=st[_0x3f8b1c(0x23a)],_0x2e784c=st[_0x3f8b1c(0x133)],_0xbeef51=Math[_0x3f8b1c(0x145)](_0xecdbf2-_0x289ffa,0x0),_0x3d8732=_0xf7ac29*(_0xbeef51/0x64),_0xb3f969=_0x3d8732*(0x1-_0x3135da/0x64*0.5);let _0x5f585a=0x64;if(_0xbeef51>0x0)_0x5f585a-=Math[_0x3f8b1c(0x2b6)](_0xbeef51*0x9,0x2d);if(_0x289ffa===0x0)_0x5f585a-=0x14;else{if(_0x289ffa<_0xecdbf2*0.5)_0x5f585a-=0xa;}if(_0x3135da>=0x20&&_0xbeef51>0x0)_0x5f585a-=0xc;if(_0x2e784c===_0x3f8b1c(0xfb)||_0x2e784c===_0x3f8b1c(0xdf)||_0x2e784c===_0x3f8b1c(0x222))_0x5f585a-=0x19;else{if(_0xecdbf2>=0x5)_0x5f585a-=0x8;}if(_0x289ffa>=_0xecdbf2)_0x5f585a+=0xa;_0x5f585a=Math[_0x3f8b1c(0x145)](0x0,Math[_0x3f8b1c(0x2b6)](0x64,Math[_0x3f8b1c(0x2c6)](_0x5f585a)));const _0x1509bb=_0x5f585a>=0x46?_0x3f8b1c(0x1f0):_0x5f585a>=0x28?_0x3f8b1c(0x1cc):_0x3f8b1c(0x2d3),_0x4ff699=_0xf7ac29*Math[_0x3f8b1c(0x197)](0x1+_0x289ffa/0x64,0x5),_0x3f3c7a=_0xf7ac29*Math['pow'](0x1+(_0x289ffa-_0xecdbf2)/0x64,0x5),_0x189a38=_0xf7ac29*Math['pow'](0x1+(0xa-_0xecdbf2)/0x64,0x5);document[_0x3f8b1c(0x20d)]('rpt-date')[_0x3f8b1c(0x151)]=_0x30b516[_0x3f8b1c(0x20e)](_0x3f8b1c(0xfc),{'month':_0x3f8b1c(0xcd),'day':_0x3f8b1c(0x1ed),'year':_0x3f8b1c(0x1ed)}),document['getElementById'](_0x3f8b1c(0x172))[_0x3f8b1c(0x151)]=_0x5f585a,document[_0x3f8b1c(0x20d)]('rpt-score')[_0x3f8b1c(0x205)][_0x3f8b1c(0x25a)]=_0x1509bb,document['getElementById']('rpt-annual')[_0x3f8b1c(0x151)]='–'+fmt(_0x3d8732,_0x2e784c)+_0x3f8b1c(0x11b),document[_0x3f8b1c(0x20d)](_0x3f8b1c(0xb5))[_0x3f8b1c(0x151)]=_0x3f8b1c(0x18d)+fmt(_0xb3f969,_0x2e784c)+_0x3f8b1c(0x11b),document['getElementById'](_0x3f8b1c(0x2d2))[_0x3f8b1c(0x151)]='–'+fmt(_0x3d8732/0x16d,_0x2e784c),document[_0x3f8b1c(0x20d)](_0x3f8b1c(0x10f))[_0x3f8b1c(0x151)]=_0xecdbf2+'%',document[_0x3f8b1c(0x20d)](_0x3f8b1c(0xc5))[_0x3f8b1c(0x151)]=_0x3135da+'%',document[_0x3f8b1c(0x20d)]('rpt-5nominal')[_0x3f8b1c(0x151)]=fmt(_0x4ff699,_0x2e784c),document['getElementById']('rpt-5real')['textContent']=fmt(Math[_0x3f8b1c(0x145)](0x0,_0x3f3c7a),_0x2e784c)+_0x3f8b1c(0x155)+fmt(Math[_0x3f8b1c(0x145)](0x0,_0xf7ac29-_0x3f3c7a),_0x2e784c)+')',document[_0x3f8b1c(0x20d)](_0x3f8b1c(0x16b))['textContent']=fmt(_0x189a38,_0x2e784c)+_0x3f8b1c(0xb1)+fmt(_0x189a38-_0xf7ac29,_0x2e784c)+')';let _0x16e2c0='';if(_0x289ffa===0x0)_0x16e2c0=_0x3f8b1c(0x16a)+_0x2d7fd5+_0xf7ac29[_0x3f8b1c(0x144)]()+_0x3f8b1c(0x1e4)+fmt(_0x3d8732,_0x2e784c)+_0x3f8b1c(0x109);else{if(_0xbeef51>0x2)_0x16e2c0=_0x3f8b1c(0x193)+_0x289ffa+_0x3f8b1c(0x175)+_0xecdbf2+'%\x20inflation\x20costs\x20'+fmt(_0x3d8732,_0x2e784c)+'/yr.\x20Index\x20funds\x20historically\x20return\x20~10%/yr.';else{if(_0x3135da>=0x20)_0x16e2c0=_0x3f8b1c(0xb3)+_0x3135da+_0x3f8b1c(0xe3)+_0x3135da*0xa+_0x3f8b1c(0x156);else _0x16e2c0=_0x3f8b1c(0x22f);}}document[_0x3f8b1c(0x20d)](_0x3f8b1c(0x10a))[_0x3f8b1c(0x151)]=_0x16e2c0,document[_0x3f8b1c(0x20d)]('sl-inf')['value']=_0xecdbf2,document['getElementById'](_0x3f8b1c(0x126))[_0x3f8b1c(0x19f)]=_0x289ffa,document[_0x3f8b1c(0x20d)](_0x3f8b1c(0x267))['textContent']=_0xecdbf2[_0x3f8b1c(0x1e5)](0x1),document[_0x3f8b1c(0x20d)](_0x3f8b1c(0x11a))[_0x3f8b1c(0x151)]=_0x289ffa[_0x3f8b1c(0x1e5)](0x1),updateProj();}function updateProj(){const _0x52d710=a0_0x36a696,_0x135a33=parseFloat(document['getElementById'](_0x52d710(0xc6))[_0x52d710(0x19f)]),_0x5a2045=parseFloat(document['getElementById'](_0x52d710(0x126))['value']);document[_0x52d710(0x20d)]('sl-inf-val')[_0x52d710(0x151)]=_0x135a33[_0x52d710(0x1e5)](0x1),document['getElementById'](_0x52d710(0x11a))[_0x52d710(0x151)]=_0x5a2045[_0x52d710(0x1e5)](0x1);const _0x5e5612=st[_0x52d710(0x23a)]||0x186a0,_0x4dc9d9=st[_0x52d710(0x133)]||'USD',_0x47b9ab=Array[_0x52d710(0x224)]({'length':0xb},(_0x2bced8,_0x271de1)=>_0x271de1),_0x3f2fd4=_0x47b9ab['map'](_0x5a415e=>_0x5a415e===0x0?_0x52d710(0x195):'\x27'+String(new Date()[_0x52d710(0xe6)]()+_0x5a415e)['slice'](0x2)),_0x33ea2d=[{'label':'Cash\x20(nominal)','color':_0x52d710(0x2b5),'rate':(_0x5a2045-_0x135a33)/0x64},{'label':'Gold\x20(~7%\x20real)','color':_0x52d710(0xba),'rate':(0x7-_0x135a33)/0x64},{'label':_0x52d710(0x1f6),'color':_0x52d710(0xd7),'rate':(0xa-_0x135a33)/0x64},{'label':_0x52d710(0x1e9),'color':'#0891B2','rate':0x0,'dash':[0x4,0x4]}],_0x506c4c=_0x33ea2d[_0x52d710(0x26c)](_0x1fe3ac=>({'label':_0x1fe3ac['label'],'data':_0x47b9ab[_0x52d710(0x26c)](_0x186eb3=>Math[_0x52d710(0x2c6)](_0x5e5612*Math[_0x52d710(0x197)](0x1+_0x1fe3ac[_0x52d710(0x111)],_0x186eb3))),'borderColor':_0x1fe3ac['color'],'backgroundColor':_0x52d710(0x23c),'borderWidth':1.5,'pointRadius':0x0,'tension':0.3,'borderDash':_0x1fe3ac[_0x52d710(0x1a4)]||[]})),_0x4fa546=document[_0x52d710(0x20d)](_0x52d710(0xbf))[_0x52d710(0x2bb)]('2d');if(projChartInst)projChartInst[_0x52d710(0x291)]();projChartInst=new Chart(_0x4fa546,{'type':_0x52d710(0x1c5),'data':{'labels':_0x3f2fd4,'datasets':_0x506c4c},'options':{'responsive':!![],'maintainAspectRatio':![],'plugins':{'legend':{'display':![]},'tooltip':{'backgroundColor':_0x52d710(0x276),'borderColor':'#374151','borderWidth':0x1,'titleColor':'#F9FAFB','bodyColor':_0x52d710(0x227),'callbacks':{'label':_0x23e157=>'\x20'+_0x23e157['dataset'][_0x52d710(0x165)]+':\x20'+fmt(_0x23e157['raw'],_0x4dc9d9)}}},'scales':{'x':{'grid':{'color':'#F3F4F6'},'ticks':{'color':_0x52d710(0x20f),'font':{'family':'Space\x20Mono','size':0xa}}},'y':{'grid':{'color':_0x52d710(0x1c2)},'ticks':{'color':'#9CA3AF','font':{'family':_0x52d710(0x161),'size':0xa},'callback':_0xbf355f=>fmt(_0xbf355f,_0x4dc9d9)}}}}}),document[_0x52d710(0x20d)]('proj-legend')[_0x52d710(0xb7)]=_0x33ea2d[_0x52d710(0x26c)](_0x41ef29=>_0x52d710(0x188)+_0x41ef29[_0x52d710(0x25a)]+_0x52d710(0xdc)+_0x41ef29[_0x52d710(0x165)]+'\x0a\x20\x20\x20\x20</div>')['join']('');}function shareTwt(){const _0x3b3d50=a0_0x36a696,_0x4334bd=lossPS*YS,_0xb4e7bc='My\x20'+(SYM[st[_0x3b3d50(0x133)]]||'$')+st[_0x3b3d50(0x23a)][_0x3b3d50(0x144)]()+'\x20saves\x20loses\x20'+fmt(_0x4334bd,st['currency'])+_0x3b3d50(0x1fd)+st[_0x3b3d50(0xcc)]+_0x3b3d50(0xdb)+st[_0x3b3d50(0x29c)]+_0x3b3d50(0xbd);window['open']('https://twitter.com/intent/tweet?text='+encodeURIComponent(_0xb4e7bc),_0x3b3d50(0xfa));}function copyLnk(){const _0x8257d3=a0_0x36a696;navigator[_0x8257d3(0x174)][_0x8257d3(0x216)](window[_0x8257d3(0x10b)][_0x8257d3(0xdd)])['then'](()=>toast('Link\x20copied\x20🔥'));}function shareRpt(){const _0xcb3a5c=a0_0x36a696,_0x20caef=lossPS*YS,_0xcce653=_0xcb3a5c(0x274)+(SYM[st['currency']]||'$')+st[_0xcb3a5c(0x23a)][_0xcb3a5c(0x144)]()+'\x20'+st['currency']+_0xcb3a5c(0xfd)+fmt(_0x20caef,st[_0xcb3a5c(0x133)])+'\x20per\x20year\x20to\x20inflation.\x20Defense\x20score:\x20'+document[_0xcb3a5c(0x20d)](_0xcb3a5c(0x172))['textContent']+_0xcb3a5c(0x1ac);window[_0xcb3a5c(0x149)](_0xcb3a5c(0x1d2)+encodeURIComponent(_0xcce653),_0xcb3a5c(0xfa));}function copyRptLink(){const _0x461403=a0_0x36a696;navigator['clipboard'][_0x461403(0x216)]('https://inflationclock.com/')[_0x461403(0x1f2)](()=>toast(_0x461403(0x1fe)));}function dlRpt(){const _0x4b6a41=a0_0x36a696,_0x365947=lossPS*YS,_0x22fd1d=netLossPS*YS,_0x44f443=['╔══════════════════════════════════════╗','║\x20\x20MONEY\x20BURN\x20—\x20INFLATION\x20DAMAGE\x20REPORT\x20║',_0x4b6a41(0x1fa),'',_0x4b6a41(0x2b1)+new Date()[_0x4b6a41(0x20e)](),_0x4b6a41(0x142),'',_0x4b6a41(0x1fc),'Savings:\x20\x20\x20\x20\x20\x20\x20\x20'+(SYM[st[_0x4b6a41(0x133)]]||'$')+st['amount'][_0x4b6a41(0x144)]()+'\x20'+st[_0x4b6a41(0x133)],_0x4b6a41(0x19d)+st[_0x4b6a41(0xcc)]+'%',_0x4b6a41(0x154)+st['earn']+'%',_0x4b6a41(0x2a4)+st[_0x4b6a41(0x29c)]+'%','Net\x20gap:\x20\x20\x20\x20\x20\x20\x20\x20'+Math['max'](st[_0x4b6a41(0xcc)]-st[_0x4b6a41(0xe0)],0x0)['toFixed'](0x2)+_0x4b6a41(0x1be),'',_0x4b6a41(0x2cb),_0x4b6a41(0x1ae)+fmt(_0x365947,st[_0x4b6a41(0x133)])+'/yr',_0x4b6a41(0x246)+fmt(_0x22fd1d,st[_0x4b6a41(0x133)])+_0x4b6a41(0x11b),_0x4b6a41(0x1cb)+fmt(lossPS*0x15180,st[_0x4b6a41(0x133)]),'',_0x4b6a41(0x1b4),'S&P\x20500\x20(~10%/yr):\x20'+fmt(st[_0x4b6a41(0x23a)]*Math[_0x4b6a41(0x197)](0x1+(0xa-st[_0x4b6a41(0xcc)])/0x64,0x5),st['currency']),_0x4b6a41(0x18b)+fmt(Math[_0x4b6a41(0x145)](0x0,st[_0x4b6a41(0x23a)]*Math[_0x4b6a41(0x197)](0x1+(st[_0x4b6a41(0xe0)]-st[_0x4b6a41(0xcc)])/0x64,0x5)),st[_0x4b6a41(0x133)]),'',_0x4b6a41(0x14c)],_0x24431b=Object[_0x4b6a41(0xe4)](document[_0x4b6a41(0x129)]('a'),{'href':URL['createObjectURL'](new Blob([_0x44f443[_0x4b6a41(0x152)]('\x0a')],{'type':_0x4b6a41(0x120)})),'download':_0x4b6a41(0x18a)});_0x24431b['click']();}function dlReport(){dlRpt();}try{(function(){const _0x3ae18d=a0_0x36a696,_0x23ef54=document[_0x3ae18d(0x20d)]('fc'),_0x518f41=_0x23ef54[_0x3ae18d(0x2bb)]('2d');let _0x17da3f,_0x2b709c,_0x50333d=[];function _0x4ff20d(){const _0x10f7dd=_0x3ae18d;_0x17da3f=_0x23ef54[_0x10f7dd(0x12a)]=innerWidth,_0x2b709c=_0x23ef54[_0x10f7dd(0x281)]=innerHeight;}window['addEventListener'](_0x3ae18d(0x108),_0x4ff20d),_0x4ff20d();function _0x20c228(_0xaa5116,_0x38a0a4){const _0x5671e6=_0x3ae18d;return _0xaa5116+Math[_0x5671e6(0x24c)]()*(_0x38a0a4-_0xaa5116);}function _0x482282(){_0x50333d['push']({'x':_0x20c228(0x0,_0x17da3f),'y':_0x2b709c+0x8,'vx':_0x20c228(-0.4,0.4),'vy':_0x20c228(-1.4,-0.6),'life':0x1,'decay':_0x20c228(0.003,0.007),'size':_0x20c228(0x2,0x6),'hue':_0x20c228(0x0,0x12)});}function _0x4bdc30(){const _0x1ec01a=_0x3ae18d;_0x518f41[_0x1ec01a(0x12c)](0x0,0x0,_0x17da3f,_0x2b709c);if(_0x50333d[_0x1ec01a(0x1f1)]<0x32)_0x482282();for(let _0xf5e3a1=_0x50333d[_0x1ec01a(0x1f1)]-0x1;_0xf5e3a1>=0x0;_0xf5e3a1--){const _0x607f4=_0x50333d[_0xf5e3a1];_0x607f4['x']+=_0x607f4['vx'],_0x607f4['y']+=_0x607f4['vy'],_0x607f4[_0x1ec01a(0x232)]-=_0x607f4[_0x1ec01a(0x177)];if(_0x607f4[_0x1ec01a(0x232)]<=0x0){_0x50333d[_0x1ec01a(0x252)](_0xf5e3a1,0x1);continue;}const _0x10c59d=_0x518f41[_0x1ec01a(0x16e)](_0x607f4['x'],_0x607f4['y'],0x0,_0x607f4['x'],_0x607f4['y'],_0x607f4['size']);_0x10c59d['addColorStop'](0x0,_0x1ec01a(0x124)+_0x607f4[_0x1ec01a(0x132)]+_0x1ec01a(0x12b)+_0x607f4[_0x1ec01a(0x232)]*0.4+')'),_0x10c59d[_0x1ec01a(0x2c3)](0x1,'hsla('+_0x607f4[_0x1ec01a(0x132)]+_0x1ec01a(0x221)),_0x518f41[_0x1ec01a(0xac)](),_0x518f41['arc'](_0x607f4['x'],_0x607f4['y'],_0x607f4[_0x1ec01a(0x237)],0x0,Math['PI']*0x2),_0x518f41['fillStyle']=_0x10c59d,_0x518f41[_0x1ec01a(0x16c)]();}requestAnimationFrame(_0x4bdc30);}_0x4bdc30();}());}catch(a0_0x539243){console[a0_0x36a696(0x215)]('Flame:',a0_0x539243);}try{document[a0_0x36a696(0x20d)]('amount')[a0_0x36a696(0x243)](a0_0x36a696(0x25e),_0x1dff90=>{const _0x594de0=a0_0x36a696;if(_0x1dff90[_0x594de0(0x171)]===_0x594de0(0xd6))ignite();});}catch(a0_0x16033a){}try{document[a0_0x36a696(0x20d)](a0_0x36a696(0x10c))['addEventListener'](a0_0x36a696(0x25e),_0x279441=>{const _0x3b7aac=a0_0x36a696;if(_0x279441[_0x3b7aac(0x171)]===_0x3b7aac(0xd6))calcWage();});}catch(a0_0x42929b){}try{initQuiz();}catch(a0_0xfb1fed){console['error']('initQuiz:',a0_0xfb1fed);}try{initCPI();}catch(a0_0x5ed750){console[a0_0x36a696(0x27e)](a0_0x36a696(0xfe),a0_0x5ed750);}try{checkRet();}catch(a0_0x32b8cf){console[a0_0x36a696(0x27e)](a0_0x36a696(0x1ef),a0_0x32b8cf);}try{initCommunity();}catch(a0_0x35c367){console['error'](a0_0x36a696(0x1c9),a0_0x35c367);}
+// ── DATA ─────────────────────────────────────────────────────────
+const INF={
+  USD:3.81, EUR:2.2, GBP:3.4, JPY:3.0, KRW:2.6,
+  BRL:5.1,  INR:4.8, TRY:38.0,
+  CAD:2.7,  CNY:0.4, RUB:9.1,  AUD:3.2,
+  MXN:4.2,  CHF:1.1, SGD:2.8,  AED:2.3,
+  SAR:1.9,  ZAR:4.8, ARG:211.0,VND:3.8
+};
+const SYM={
+  USD:'$',   EUR:'€',  GBP:'£',  JPY:'¥',  KRW:'₩',
+  BRL:'R$',  INR:'₹',  TRY:'₺',
+  CAD:'C$',  CNY:'¥',  RUB:'₽',  AUD:'A$',
+  MXN:'$',   CHF:'Fr', SGD:'S$', AED:'د.إ',
+  SAR:'﷼',  ZAR:'R',  ARG:'$',  VND:'₫'
+};
+const YS=365.25*24*3600;
+
+const CPI_COMPS=[
+  {name:'Housing / Rent',key:'housing',rate:5.2,weight:33,icon:'🏠'},
+  {name:'Food & Groceries',key:'food',rate:3.5,weight:14,icon:'🛒'},
+  {name:'Transportation',key:'transport',rate:1.2,weight:15,icon:'🚗'},
+  {name:'Medical Care',key:'medical',rate:3.1,weight:9,icon:'🏥'},
+  {name:'Energy',key:'energy',rate:-5.7,weight:7,icon:'⚡'},
+  {name:'Education',key:'edu',rate:4.1,weight:6,icon:'📚'},
+  {name:'Clothing',key:'clothing',rate:0.3,weight:3,icon:'👕'},
+  {name:'Recreation',key:'rec',rate:1.8,weight:5,icon:'🎭'},
+  {name:'Other',key:'other',rate:2.9,weight:8,icon:'📦'},
+];
+
+const COUNTRIES=[
+  {flag:'🇦🇷',name:'Argentina',  inf:211.0,tax:35,  note:'Chronic hyperinflation'},
+  {flag:'🇹🇷',name:'Turkey',     inf:38.0, tax:40,  note:'Currency crisis ongoing'},
+  {flag:'🇷🇺',name:'Russia',     inf:9.1,  tax:15,  note:'Sanctions-driven inflation'},
+  {flag:'🇧🇷',name:'Brazil',     inf:5.1,  tax:27.5,note:'High inflation + tax'},
+  {flag:'🇮🇳',name:'India',      inf:4.8,  tax:30,  note:'Fast-growing costs'},
+  {flag:'🇲🇽',name:'Mexico',     inf:4.2,  tax:35,  note:'Peso pressure'},
+  {flag:'🇿🇦',name:'S. Africa',  inf:4.8,  tax:45,  note:'High inequality drag'},
+  {flag:'🇺🇸',name:'USA',        inf:3.81, tax:37,  note:'High top bracket'},
+  {flag:'🇬🇧',name:'UK',         inf:3.4,  tax:45,  note:'High top tax rate'},
+  {flag:'🇻🇳',name:'Vietnam',    inf:3.8,  tax:35,  note:'Growing economy pressure'},
+  {flag:'🇯🇵',name:'Japan',      inf:3.0,  tax:45,  note:'Weak yen effect'},
+  {flag:'🇦🇺',name:'Australia',  inf:3.2,  tax:45,  note:'High tax, moderate inf.'},
+  {flag:'🇰🇷',name:'S. Korea',   inf:2.6,  tax:45,  note:'High tech, high cost'},
+  {flag:'🇨🇦',name:'Canada',     inf:2.7,  tax:33,  note:'Housing-driven inflation'},
+  {flag:'🇩🇪',name:'Germany',    inf:2.4,  tax:45,  note:'EU industrial giant'},
+  {flag:'🇸🇬',name:'Singapore',  inf:2.8,  tax:22,  note:'Low tax efficiency'},
+  {flag:'🇫🇷',name:'France',     inf:2.1,  tax:45,  note:'High welfare state cost'},
+  {flag:'🇦🇪',name:'UAE',        inf:2.3,  tax:0,   note:'No income tax'},
+  {flag:'🇨🇳',name:'China',      inf:0.4,  tax:45,  note:'Deflationary pressure'},
+  {flag:'🇨🇭',name:'Switzerland',inf:1.1,  tax:11.5,note:'Lowest combined pain'},
+];
+
+const QUIZZES=[
+  {q:'At 3.8% inflation + 22% tax, your $100k cash savings has what real after-tax annual loss?',opts:['$1,860','$2,964','$3,800','$4,900'],ans:1,ex:'Inflation costs $3,800 but after-tax the real loss is ~$2,964. The tax deduction offsets some of the loss. <strong>This is why after-tax matters.</strong>'},
+  {q:'Bracket creep happens when inflation pushes your salary into a higher tax bracket. Who benefits?',opts:['You','Your employer','The government','Nobody'],ans:2,ex:'The <strong>government collects more tax</strong> without passing any new law. Your real income stagnates but your tax bill grows silently.'},
+  {q:'If inflation is 5% and your HYSA pays 4%, what is your real return?',opts:['+1%','0%','-1%','Depends on tax'],ans:3,ex:'<strong>It depends on your tax bracket.</strong> At 22%, the 4% interest nets ~3.12% after tax — still below 5% inflation. Real return: -0.88%.'},
+  {q:'The S&P 500 has beaten inflation in every 20-year period since 1928. True or false?',opts:['True','False','Only in the US','Only after 1980'],ans:0,ex:'<strong>True.</strong> Every 20-year rolling period since 1928, the S&P 500 has beaten inflation. The challenge is surviving 30-40% drawdowns.'},
+  {q:'At 85% inflation (Turkey 2022), your ₺100,000 had what purchasing power by year end?',opts:['₺100,000','₺85,000','₺54,000','₺15,000'],ans:2,ex:'At 85% inflation prices nearly doubled. Your ₺100,000 had the purchasing power of roughly <strong>₺54,000</strong> by December 2022.'},
+  {q:'What percentage of US workers received a real pay raise (above inflation) in 2024?',opts:['67%','51%','38%','29%'],ans:2,ex:'Only about <strong>38% of workers</strong> received raises that beat inflation. The rest took an effective pay cut in purchasing power terms.'},
+  {q:'Which is the bigger annual loss: 4% inflation on $200k, or 2% inflation on $500k?',opts:['4% on $200k ($8k)','2% on $500k ($10k)','They are equal','Depends on tax'],ans:1,ex:'2% on $500k = <strong>$10,000/year</strong> vs 4% on $200k = $8,000. <strong>Total balance matters more than rate alone.</strong>'},
+  {q:'Canada: what drives inflation the most?',opts:['Food prices','Energy costs','Housing costs','Import prices'],ans:2,ex:'<strong>Housing costs</strong> are the primary driver of Canadian inflation. Canadian home prices rose over 50% from 2020-2022, making shelter the dominant CPI component.'},
+  {q:'China CPI is unusually low at 0.4% in 2026. What economic risk does this signal?',opts:['Economic strength','Deflation risk','Currency manipulation','Trade surplus'],ans:1,ex:'<strong>Deflation risk.</strong> When inflation falls below 0%, prices fall — which sounds good but causes people to delay purchases, hurting economic growth. Japan suffered this for decades.'},
+  {q:'Russia inflation is running at 9.1% in 2026. What is the primary cause?',opts:['Energy subsidies','War spending + sanctions','Strong ruble','Low interest rates'],ans:1,ex:'<strong>War spending and Western sanctions</strong> have driven Russian inflation. Military spending creates demand without supply, while sanctions restrict imported goods — a classic inflation recipe.'},
+  {q:'France has 45% top tax rate + 2.1% inflation. How does this compare to UAE (0% tax, 2.3% inflation)?',opts:['France is better','UAE is much better','They are similar','Depends on income'],ans:1,ex:'<strong>UAE is dramatically better for high earners.</strong> A French earner in the top bracket faces 47.1% combined pain vs UAE 2.3%. On €500k income the difference is over €200,000/year.'},
+  {q:'Argentina 211% inflation: prices double roughly every how many months?',opts:['Every 12 months','Every 6 months','Every 4 months','Every 2 months'],ans:2,ex:'At 211% annual inflation, using the Rule of 70: 70 ÷ 211 ≈ <strong>4 months</strong> to double. Argentines must convert pesos to USD immediately upon receiving income.'},
+  {q:'Switzerland has the lowest Combined Pain Index at 12.6%. What makes it special?',opts:['High wages only','Low inflation + low tax','No income tax','Strong exports'],ans:1,ex:'Switzerland combines <strong>1.1% inflation</strong> (one of the world lowest) with <strong>11.5% top tax rate</strong> (far below most developed nations). This makes it the best environment for savers globally.'},
+  {q:'The US dollar has lost what percentage of its purchasing power since 1913 (when the Fed was created)?',opts:['40%','70%','90%','97%'],ans:3,ex:'The dollar has lost <strong>97% of its purchasing power</strong> since 1913. What cost $1 then costs approximately $32 today. This is the cumulative effect of 110 years of persistent inflation.'},
+];
+
+const INSIGHTS=[
+  {txt:"The Fed's 2% inflation target and actual 3.81% inflation means your savings lose value 91% faster than the central bank considers acceptable.",impact:"On $100,000 in cash: $10.44 lost today in purchasing power."},
+  {txt:"Housing inflation is running at 5.2% — more than double the headline CPI. If rent is your biggest expense, your personal inflation rate is significantly higher than what the government reports.",impact:"Renters lose purchasing power 37% faster than homeowners on average."},
+  {txt:"Coffee prices are up 20.3% year-over-year — the largest single-category jump in the CPI basket. Your morning coffee now costs what lunch used to cost five years ago.",impact:"Small daily purchases reveal inflation's compounding effect better than any statistic."},
+  {txt:"I-Bond rates reset every May and November based on CPI. The current composite rate is 3.98% — the only investment legally guaranteed to track inflation.",impact:"$10,000 in I-Bonds vs a 0.5% savings account: $348 guaranteed difference per year."},
+  {txt:"Bracket creep moved an estimated 4.2 million Americans into higher tax brackets in 2025 without any real income increase. The IRS bracket adjustment lagged actual CPI by 1 full point.",impact:"A $80,000 earner with a 3.8% raise paid $629 more in federal tax on income that bought nothing new."},
+  {txt:"The S&P 500 has beaten inflation in every 20-year period since 1928. The challenge is not the math — it is staying invested during the 30-40% drawdowns that happen along the way.",impact:"$10,000 invested in 1970 = $1.2M today. $10,000 in cash in 1970 = $52,000. Difference: $1.15M."},
+  {txt:"Argentina reported 211% annual inflation in 2023. Ordinary Argentines convert pesos to USD the same day salaries arrive, before prices rise further.",impact:"In high-inflation environments, holding the local currency even overnight is a financial decision."},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────
+const st={amount:0,currency:'USD',earn:0,tax:22,inf:3.81};
+let startTime=null, rafId=null, lossPS=0, netLossPS=0, lastSec=-1;
+let lossChart=null, worldChart=null, projChart=null;
+
+// ── UTILS ─────────────────────────────────────────────────────────
+function fmt(v,c){
+  const s=SYM[c]||'$',a=Math.abs(v),sg=v<0?'-':'';
+  if(c==='KRW'||c==='JPY') return sg+s+Math.round(a).toLocaleString();
+  if(a>=1e6) return sg+s+(a/1e6).toFixed(2)+'M';
+  if(a>=1e3) return sg+s+a.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  return sg+s+a.toFixed(2);
+}
+function fmtLive(v,c){
+  const s=SYM[c]||'$',a=Math.abs(v);
+  return '–'+s+(c==='KRW'||c==='JPY'?a.toFixed(2):a.toFixed(6));
+}
+function toast(m){
+  const t=document.getElementById('toast');
+  t.textContent=m; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── PAGE NAV ──────────────────────────────────────────────────────
+function showPage(id){
+  try{
+    document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+    document.querySelectorAll('.ntab').forEach(b=>b.classList.remove('on'));
+    const pg=document.getElementById('pg-'+id);
+    if(pg) pg.classList.add('on');
+    const map={dash:0,wage:1,personal:2,world:3,report:4,mbti:5,disclaimer:99,sources:99};
+    const tabs=document.querySelectorAll('.ntab');
+    if(map[id]!==undefined && tabs[map[id]]) tabs[map[id]].classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(id==='world') renderWorld();
+    if(id==='personal') renderPersonal();
+    if(id==='report') renderReport();
+  }catch(e){console.error('showPage error:',e)}
+}
+
+// ── QUIZ ──────────────────────────────────────────────────────────
+function initQuiz(){
+  try{
+    const now=new Date();
+    const doy=Math.floor((now-new Date(now.getFullYear(),0,0))/864e5);
+    const q=QUIZZES[doy%QUIZZES.length];
+    document.getElementById('qdate').textContent=now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    document.getElementById('qq').textContent=q.q;
+    const opts=document.getElementById('qopts');
+    opts.innerHTML='';
+    q.opts.forEach((o,i)=>{
+      const b=document.createElement('button');
+      b.className='qopt'; b.textContent=o;
+      b.onclick=()=>answerQ(i,q.ans,q.ex);
+      opts.appendChild(b);
+    });
+    const sd=localStorage.getItem('mb_qd');
+    if(sd===now.toDateString()) renderQAns(parseInt(localStorage.getItem('mb_qa')||'-1'),q.ans,q.ex);
+  }catch(e){console.error('initQuiz:',e)}
+}
+function answerQ(c,ans,ex){
+  localStorage.setItem('mb_qd',new Date().toDateString());
+  localStorage.setItem('mb_qa',c);
+  renderQAns(c,ans,ex);
+}
+function renderQAns(c,ans,ex){
+  document.querySelectorAll('.qopt').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===ans) b.classList.add('correct');
+    else if(i===c) b.classList.add('wrong');
+  });
+  const r=document.getElementById('qres');
+  r.style.display='block';
+  r.innerHTML=(c===ans?'✅ Correct! ':'❌ Wrong — ')+ex;
+}
+
+// ── CPI BANNER ────────────────────────────────────────────────────
+function initCPI(){
+  try{
+    const today=new Date(); today.setHours(0,0,0,0);
+    const dates=[{date:'2026-07-14',label:'July 14 — June CPI (US)'},{date:'2026-08-12',label:'Aug 12 — July CPI (US)'},{date:'2026-09-10',label:'Sep 10 — Aug CPI (US)'}];
+    const next=dates.find(d=>new Date(d.date)>=today)||dates[dates.length-1];
+    const diff=Math.round((new Date(next.date)-today)/864e5);
+    document.getElementById('cpi-txt').innerHTML=
+      diff===0?'<strong>🔴 CPI released TODAY!</strong> New US inflation data just published — update your numbers.':
+      diff===1?'<strong>Tomorrow: '+next.label+'</strong> — New inflation data drops tomorrow.':
+      '<strong>Next: '+next.label+'</strong> — US CPI in <strong>'+diff+' days</strong>.';
+    document.getElementById('cpi-badge').textContent=diff<=1?'🔴 SOON':'📅 IN '+diff+'D';
+  }catch(e){console.error('initCPI:',e)}
+}
+
+// ── COMMUNITY ─────────────────────────────────────────────────────
+function initCommunity(){
+  // Show estimated total burned today based on avg US loss $4,820/yr
+  // Estimated ~130M US households with savings
+  function updateBurned(){
+    try{
+      const now=new Date();
+      const frac=(now.getHours()*3600+now.getMinutes()*60+now.getSeconds())/86400;
+      // 130M households * $4,820/yr avg loss / 365 days * fraction of day elapsed
+      const burned=(130e6*4820/365*frac);
+      const ctEl=document.getElementById('ct');
+      if(ctEl) ctEl.textContent='$'+(burned/1e9).toFixed(2)+'B';
+    }catch(e){}
+  }
+  updateBurned();
+  setInterval(updateBurned, 60000);
+}
+
+// ── LOCAL STORAGE ─────────────────────────────────────────────────
+function checkRet(){
+  try{
+    const saved=localStorage.getItem('mb_a');
+    if(!saved) return;
+    const sA=parseFloat(saved),sC=localStorage.getItem('mb_c')||'USD';
+    const sE=parseFloat(localStorage.getItem('mb_e')||'0'),sT=parseFloat(localStorage.getItem('mb_t')||'22');
+    const sD=localStorage.getItem('mb_d'),inf=INF[sC]||3.81;
+    const ps=(sA*(Math.max(inf-sE,0)/100))/YS;
+    let msg='';
+    if(sD){
+      const days=Math.round((Date.now()-parseInt(sD))/864e5);
+      if(days>0) msg=` Since <strong>${days}d ago</strong>, ~<strong>${fmt(ps*days*86400,sC)}</strong> erased.`;
+    }
+    document.getElementById('ret-txt').innerHTML=`Welcome back. ${SYM[sC]||'$'}${sA.toLocaleString()} ${sC} is losing <strong>${fmt(ps*86400,sC)}/day</strong>.${msg}`;
+    document.getElementById('amount').value=sA;
+    document.getElementById('currency').value=sC;
+    document.getElementById('earn').value=sE;
+    document.getElementById('taxrate').value=sT;
+    document.getElementById('ret').style.display='block';
+  }catch(e){console.error('checkRet:',e)}
+}
+function loadSaved(){document.getElementById('ret').style.display='none'; ignite()}
+function clearSaved(){
+  ['mb_a','mb_c','mb_e','mb_t','mb_d'].forEach(k=>localStorage.removeItem(k));
+  document.getElementById('ret').style.display='none';
+  document.getElementById('amount').value='';
+  toast('Cleared. Enter new values below.');
+}
+
+// ── IGNITE ────────────────────────────────────────────────────────
+function ignite(){
+  const a=parseFloat(document.getElementById('amount').value);
+  if(!a||a<=0){
+    const el=document.getElementById('amount');
+    el.focus(); el.style.borderColor='var(--red)';
+    el.style.boxShadow='0 0 0 3px rgba(220,38,38,.15)';
+    setTimeout(()=>{el.style.borderColor='';el.style.boxShadow=''},1500);
+    return;
+  }
+  st.amount=a;
+  st.currency=document.getElementById('currency').value;
+  st.earn=parseFloat(document.getElementById('earn').value);
+  st.tax=parseFloat(document.getElementById('taxrate').value);
+  st.inf=INF[st.currency]||3.81;
+  localStorage.setItem('mb_a',a);
+  localStorage.setItem('mb_c',st.currency);
+  localStorage.setItem('mb_e',st.earn);
+  localStorage.setItem('mb_t',st.tax);
+  localStorage.setItem('mb_d',Date.now());
+
+  const gap=Math.max(st.inf-st.earn,0);
+  lossPS=(a*(gap/100))/YS;
+  netLossPS=lossPS*(1-(st.tax/100)*0.5);
+  const sym=SYM[st.currency]||'$';
+
+  // Show blocks
+  ['counter-wrap','bracket-card','chart-card','compare-card','defense-card','reality-card'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='block';
+  });
+  const sr=document.getElementById('share-row');
+  if(sr) sr.style.display='flex';
+
+  // Stats
+  const pD=lossPS*86400, pY=lossPS*YS, pYn=netLossPS*YS;
+  document.getElementById('ps').textContent=fmt(lossPS,st.currency)+'/s';
+  document.getElementById('pm').textContent=fmt(lossPS*60,st.currency);
+  document.getElementById('ph').textContent=fmt(lossPS*3600,st.currency);
+  document.getElementById('pd').textContent=fmt(pD,st.currency);
+  document.getElementById('py').textContent=fmt(pY,st.currency);
+  document.getElementById('pyn').textContent=fmt(pYn,st.currency);
+
+  // Bracket creep
+  const drag=st.inf+st.tax;
+  document.getElementById('bc-inf-fill').style.width=Math.min(st.inf/50*100,100)+'%';
+  document.getElementById('bc-tax-fill').style.width=Math.min(st.tax/50*100,100)+'%';
+  document.getElementById('bc-drag-fill').style.width=Math.min(drag/100*100,100)+'%';
+  document.getElementById('bc-inf-pct').textContent=st.inf+'%';
+  document.getElementById('bc-tax-pct').textContent=st.tax+'%';
+  document.getElementById('bc-drag-pct').textContent=drag.toFixed(1)+'%';
+  document.getElementById('bc-verdict').innerHTML=drag>50
+    ?'<strong>Critical.</strong> At '+drag.toFixed(1)+'% combined drag, you need investments returning over '+drag.toFixed(1)+'% just to stay even. That requires significant equity exposure.'
+    :drag>35
+    ?'<strong>High pressure.</strong> At '+drag.toFixed(1)+'% combined drag, a good index fund (~10%/yr) barely beats your hurdle rate. Every % of account interest matters.'
+    :'<strong>Manageable.</strong> At '+drag.toFixed(1)+'% combined drag, a decent HYSA or index fund can meaningfully beat your hurdle rate. You\'re in a better position than most.';
+
+  // Compare
+  const lY=a*(st.inf/100), eY=a*(st.earn/100);
+  function cH(v){
+    const s=v>=0?'+':'',p=((v/a)*100).toFixed(1),col=v>=0?'var(--green)':'var(--red)';
+    return '<span style="color:'+col+'">'+s+fmt(v,st.currency)+'</span><span class="cmp-pct" style="color:'+col+'">'+s+p+'%</span>';
+  }
+  document.getElementById('c-cash').innerHTML=cH(-lY);
+  document.getElementById('c-sp').innerHTML=cH(a*.10-lY);
+  document.getElementById('c-gold').innerHTML=cH(a*.07-lY);
+  document.getElementById('c-ibond').innerHTML=cH(0);
+  document.getElementById('c-earn').innerHTML=cH(eY-lY);
+  document.getElementById('c-earn-lbl').textContent=st.earn+'%';
+
+  // Reality
+  document.getElementById('reality-txt').innerHTML=gap>0
+    ?`At <strong>${st.inf}% inflation</strong> vs your <strong>${st.earn}%</strong> return and <strong>${st.tax}%</strong> tax bracket — you lose <strong>${fmt(pD,st.currency)}/day</strong>. After tax, the real annual damage is <strong>${fmt(pYn,st.currency)}</strong>.`
+    :`Your account earns <strong>${st.earn}%</strong>, which currently beats ${st.inf}% inflation. You\'re ahead of most. Watch the bracket creep warning above — tax drag is the remaining risk.`;
+
+  buildChart();
+  buildDefense();
+  if(rafId) cancelAnimationFrame(rafId);
+  startTime=performance.now(); lastSec=-1;
+  tick();
+  setTimeout(()=>{const el=document.getElementById('counter-wrap');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'})},100);
+}
+
+// ── TICK ──────────────────────────────────────────────────────────
+function tick(){
+  const el=(performance.now()-startTime)/1000;
+  document.getElementById('gross-num').textContent=fmtLive(lossPS*el,st.currency);
+  document.getElementById('net-num').textContent=fmtLive(netLossPS*el,st.currency);
+  const s=Math.floor(el);
+  if(s!==lastSec){
+    lastSec=s;
+    document.getElementById('counter-since').textContent=s+'s since you opened this page';
+    if(s>0&&s%10===0){
+      ['gross-num','net-num'].forEach(id=>{
+        const n=document.getElementById(id);
+        n.classList.remove('flash'); void n.offsetWidth; n.classList.add('flash');
+      });
+    }
+  }
+  rafId=requestAnimationFrame(tick);
+}
+
+// ── CHART ─────────────────────────────────────────────────────────
+function buildChart(){
+  const months=Array.from({length:13},(_,i)=>{const d=new Date();d.setMonth(d.getMonth()+i);return d.toLocaleDateString('en-US',{month:'short'})});
+  const earnNominal=st.earn/100;
+  const scenarios=[
+    {label:'Cash (0% nominal)',  color:'#DC2626',rate:-(st.inf/100),    dash:[],  w:2.5},
+    {label:'Your account ('+st.earn+'% nominal)', color:'#D97706', rate:earnNominal, dash:[6,3], w:2.5},
+    {label:'I-Bond (real 0%)',   color:'#0891B2',rate:0,               dash:[4,4],w:1.5},
+    {label:'Gold (~7% real)',    color:'#6B7280',rate:(7-st.inf)/100,  dash:[],  w:1.5},
+    {label:'S&P 500 (~10% real)',color:'#2563EB',rate:(10-st.inf)/100, dash:[],  w:2},
+  ];
+  const datasets=scenarios.map(s=>({
+    label:s.label,
+    data:months.map((_,i)=>+(st.amount*Math.pow(1+s.rate/12,i)).toFixed(2)),
+    borderColor:s.color, backgroundColor:'transparent',
+    borderWidth:s.w, pointRadius:0, tension:.3, borderDash:s.dash,
+  }));
+  const ctx=document.getElementById('lossChart').getContext('2d');
+  if(lossChart) lossChart.destroy();
+  lossChart=new Chart(ctx,{
+    type:'line', data:{labels:months,datasets},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{backgroundColor:'#1F2937',borderColor:'#374151',borderWidth:1,titleColor:'#F9FAFB',bodyColor:'#D1D5DB',padding:10,callbacks:{label:c=>' '+c.dataset.label+': '+fmt(c.raw,st.currency)}}
+      },
+      scales:{
+        x:{grid:{color:'#F3F4F6'},ticks:{color:'#9CA3AF',font:{family:'Space Mono',size:10}}},
+        y:{grid:{color:'#F3F4F6'},ticks:{color:'#9CA3AF',font:{family:'Space Mono',size:10},callback:v=>fmt(v,st.currency)}}
+      }
+    }
+  });
+  document.getElementById('chart-legend').innerHTML=scenarios.map(s=>{
+    const dashStyle=s.dash.length?'border-top:2.5px dashed '+s.color+';background:transparent;':'background:'+s.color+';';
+    return '<div class="legend-item"><div class="legend-line" style="'+dashStyle+'"></div>'+s.label+'</div>';
+  }).join('');
+}
+
+// ── DEFENSE ENGINE ────────────────────────────────────────────────
+function buildDefense(){
+  try{
+    const inf=st.inf,tax=st.tax,earn=st.earn,amt=st.amount,cur=st.currency;
+    const gap=Math.max(inf-earn,0);
+    const sym=SYM[cur]||'$';
+    const isCash=earn===0,isHighTax=tax>=32,isHighInf=inf>=5;
+    const isTRY=cur==='TRY'||cur==='BRL'||cur==='INR';
+    const isLargeAmt=amt>=100000;
+
+    let score=100;
+    if(gap>0) score-=Math.min(gap*9,45);
+    if(isCash) score-=20; else if(earn<inf*0.5) score-=10;
+    if(isHighTax&&gap>0) score-=12;
+    if(isTRY) score-=25; else if(isHighInf) score-=8;
+    if(isCash&&isLargeAmt) score-=8;
+    if(earn>=inf) score+=10;
+    if(earn>=inf+1) score+=5;
+    score=Math.max(0,Math.min(100,Math.round(score)));
+
+    const col=score>=70?'var(--green)':score>=40?'var(--amber)':'var(--red)';
+    const ring=document.getElementById('def-ring');
+    ring.textContent=score;
+    ring.style.color=col; ring.style.borderColor=col;
+    ring.style.background=score>=70?'var(--green-bg)':score>=40?'var(--amber-bg)':'var(--red-bg)';
+
+    const lbl=score>=80?'Well Protected — Minor Tune-Ups Available':score>=65?'Decent Defense — 1-2 Gaps to Close':score>=45?'Moderate Risk — Real Money Leaking':score>=25?'High Risk — Significant Losses Daily':'Critical — Urgent Action Required';
+    document.getElementById('def-title').textContent=lbl;
+    const annLoss=fmt(amt*(gap/100),cur);
+    document.getElementById('def-sub').textContent=inf+'% inflation · '+tax+'% tax · '+earn+'% return · '+sym+amt.toLocaleString()+' '+cur+(gap>0?' · Losing '+annLoss+'/yr':'');
+
+    const strats=[];
+    const hysaGain=fmt(amt*0.045,cur);
+    const annInflLoss=fmt(amt*(inf/100),cur);
+    const annGapLoss=fmt(amt*(gap/100),cur);
+    const sp500Gain=fmt(amt*(10-inf)/100,cur);
+
+    if(isCash) strats.push({p:'p1',icon:'🏦',name:'Move '+sym+amt.toLocaleString()+' to HYSA — stop losing '+annInflLoss+'/yr',desc:'You earn 0% while '+inf+'% inflation erases '+annInflLoss+' every year. A HYSA pays 4.5-5% with zero risk and zero lockup — that is '+hysaGain+'/yr starting this week. Takes 10 minutes online.',tag:'high',tagLabel:'HIGH IMPACT'});
+    if(isTRY) strats.push({p:'p1',icon:'💵',name:'Convert to USD or EUR immediately',desc:'At '+inf+'% inflation your local currency loses value faster than any investment can compensate. Convert savings to USD/EUR as soon as possible — this is the primary survival strategy in high-inflation economies.',tag:'high',tagLabel:'URGENT'});
+    if(isHighInf&&!isTRY) strats.push({p:'p1',icon:'🔒',name:'Buy I-Bonds — guaranteed '+inf+'% inflation match',desc:'I-Bonds are the only legally guaranteed inflation-matching investment. Max $10,000/person per year at TreasuryDirect.gov. Zero credit risk, zero inflation loss on this portion.',tag:'high',tagLabel:'GUARANTEED'});
+    if(gap>2&&!isTRY) strats.push({p:'p1',icon:'📈',name:'Index funds could recover '+annGapLoss+'/yr currently lost',desc:'Your '+earn+'% return vs '+inf+'% inflation = '+gap.toFixed(1)+'% gap = '+annGapLoss+' lost per year. S&P 500 historical ~10%/yr would generate '+sp500Gain+'/yr above inflation. Money you won\'t need for 5+ years belongs in equities.',tag:'high',tagLabel:annGapLoss+'/YR RECOVERABLE'});
+    if(isHighTax) strats.push({p:'p2',icon:'🧾',name:'Max 401(k)/IRA — your '+tax+'% bracket makes this urgent',desc:'At '+tax+'%, every $1,000 into a 401(k) saves you $'+(tax*10)+' in immediate tax — an instant '+tax+'% return before investments begin. Max limits: $23,500 (401k) + $7,000 (IRA) = $30,500/yr.',tag:'med',tagLabel:tax+'% INSTANT RETURN'});
+    if(isLargeAmt&&!isTRY) strats.push({p:'p2',icon:'🏛️',name:'T-Bills: '+fmt(amt*0.048,cur)+'/yr at government-level safety',desc:'3-6 month Treasury Bills yield 4.8-5.1%. For '+sym+amt.toLocaleString()+' that is '+fmt(amt*0.048,cur)+'/yr. Available free at TreasuryDirect.gov with no fees and no counterparty risk.',tag:'med',tagLabel:fmt(amt*0.048,cur)+'/YR AVAILABLE'});
+    strats.push({p:'p3',icon:'📊',name:'Calculate your personal inflation rate (My Inflation tab)',desc:'The headline '+inf+'% may not reflect your actual spending. If you spend heavily on housing (up 5.2%) and food (up 3.5%), your personal rate may be 1-2 points higher — changing your target return.',tag:'low',tagLabel:'AWARENESS'});
+    if(earn>0&&earn<inf){
+      const upg=fmt(amt*(Math.max(0,4.5-earn))/100,cur);
+      strats.push({p:'p3',icon:'💬',name:'You\'re leaving '+upg+'/yr behind vs best available rates',desc:'Your account earns '+earn+'% while top HYSAs pay 4.5%. On '+sym+amt.toLocaleString()+' that gap is '+upg+'/yr. Call your bank or switch. Zero risk, 10 minutes.',tag:'low',tagLabel:'+'+upg+'/YR EASY WIN'});
+    }
+
+    document.getElementById('def-list').innerHTML=strats.slice(0,6).map(s=>`
+      <div class="def-item ${s.p}">
+        <div class="def-icon">${s.icon}</div>
+        <div class="def-body">
+          <div class="def-name">${s.name}</div>
+          <div class="def-desc">${s.desc}</div>
+          <span class="def-tag ${s.tag}">${s.tagLabel}</span>
+        </div>
+      </div>`).join('');
+  }catch(e){console.error('buildDefense:',e)}
+}
+
+// ── REAL WAGE ─────────────────────────────────────────────────────
+function calcWage(){
+  const gross=parseFloat(document.getElementById('w-salary').value);
+  const hours=parseFloat(document.getElementById('w-hours').value)||40;
+  const tax=parseFloat(document.getElementById('w-tax').value);
+  const inf=parseFloat(document.getElementById('w-inf').value);
+  if(!gross||gross<=0) return;
+
+  const hrNom=gross/(hours*52);
+  const hrTax=hrNom*(1-tax/100);
+  const hrReal=hrTax*(1-inf/100);
+  const isGood=hrReal>=hrTax*.98;
+  const diff=hrNom-hrReal;
+
+  document.getElementById('w-nominal').textContent='$'+hrNom.toFixed(2)+'/hr';
+  document.getElementById('w-aftertax').textContent='$'+hrTax.toFixed(2)+'/hr';
+  document.getElementById('w-real').textContent='$'+hrReal.toFixed(2)+'/hr';
+  document.getElementById('w-real').style.color=isGood?'var(--green)':'var(--red)';
+  const rr=document.getElementById('w-real-row');
+  rr.className='wage-row '+(isGood?'real-good':'real-bad');
+
+  document.getElementById('w-insight').innerHTML=
+    'Your headline wage is <strong>$'+hrNom.toFixed(2)+'/hr</strong>. After '+tax+'% income tax and '+inf+'% inflation, your real hourly purchasing power is <strong style="color:'+(isGood?'var(--green)':'var(--red)')+'">$'+hrReal.toFixed(2)+'/hr</strong> — a gap of <strong>$'+diff.toFixed(2)+'/hr</strong> ($'+Math.round(diff*hours*52).toLocaleString()+'/yr) that tax and inflation silently take. To maintain this real wage next year, you need a raise of at least <strong>'+(inf/(1-tax/100)).toFixed(1)+'%</strong>.';
+
+  const buys=[{item:'Starbucks latte',price:7.5,icon:'☕'},{item:'Gallon of gas',price:3.4,icon:'⛽'},{item:'Grocery items (avg)',price:8,icon:'🛒'},{item:'Netflix month',price:15.5,icon:'📺'},{item:'Fast food combo',price:12,icon:'🍔'},{item:'1 Uber mile',price:2.5,icon:'🚗'}];
+  document.getElementById('w-buys').innerHTML=buys.map(b=>{
+    const qty=hrReal/b.price;
+    return '<div class="stat-box"><div class="sb-label">'+b.icon+' '+b.item+'</div><div class="sb-val '+(qty>=1?'green':'red')+'">'+(qty>=1?qty.toFixed(1)+'×':Math.round(qty*100)+'%')+'</div></div>';
+  }).join('');
+  document.getElementById('wage-result').style.display='block';
+}
+
+// ── PERSONAL INFLATION ────────────────────────────────────────────
+function renderPersonal(){
+  const grid=document.getElementById('pi-grid');
+  if(!grid||grid.innerHTML) return;
+  grid.innerHTML=CPI_COMPS.map(c=>`
+    <div class="pi-item">
+      <div class="pi-name">${c.icon} ${c.name}</div>
+      <div class="pi-row">
+        <input type="range" class="pi-slider" id="pi-${c.key}" min="0" max="60" value="${c.weight}" oninput="updatePiTotal()">
+        <div class="pi-val" id="piv-${c.key}">${c.weight}%</div>
+      </div>
+    </div>`).join('');
+
+  const comp=document.getElementById('cpi-components');
+  if(comp) comp.innerHTML=CPI_COMPS.map(c=>`
+    <div class="cpi-comp-row">
+      <span class="cpi-comp-name">${c.icon} ${c.name}</span>
+      <div class="cpi-comp-right">
+        <span class="cpi-comp-wt">CPI weight: ${c.weight}%</span>
+        <span class="cpi-comp-rate" style="color:${c.rate<0?'var(--green)':c.rate>5?'var(--red)':'var(--amber)'}">${c.rate>0?'+':''}${c.rate}%</span>
+      </div>
+    </div>`).join('');
+  updatePiTotal();
+}
+
+function updatePiTotal(){
+  let total=0;
+  CPI_COMPS.forEach(c=>{
+    const v=parseInt(document.getElementById('pi-'+c.key)?.value||c.weight);
+    const el=document.getElementById('piv-'+c.key);
+    if(el) el.textContent=v+'%';
+    total+=v;
+  });
+  const ch=document.getElementById('pi-total-check');
+  if(ch){ch.textContent='Total: '+total+'% '+(total===100?'✓':'— adjust to reach 100%');ch.style.color=total===100?'var(--green)':'var(--amber)';}
+}
+
+function calcPersonal(){
+  let total=0,weighted=0;
+  CPI_COMPS.forEach(c=>{
+    const v=parseInt(document.getElementById('pi-'+c.key)?.value||c.weight);
+    total+=v; weighted+=v*c.rate;
+  });
+  const myRate=total>0?(weighted/total):3.81;
+  const diff=myRate-3.81;
+  const col=myRate>5?'var(--red)':myRate>3?'var(--amber)':'var(--green)';
+  document.getElementById('pi-rate').textContent=myRate.toFixed(2)+'%';
+  document.getElementById('pi-rate').style.color=col;
+  document.getElementById('pi-yours').textContent=myRate.toFixed(2)+'%';
+  document.getElementById('pi-yours').style.color=col;
+  document.getElementById('pi-gap').innerHTML='<span style="color:'+(diff>0?'var(--red)':'var(--green)')+'">'+(diff>=0?'+':'')+diff.toFixed(2)+'%</span>';
+  document.getElementById('pi-loss').textContent='$'+Math.round(100000*myRate/100).toLocaleString();
+  const res=document.getElementById('pi-result');
+  res.style.display='flex';
+}
+
+// ── WORLD PAIN ────────────────────────────────────────────────────
+function renderWorld(){
+  const tbl=document.getElementById('country-tbl');
+  if(!tbl||tbl.innerHTML) return;
+  const sorted=[...COUNTRIES].sort((a,b)=>(b.inf+b.tax)-(a.inf+a.tax));
+  const maxPain=sorted[0].inf+sorted[0].tax;
+  tbl.innerHTML='<thead><tr><th>#</th><th>Country</th><th>Inflation</th><th>Top Tax</th><th>Combined Pain</th><th>Note</th></tr></thead><tbody>'+
+    sorted.map((c,i)=>{
+      const pain=c.inf+c.tax,pct=pain/maxPain*100;
+      const col=pain>60?'#DC2626':pain>40?'#D97706':'#059669';
+      return '<tr><td><span class="rank-num" style="background:'+col+'">'+(i+1)+'</span></td>'+
+        '<td><strong>'+c.flag+' '+c.name+'</strong></td>'+
+        '<td style="font-family:\'Space Mono\',monospace;color:var(--amber);font-weight:700">'+c.inf+'%</td>'+
+        '<td style="font-family:\'Space Mono\',monospace;color:var(--blue);font-weight:700">'+c.tax+'%</td>'+
+        '<td><span style="font-family:\'Space Mono\',monospace;font-weight:700;color:'+col+'">'+pain.toFixed(1)+'%</span>'+
+        '<div class="pain-bar-wrap"><div class="pain-bar-fill" style="width:'+pct+'%;background:'+col+'"></div></div></td>'+
+        '<td style="font-size:11px;color:var(--t3)">'+c.note+'</td></tr>';
+    }).join('')+'</tbody>';
+
+  const ctx=document.getElementById('worldChart').getContext('2d');
+  if(worldChart) worldChart.destroy();
+  const top10=[...COUNTRIES].sort((a,b)=>b.inf-a.inf).slice(0,10);
+  worldChart=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:top10.map(c=>c.flag+' '+c.name),
+      datasets:[
+        {label:'Inflation %',data:top10.map(c=>c.inf),backgroundColor:'rgba(220,38,38,.7)',borderRadius:4},
+        {label:'Top Tax Rate %',data:top10.map(c=>c.tax),backgroundColor:'rgba(37,99,235,.35)',borderRadius:4},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#374151',font:{family:'Inter',size:11}}},
+        tooltip:{backgroundColor:'#1F2937',borderColor:'#374151',borderWidth:1,titleColor:'#F9FAFB',bodyColor:'#D1D5DB'}},
+      scales:{
+        x:{grid:{color:'#F3F4F6'},ticks:{color:'#6B7280',font:{size:11}}},
+        y:{grid:{color:'#F3F4F6'},ticks:{color:'#6B7280',font:{family:'Space Mono',size:10},callback:v=>v+'%'}}
+      }
+    }
+  });
+}
+
+// ── REPORT ────────────────────────────────────────────────────────
+let projChartInst=null;
+function renderReport(){
+  const now=new Date();
+  const doy=Math.floor((now-new Date(now.getFullYear(),0,0))/864e5);
+  const insight=INSIGHTS[doy%INSIGHTS.length];
+  document.getElementById('insight-date').textContent=now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('insight-txt').textContent=insight.txt;
+  document.getElementById('insight-impact').textContent='→ '+insight.impact;
+
+  if(!st.amount||st.amount<=0){
+    document.getElementById('report-empty').style.display='block';
+    document.getElementById('report-content').style.display='none';
+    return;
+  }
+  document.getElementById('report-empty').style.display='none';
+  document.getElementById('report-content').style.display='block';
+
+  const sym=SYM[st.currency]||'$';
+  const inf=st.inf,tax=st.tax,earn=st.earn,amt=st.amount,cur=st.currency;
+  const gap=Math.max(inf-earn,0);
+  const annLoss=amt*(gap/100);
+  const annLossNet=annLoss*(1-(tax/100)*0.5);
+
+  let score=100;
+  if(gap>0) score-=Math.min(gap*9,45);
+  if(earn===0) score-=20; else if(earn<inf*0.5) score-=10;
+  if(tax>=32&&gap>0) score-=12;
+  if(cur==='TRY'||cur==='BRL'||cur==='INR') score-=25; else if(inf>=5) score-=8;
+  if(earn>=inf) score+=10;
+  score=Math.max(0,Math.min(100,Math.round(score)));
+  const col=score>=70?'var(--green)':score>=40?'var(--amber)':'var(--red)';
+
+  const fiveYrNom=amt*Math.pow(1+earn/100,5);
+  const fiveYrReal=amt*Math.pow(1+(earn-inf)/100,5);
+  const fiveYrSP=amt*Math.pow(1+(10-inf)/100,5);
+
+  document.getElementById('rpt-date').textContent=now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('rpt-score').textContent=score;
+  document.getElementById('rpt-score').style.color=col;
+  document.getElementById('rpt-annual').textContent='–'+fmt(annLoss,cur)+'/yr';
+  document.getElementById('rpt-net').textContent='After-tax real loss: –'+fmt(annLossNet,cur)+'/yr';
+  document.getElementById('rpt-day').textContent='–'+fmt(annLoss/365,cur);
+  document.getElementById('rpt-inf').textContent=inf+'%';
+  document.getElementById('rpt-tax').textContent=tax+'%';
+  document.getElementById('rpt-5nominal').textContent=fmt(fiveYrNom,cur);
+  document.getElementById('rpt-5real').textContent=fmt(Math.max(0,fiveYrReal),cur)+' (–'+fmt(Math.max(0,amt-fiveYrReal),cur)+')';
+  document.getElementById('rpt-5sp').textContent=fmt(fiveYrSP,cur)+' (+'+fmt(fiveYrSP-amt,cur)+')';
+
+  let action='';
+  if(earn===0) action='Move your '+sym+amt.toLocaleString()+' to a High-Yield Savings Account. You are losing '+fmt(annLoss,cur)+'/yr to inflation for free. A HYSA pays 4.5-5% with zero risk.';
+  else if(gap>2) action='Move savings not needed for 5+ years into an S&P 500 index fund. Your '+earn+'% return vs '+inf+'% inflation costs '+fmt(annLoss,cur)+'/yr. Index funds historically return ~10%/yr.';
+  else if(tax>=32) action='Maximize 401(k) and IRA contributions. At '+tax+'%, every $1,000 contributed saves $'+(tax*10)+' in immediate tax — your highest-return available move right now.';
+  else action='Your setup is above average. Fine-tune: calculate your personal inflation rate (My Inflation tab) and ensure your account pays at least 4.5%.';
+  document.getElementById('rpt-action').textContent=action;
+
+  document.getElementById('sl-inf').value=inf;
+  document.getElementById('sl-earn').value=earn;
+  document.getElementById('sl-inf-val').textContent=inf.toFixed(1);
+  document.getElementById('sl-earn-val').textContent=earn.toFixed(1);
+  updateProj();
+}
+
+function updateProj(){
+  const infV=parseFloat(document.getElementById('sl-inf').value);
+  const earnV=parseFloat(document.getElementById('sl-earn').value);
+  document.getElementById('sl-inf-val').textContent=infV.toFixed(1);
+  document.getElementById('sl-earn-val').textContent=earnV.toFixed(1);
+  const amt=st.amount||100000,cur=st.currency||'USD';
+  const years=Array.from({length:11},(_,i)=>i);
+  const labels=years.map(y=>y===0?'Now':"'"+String(new Date().getFullYear()+y).slice(2));
+  const sc=[
+    {label:'Cash (nominal)',color:'#DC2626',rate:(earnV-infV)/100},
+    {label:'Gold (~7% real)',color:'#D97706',rate:(7-infV)/100},
+    {label:'S&P 500 (~10% real)',color:'#2563EB',rate:(10-infV)/100},
+    {label:'I-Bond (real 0%)',color:'#0891B2',rate:0,dash:[4,4]},
+  ];
+  const datasets=sc.map(s=>({
+    label:s.label,
+    data:years.map(y=>Math.round(amt*Math.pow(1+s.rate,y))),
+    borderColor:s.color,backgroundColor:'transparent',
+    borderWidth:1.5,pointRadius:0,tension:.3,borderDash:s.dash||[],
+  }));
+  const ctx=document.getElementById('projChart').getContext('2d');
+  if(projChartInst) projChartInst.destroy();
+  projChartInst=new Chart(ctx,{
+    type:'line',data:{labels,datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1F2937',borderColor:'#374151',borderWidth:1,titleColor:'#F9FAFB',bodyColor:'#D1D5DB',callbacks:{label:c=>' '+c.dataset.label+': '+fmt(c.raw,cur)}}},
+      scales:{
+        x:{grid:{color:'#F3F4F6'},ticks:{color:'#9CA3AF',font:{family:'Space Mono',size:10}}},
+        y:{grid:{color:'#F3F4F6'},ticks:{color:'#9CA3AF',font:{family:'Space Mono',size:10},callback:v=>fmt(v,cur)}}
+      }
+    }
+  });
+  document.getElementById('proj-legend').innerHTML=sc.map(s=>`
+    <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t2);font-weight:500">
+      <div style="width:18px;height:3px;background:${s.color};border-radius:2px"></div>${s.label}
+    </div>`).join('');
+}
+
+// ── SHARE ─────────────────────────────────────────────────────────
+function shareTwt(){
+  const pY=lossPS*YS;
+  const sym=SYM[st.currency]||'$';
+  const txt=
+    sym+st.amount.toLocaleString()+' '+st.currency+' loses '+fmt(pY,st.currency)+'/yr to inflation\n'+
+    'Inflation: '+st.inf+'% | Tax bracket: '+st.tax+'%\n'+
+    'Watch it burn live 🔥\n'+
+    'https://inflationclock.com/';
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(txt),'_blank');
+}
+function copyLnk(){
+  const url='https://inflationclock.com/';
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(()=>toast('Link copied 🔥')).catch(()=>copyFallback(url));
+  } else { copyFallback(url); }
+}
+function copyFallback(text){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{document.execCommand('copy');toast('Link copied 🔥');}catch(e){toast('Copy failed — visit inflationclock.com');}
+  document.body.removeChild(ta);
+}
+function shareRpt(){
+  const pY=lossPS*YS;
+  const score=document.getElementById('rpt-score')?document.getElementById('rpt-score').textContent:'—';
+  const sym=SYM[st.currency]||'$';
+  const txt=
+    'My '+sym+st.amount.toLocaleString()+' in '+st.currency+' loses '+fmt(pY,st.currency)+'/yr to inflation.\n'+
+    'Defense score: '+score+'/100\n'+
+    'See your damage live 🔥\n'+
+    'https://inflationclock.com/';
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(txt),'_blank');
+}
+function copyRptLink(){
+  const url='https://inflationclock.com/';
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(()=>toast('Link copied — share the damage 🔥')).catch(()=>copyFallback(url));
+  } else { copyFallback(url); }
+}
+function dlRpt(){
+  // Build a clean off-screen card to capture as PNG
+  const sym=SYM[st.currency]||'$';
+  const pY=lossPS*YS, pYn=netLossPS*YS;
+  const gap=Math.max(st.inf-st.earn,0);
+  const fiveYrReal=fmt(Math.max(0,st.amount*Math.pow(1+(st.earn-st.inf)/100,5)),st.currency);
+  const fiveYrSP=fmt(st.amount*Math.pow(1+(10-st.inf)/100,5),st.currency);
+  const score=document.getElementById('rpt-score')?document.getElementById('rpt-score').textContent:'—';
+  const scoreCol=parseInt(score)>=70?'#059669':parseInt(score)>=40?'#D97706':'#DC2626';
+  const now=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const action=document.getElementById('rpt-action')?document.getElementById('rpt-action').textContent:'';
+
+  const wrap=document.createElement('div');
+  wrap.style.cssText='position:fixed;left:-9999px;top:0;width:480px;font-family:Inter,sans-serif;background:#F3F4F6;padding:24px;box-sizing:border-box;';
+  wrap.innerHTML=`
+    <div style="background:#fff;border-radius:14px;border:2px solid #DC2626;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.1)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+        <div>
+          <div style="font-family:monospace;font-size:11px;letter-spacing:3px;color:#DC2626;font-weight:700;text-transform:uppercase">🔥 MONEY BURN · Personal Report</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:4px;font-family:monospace">${now}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#6B7280;font-family:monospace;font-weight:700">Defense Score</div>
+          <div style="font-family:monospace;font-size:38px;font-weight:700;line-height:1;color:${scoreCol}">${score}</div>
+          <div style="font-size:10px;color:#9CA3AF;font-family:monospace">/ 100</div>
+        </div>
+      </div>
+      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;padding:16px;margin-bottom:16px">
+        <div style="font-family:monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#DC2626;font-weight:700;margin-bottom:6px">Annual Purchasing Power Loss</div>
+        <div style="font-family:monospace;font-size:38px;font-weight:700;color:#DC2626;letter-spacing:-1px;line-height:1">–${fmt(pY,st.currency)}/yr</div>
+        <div style="font-family:monospace;font-size:13px;color:#D97706;margin-top:5px;font-weight:700">After-tax real loss: –${fmt(pYn,st.currency)}/yr</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-family:monospace;font-weight:700;margin-bottom:4px">Per Day</div>
+          <div style="font-family:monospace;font-size:15px;font-weight:700;color:#DC2626">–${fmt(pY/365,st.currency)}</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-family:monospace;font-weight:700;margin-bottom:4px">Inflation</div>
+          <div style="font-family:monospace;font-size:15px;font-weight:700;color:#D97706">${st.inf}%</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-family:monospace;font-weight:700;margin-bottom:4px">Tax Bracket</div>
+          <div style="font-family:monospace;font-size:15px;font-weight:700;color:#2563EB">${st.tax}%</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:8px;padding:14px;margin-bottom:16px">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#6B7280;font-family:monospace;font-weight:700;margin-bottom:10px">5-Year Projection — If Nothing Changes</div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #E5E7EB;font-size:13px"><span style="color:#111827;font-weight:500">📉 Real purchasing power</span><span style="font-family:monospace;font-weight:700;color:#DC2626">${fiveYrReal}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:13px"><span style="color:#111827;font-weight:500">📈 If in S&P 500 (~10%/yr)</span><span style="font-family:monospace;font-weight:700;color:#059669">${fiveYrSP}</span></div>
+      </div>
+      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:14px;margin-bottom:16px">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#DC2626;font-family:monospace;font-weight:700;margin-bottom:6px">🎯 #1 Priority Action</div>
+        <div style="font-size:13px;color:#111827;line-height:1.6;font-weight:500">${action}</div>
+      </div>
+      <div style="text-align:center;font-family:monospace;font-size:10px;color:#9CA3AF;letter-spacing:2px">inflationclock.com · Not financial advice</div>
+    </div>`;
+  document.body.appendChild(wrap);
+
+  html2canvas(wrap,{scale:2,backgroundColor:'#F3F4F6',useCORS:true,logging:false}).then(canvas=>{
+    document.body.removeChild(wrap);
+    const link=document.createElement('a');
+    link.download='money-burn-report-'+new Date().toISOString().slice(0,10)+'.png';
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+    toast('Report image downloaded 📸');
+  }).catch(err=>{
+    document.body.removeChild(wrap);
+    console.error('Screenshot failed:',err);
+    toast('Download failed — try again');
+  });
+}
+function dlReport(){dlRpt()}
+
+// ── FLAME ─────────────────────────────────────────────────────────
+try{(function(){
+  const cv=document.getElementById('fc'),ctx=cv.getContext('2d');
+  let W,H,ps=[];
+  function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+  window.addEventListener('resize',resize);resize();
+  function rand(a,b){return a+Math.random()*(b-a)}
+  function spawn(){ps.push({x:rand(0,W),y:H+8,vx:rand(-.4,.4),vy:rand(-1.4,-.6),life:1,decay:rand(.003,.007),size:rand(2,6),hue:rand(0,18)})}
+  function frame(){
+    ctx.clearRect(0,0,W,H);if(ps.length<50)spawn();
+    for(let i=ps.length-1;i>=0;i--){
+      const p=ps[i];p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;
+      if(p.life<=0){ps.splice(i,1);continue}
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.size);
+      g.addColorStop(0,'hsla('+p.hue+',100%,55%,'+(p.life*.4)+')');
+      g.addColorStop(1,'hsla('+p.hue+',100%,30%,0)');
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+})()}catch(e){console.warn('Flame:',e)}
+
+// ── ENTER KEYS ────────────────────────────────────────────────────
+try{document.getElementById('amount').addEventListener('keydown',e=>{if(e.key==='Enter')ignite()})}catch(e){}
+try{document.getElementById('w-salary').addEventListener('keydown',e=>{if(e.key==='Enter')calcWage()})}catch(e){}
+
+// ── INIT ──────────────────────────────────────────────────────────
+try{initQuiz()}catch(e){console.error('initQuiz:',e)}
+try{initCPI()}catch(e){console.error('initCPI:',e)}
+try{checkRet()}catch(e){console.error('checkRet:',e)}
+try{initCommunity()}catch(e){console.error('initCommunity:',e)}
 </script>
 <script>
 /* ── MY TYPE (MBTI) ── */
@@ -1654,5 +2449,5 @@ function mbtiRestart() {
   mbtiRenderQ();
 }
 </script>
-
 </body>
+</html>
