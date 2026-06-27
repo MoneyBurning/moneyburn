@@ -1057,6 +1057,39 @@ footer{
   .logo{font-size:12px}
 }
 </style>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "xdsjjo0omr");
+</script>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5XKZHYJ52J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5XKZHYJ52J');
+</script>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Money Burn — Real-Time Inflation & Tax Damage Tracker",
+  "url": "https://inflationclock.com",
+  "description": "See exactly how much inflation and taxes are destroying your money — live, every second. Real-time purchasing power loss calculator with personal inflation rate, real wage, and damage report.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "author": {"@type": "Organization", "name": "inflationclock.com"}
+}
+</script>
+
 </head>
 <body>
 
@@ -2097,6 +2130,7 @@ function showPage(id){
     // Journey bar
     updateJourneyBar(id);
     markVisited(id);
+    gtag('event','page_view_tab',{tab:id});
   }catch(e){console.error('showPage error:',e)}
 }
 
@@ -2669,6 +2703,7 @@ function copyFallback(text){
   document.body.removeChild(ta);
 }
 function shareRpt(){
+  gtag('event','share_result',{method:'twitter',page:'report'});
   const pY=lossPS*YS;
   const score=document.getElementById('rpt-score')?document.getElementById('rpt-score').textContent:'—';
   const sym=SYM[st.currency]||'$';
@@ -2686,6 +2721,7 @@ function copyRptLink(){
   } else { copyFallback(url); }
 }
 function dlRpt(){
+  gtag('event','download_report');
   // Build a clean off-screen card to capture as PNG
   const sym=SYM[st.currency]||'$';
   const pY=lossPS*YS, pYn=netLossPS*YS;
@@ -2865,6 +2901,7 @@ function igniteWithLoading(){
       const nc=document.getElementById('dash-next-cta');
       if(nc) nc.style.display='flex';
     },300);
+    gtag('event','calculate_damage',{currency:document.getElementById('currency').value});
   },1300);
 }
 
@@ -2930,6 +2967,7 @@ function submitEmail(){
     .finally(()=>{
       document.getElementById('email-sub-form-wrap').style.display='none';
       document.getElementById('email-sub-success').style.display='block';
+      gtag('event','email_signup');
       toast('Subscribed! 🔥');
     });
 }
@@ -2982,6 +3020,7 @@ function sleepQuick(hours){
 }
 
 function calcSleep(){
+  gtag('event','sleep_calculator');
   const bedH=parseInt(document.getElementById('sl-bed-h').value);
   const bedM=parseInt(document.getElementById('sl-bed-m').value);
   const wakeH=parseInt(document.getElementById('sl-wake-h').value);
@@ -3264,6 +3303,7 @@ function mbtiSelect(i) {
 }
 
 function mbtiShowResult() {
+  gtag('event','complete_mbti');
   const topId = Object.entries(mbtiScores).sort((a,b) => b[1]-a[1])[0][0];
   const t = MBTI_TYPES.find(x => x.id === topId);
   document.getElementById('mbti-quiz').style.display = 'none';
