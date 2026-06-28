@@ -956,6 +956,49 @@ h1 em{color: var(--red); font-style: normal}
   background:var(--green); animation:none;
 }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── ACTION PLAN ── */
+.action-plan{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px;
+  margin-top:8px; display:none; box-shadow:var(--shadow);
+}
+.action-plan-eyebrow{
+  font-family:'Space Mono',monospace; font-size:9px;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--t3); font-weight:700; margin-bottom:10px;
+}
+.action-plan-country{
+  font-size:15px; font-weight:700; color:var(--t1);
+  margin-bottom:14px; display:flex; align-items:center; gap:8px;
+}
+.action-steps{display:flex; flex-direction:column; gap:8px}
+.action-step{
+  background:var(--card2); border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:14px 16px;
+  display:flex; gap:14px; align-items:flex-start;
+}
+.action-step-num{
+  font-family:'Space Mono',monospace; font-size:11px;
+  font-weight:700; color:var(--red); min-width:22px; padding-top:2px;
+}
+.action-step-title{font-size:13px; font-weight:700; color:var(--t1); margin-bottom:3px}
+.action-step-desc{font-size:12px; color:var(--t2); line-height:1.6}
+.action-step-tag{
+  display:inline-block; font-size:9px; font-weight:700;
+  font-family:'Space Mono',monospace; letter-spacing:1px;
+  text-transform:uppercase; border-radius:4px; padding:2px 7px; margin-top:5px;
+}
+.tag-now{background:#FEE2E2; color:var(--red)}
+.tag-month{background:#FEF3C7; color:#92400E}
+.tag-year{background:#D1FAE5; color:#065F46}
+.action-urgent{
+  background:#FEF2F2; border:1px solid #FECACA;
+  border-left:4px solid var(--red); border-radius:var(--radius-sm);
+  padding:12px 16px; font-size:13px; color:var(--t1);
+  line-height:1.6; margin-bottom:10px; font-weight:600;
+}
+
 .email-subscribe{
   background:var(--card);
   border:1px solid var(--border);
@@ -1365,6 +1408,14 @@ footer{
   </div>
 
   <!-- NEXT: shown after Calculate -->
+  <!-- ACTION PLAN — shown after Calculate -->
+  <div class="action-plan" id="action-plan">
+    <div class="action-plan-eyebrow">🛡️ Your Personalized Action Plan</div>
+    <div class="action-plan-country" id="ap-country"></div>
+    <div id="ap-urgent"></div>
+    <div class="action-steps" id="ap-steps"></div>
+  </div>
+
   <div class="next-cta" id="dash-next-cta" style="display:none">
     <span class="next-cta-label">② Up next</span>
     <button class="next-cta-btn" onclick="journeyNext('wage')">
@@ -2909,10 +2960,11 @@ function igniteWithLoading(){
       if(el){el.classList.remove('visible','done-step');const d=el.querySelector('.ignite-dot');if(d)d.style.animation='';}
     });
     ignite();
-    // Show next CTA after results load
+    // Show next CTA and action plan after results load
     setTimeout(()=>{
       const nc=document.getElementById('dash-next-cta');
       if(nc) nc.style.display='flex';
+      renderActionPlan(document.getElementById('currency').value);
     },300);
     gtag('event','calculate_damage',{currency:document.getElementById('currency').value});
   },1300);
@@ -2957,6 +3009,131 @@ function shareCompletion(){
   const score=document.getElementById('completion-score')?.textContent||'—';
   const txt='I just completed Money Burn.\n\nMy Total Damage Score: '+score+'/100\n\nSee how much inflation is burning YOUR money:\ninflationclock.com';
   window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(txt),'_blank');
+}
+
+// ── ACTION PLAN ──────────────────────────────────────────────────
+const ACTION_PLANS={
+  USD:{flag:'🇺🇸',country:'United States',urgent:null,steps:[
+    {time:'now',  title:'Move cash to a High-Yield Savings Account',desc:'Big bank savings pay 0.5%. HYSA accounts (Marcus, Ally, SoFi) pay 4.5–5%. Same FDIC insurance. Takes 10 minutes to open.'},
+    {time:'month',title:'Start automatic investing in S&P 500 ETF', desc:'VOO or SPY — set up a recurring buy of any amount. Historical real return ~7%/yr after inflation. Time in market beats timing the market.'},
+    {time:'month',title:'Maximize tax-advantaged accounts',          desc:'401(k) to employer match (free money). Then Roth IRA ($7,000/yr limit). Taxes saved = inflation hedge built in.'},
+    {time:'year', title:'Buy I-Bonds up to $10,000/yr',             desc:'US Treasury I-Bonds pay inflation rate + fixed rate. Guaranteed to beat CPI. Purchase at TreasuryDirect.gov.'},
+  ]},
+  EUR:{flag:'🇪🇺',country:'Eurozone',urgent:null,steps:[
+    {time:'now',  title:'Move savings to a high-rate savings account',desc:'Many EU banks offer 3–4% on term deposits. Compare rates on Raisin.eu before your money sits idle.'},
+    {time:'month',title:'Invest in a Euro-denominated world ETF',    desc:'iShares Core MSCI World (IWDA) or Vanguard FTSE All-World (VWRL). Globally diversified, available on most EU brokers.'},
+    {time:'month',title:'Use your annual tax-free allowance',        desc:'Many EU countries offer tax-advantaged investment accounts. Check your country\'s equivalent — PEA in France, Depot in Germany.'},
+    {time:'year', title:'Consider inflation-linked bonds',           desc:'EU governments issue inflation-linked bonds (OATi, BTPei). They pay principal adjusted for actual CPI.'},
+  ]},
+  GBP:{flag:'🇬🇧',country:'United Kingdom',urgent:null,steps:[
+    {time:'now',  title:'Open a Cash ISA or Stocks & Shares ISA',   desc:'ISA allowance is £20,000/yr — all growth tax-free forever. Moneybox, Vanguard UK, or Hargreaves Lansdown take 10 minutes to set up.'},
+    {time:'now',  title:'Check NS&I Premium Bonds',                  desc:'100% government-backed. Tax-free prizes equivalent to ~4.4% for average holders. Max £50,000. No risk to capital.'},
+    {time:'month',title:'Invest in FTSE All-World or S&P 500 ETF',  desc:'Vanguard FTSE Global All Cap or iShares Core S&P 500. Low cost, globally diversified. Set up a monthly direct debit.'},
+    {time:'year', title:'Maximise your pension contributions',       desc:'Government adds 20% tax relief on top. Higher rate taxpayers get 40%. Most powerful inflation hedge available to UK workers.'},
+  ]},
+  JPY:{flag:'🇯🇵',country:'Japan',urgent:null,steps:[
+    {time:'now',  title:'Open a NISA account immediately',           desc:'New NISA allows ¥3.6M/yr in tax-free investing — growth and dividends never taxed. Available at SBI, Rakuten, Monex.'},
+    {time:'month',title:'Invest in global ETFs via NISA',            desc:'eMAXIS Slim 全世界株式 (All Country) — Japan\'s most popular low-cost global fund. Yen weakness makes global assets stronger in JPY terms.'},
+    {time:'month',title:'Start iDeCo for retirement',                desc:'Individual-type Defined Contribution pension. Contributions are tax-deductible. Reduces income tax now while building inflation-protected assets.'},
+    {time:'year', title:'Consider foreign currency assets',          desc:'With JPY weak and Japan\'s inflation rising, holding some USD or EUR assets provides a hedge against further yen depreciation.'},
+  ]},
+  KRW:{flag:'🇰🇷',country:'South Korea',urgent:null,steps:[
+    {time:'now',  title:'파킹통장으로 즉시 이동',                      desc:'카카오뱅크·토스뱅크 파킹통장은 연 3.5~4% 제공. 일반 은행 예금보다 훨씬 높음. 오늘 앱에서 10분이면 개설 가능.'},
+    {time:'month',title:'ISA 계좌 개설 후 ETF 투자',                 desc:'개인종합자산관리계좌(ISA)는 연 2,000만원까지 비과세. KODEX 200, TIGER 미국S&P500 ETF로 인플레이션 헤지.'},
+    {time:'month',title:'연금저축/IRP 세액공제 활용',                 desc:'연금저축 연 400만원 + IRP 300만원 = 최대 700만원 세액공제. 13.2~16.5% 환급. 인플레이션보다 강력한 수익.'},
+    {time:'year', title:'리츠(REITs) 또는 부동산 ETF 편입',          desc:'실물 부동산 없이도 부동산 수익에 노출 가능. TIGER 부동산인프라고배당, KODEX 글로벌리얼티 등 고려.'},
+  ]},
+  CAD:{flag:'🇨🇦',country:'Canada',urgent:null,steps:[
+    {time:'now',  title:'Maximize your TFSA contribution',           desc:'Tax-Free Savings Account — all growth and withdrawals tax-free. 2024 limit: $7,000. Open at any bank or Wealthsimple.'},
+    {time:'month',title:'Invest in low-cost index ETFs',             desc:'XEQT or VEQT (all-in-one equity ETFs) — globally diversified, auto-rebalancing, MER under 0.25%. Available on Questrade commission-free.'},
+    {time:'month',title:'Contribute to RRSP for tax refund',         desc:'RRSP contributions reduce your taxable income now. Get a refund this spring and invest it.'},
+    {time:'year', title:'Consider real return bonds',                desc:'Government of Canada Real Return Bonds adjust principal with CPI. Direct inflation protection.'},
+  ]},
+  AUD:{flag:'🇦🇺',country:'Australia',urgent:null,steps:[
+    {time:'now',  title:'Check your super fund performance',         desc:'Many Australians leave money in underperforming default funds. Switch to a high-growth option (Australian Super, Hostplus).'},
+    {time:'now',  title:'Open a high-interest savings account',      desc:'ING, Macquarie, and UBank currently offer 5%+ on savings. Compare at Canstar.com.au.'},
+    {time:'month',title:'Invest via ETF platform',                   desc:'Stake, Pearler, or Selfwealth offer low-cost ASX and US ETF access. VGS (global) or VAS (Australian) are popular starting points.'},
+    {time:'year', title:'Make voluntary super contributions',        desc:'Concessional contributions taxed at 15% vs your marginal rate. Every dollar contributed saves tax and beats inflation.'},
+  ]},
+  CHF:{flag:'🇨🇭',country:'Switzerland',urgent:null,steps:[
+    {time:'now',  title:'Utilise your Pillar 3a pension account',    desc:'Contributions up to CHF 7,056/yr are tax-deductible. Invest in equity funds within 3a for real returns above inflation.'},
+    {time:'month',title:'Invest in global index funds',              desc:'IBKR or Swissquote offer access to VT or VWRL. CHF is strong — global equities give inflation protection without currency risk.'},
+    {time:'month',title:'Consider Swiss real estate funds',          desc:'UBS Swiss Real Estate Fund provides inflation-linked returns accessible without owning property.'},
+    {time:'year', title:'Maximise Pillar 2 buybacks',               desc:'Voluntary buybacks into occupational pension are tax-deductible at marginal rate — one of Switzerland\'s most powerful tax tools.'},
+  ]},
+  CNY:{flag:'🇨🇳',country:'China',urgent:null,steps:[
+    {time:'now',  title:'Move idle cash to money market funds',      desc:'Yu\'E Bao and similar platforms offer ~2% annualised. Much better than standard bank deposits with full liquidity.'},
+    {time:'month',title:'Invest in broad A-share index funds',       desc:'CSI 300 or CSI 500 index funds through Alipay or major brokers. Low cost, diversified exposure to China\'s largest companies.'},
+    {time:'month',title:'Consider gold as inflation hedge',          desc:'Gold ETFs (Hua An Gold ETF) are accessible and have historically preserved purchasing power in China.'},
+    {time:'year', title:'Explore QDII funds for global diversification',desc:'QDII funds allow Chinese investors to access overseas markets (US, HK, Europe). Reduces concentration in CNY assets.'},
+  ]},
+  INR:{flag:'🇮🇳',country:'India',urgent:null,steps:[
+    {time:'now',  title:'Start a Systematic Investment Plan (SIP)',  desc:'₹500/month into a Nifty 50 or flexi-cap mutual fund via Zerodha Coin, Groww, or Paytm Money. Small amounts compound significantly.'},
+    {time:'now',  title:'Move idle savings to liquid mutual funds',  desc:'Liquid funds offer 6–7% with next-day redemption. Far better than savings accounts while remaining accessible.'},
+    {time:'month',title:'Open a PPF account',                        desc:'Public Provident Fund: 7.1% guaranteed by government, tax-free returns, EEE status. ₹1.5L/yr limit.'},
+    {time:'year', title:'Consider NPS for retirement + tax savings', desc:'National Pension System: additional ₹50,000 deduction under 80CCD(1B). Equity exposure beats inflation long-term.'},
+  ]},
+  BRL:{flag:'🇧🇷',country:'Brazil',urgent:null,steps:[
+    {time:'now',  title:'Invest in Tesouro IPCA+',                   desc:'Brazilian government bonds linked directly to IPCA (inflation index) + a real rate. 100% government-guaranteed. Buy at any bank.'},
+    {time:'now',  title:'Move cash to IPCA-linked CDB',              desc:'Certificates of Deposit linked to CDI or IPCA beat standard poupança significantly. Compare on Renda Fixa platforms.'},
+    {time:'month',title:'Invest in BDRs for international exposure', desc:'Brazilian Depositary Receipts let you invest in Apple, Amazon, Google in BRL. Hedge against currency devaluation.'},
+    {time:'year', title:'Contribute to PGBL or VGBL pension',        desc:'PGBL offers income tax deduction up to 12% of gross income. Long-term equity compounding beats inflation historically.'},
+  ]},
+  MXN:{flag:'🇲🇽',country:'Mexico',urgent:null,steps:[
+    {time:'now',  title:'Invest in CETES (government bonds)',         desc:'Mexican government bonds currently paying ~10%+. Available directly at cetesdirecto.com with no fees. No minimum.'},
+    {time:'now',  title:'Review your AFORE pension allocation',       desc:'Switch to a higher-return SIEFORE fund if under 45. The allocation difference can mean 30–40% more at retirement.'},
+    {time:'month',title:'Open a brokerage account for ETFs',          desc:'GBM or Kuspit offer access to Mexican and US ETFs. NAFTRAC (IPC) or VOO for global diversification.'},
+    {time:'year', title:'Dollar-cost average into USD assets',        desc:'MXN volatility is high. Holding some savings in USD or dollar-denominated assets protects against peso depreciation.'},
+  ]},
+  ZAR:{flag:'🇿🇦',country:'South Africa',urgent:null,steps:[
+    {time:'now',  title:'Open a Tax-Free Savings Account (TFSA)',     desc:'R36,000/yr, R500,000 lifetime — all returns tax-free. Use for index funds, not cash. Available at Easy Equities, Allan Gray.'},
+    {time:'now',  title:'Invest in RSA Retail Savings Bonds',         desc:'Government-backed, higher rates than bank deposits. CPI-linked option available. No risk to capital. Buy online at RSA Retail Bonds.'},
+    {time:'month',title:'Get offshore exposure via ETFs',             desc:'Satrix MSCI World or Ashburton 1200 give global diversification in ZAR. Rand weakness means offshore assets grow faster locally.'},
+    {time:'year', title:'Maximise your retirement annuity',           desc:'RA contributions up to 27.5% of income are tax-deductible. Reduces tax now, grows in equity long-term.'},
+  ]},
+  RUB:{flag:'🇷🇺',country:'Russia',urgent:null,steps:[
+    {time:'now',  title:'Consider inflation-linked OFZ bonds',        desc:'OFZ-IN bonds (inflation-indexed government bonds) pay CPI + a real rate. Available through major Russian brokers.'},
+    {time:'now',  title:'Diversify into gold',                        desc:'Gold has historically preserved purchasing power in high-inflation environments. Gold ETFs or physical gold are accessible.'},
+    {time:'month',title:'Invest in domestic blue-chip equities',      desc:'Russian companies with pricing power (energy, materials) historically outperform inflation in local currency terms.'},
+    {time:'year', title:'Review your currency diversification',       desc:'Holding some assets in non-RUB denominations can provide additional protection against domestic inflation.'},
+  ]},
+  TRY:{flag:'🇹🇷',country:'Turkey',urgent:'⚠️ At 38%+ inflation, standard savings accounts are losing value faster than most investments can compensate. Immediate action is critical.',steps:[
+    {time:'now',  title:'Convert cash to USD or EUR immediately',     desc:'At 38% inflation, every day your lira sits in savings you lose ~0.1% of its value. Convert to hard currency as your primary strategy.'},
+    {time:'now',  title:'Buy gold (altın) as inflation hedge',        desc:'Turkish gold coins (Cumhuriyet altını) and gold-backed accounts (gram altın) are traditional and effective inflation protection.'},
+    {time:'month',title:'Invest in inflation-linked TÜFE bonds',      desc:'Turkish Treasury issues CPI-linked bonds. They guarantee your principal grows with official inflation. Buy through your bank.'},
+    {time:'month',title:'Invest in Turkish equities (BIST)',           desc:'Companies with pricing power — especially exporters earning USD/EUR — have historically beaten local inflation.'},
+  ]},
+  ARG:{flag:'🇦🇷',country:'Argentina',urgent:'🚨 At 211% annual inflation, holding pesos overnight is a financial decision. Emergency action required.',steps:[
+    {time:'now',  title:'Convert pesos to USD the day salary arrives', desc:'Argentines who wait even 48 hours lose measurable purchasing power. Convert immediately via legal channels (MEP/CCL dollar).'},
+    {time:'now',  title:'Use dollar-denominated savings accounts',     desc:'Cuenta DNI and fintech apps (Mercado Pago, Ualá) offer UVA or dollar-linked savings with better protection than peso accounts.'},
+    {time:'month',title:'Buy UVA-linked instruments',                  desc:'UVA bonds and fixed terms adjust daily with CPI. They are the minimum viable protection in Argentina.'},
+    {time:'month',title:'Invest in Cedears (foreign company shares)',  desc:'Cedears let you own Apple, Amazon, Alphabet shares — priced in pesos but tracking dollar assets. Available on Balanz, IOL.'},
+  ]},
+};
+
+function renderActionPlan(currency){
+  const plan=ACTION_PLANS[currency]||{flag:'🌍',country:'Your Country',urgent:null,steps:[
+    {time:'now',  title:'Move idle cash to a high-yield savings account',desc:'Compare rates at your local banks and fintech platforms. Even 1–2% more makes a real difference compounded over time.'},
+    {time:'month',title:'Start investing in a diversified global ETF',   desc:'MSCI World or FTSE All-World funds give broad global exposure. Low cost and historically outperform inflation by 5–7% annually.'},
+    {time:'month',title:'Maximise tax-advantaged accounts',              desc:'Almost every country has a tax-sheltered investment account. Use it — the tax savings are an instant inflation hedge.'},
+    {time:'year', title:'Reduce cash drag in your portfolio',            desc:'Set a maximum cash reserve (3–6 months expenses) and invest the rest. Every idle dollar is losing value.'},
+  ]};
+
+  const box=document.getElementById('action-plan');
+  if(!box) return;
+  const tagMap={now:['tag-now','Do Today'],month:['tag-month','This Month'],year:['tag-year','This Year']};
+
+  document.getElementById('ap-country').innerHTML=(plan.flag||'🌍')+' '+plan.country+' — What to do right now';
+  document.getElementById('ap-urgent').innerHTML=plan.urgent?'<div class="action-urgent">'+plan.urgent+'</div>':'';
+  document.getElementById('ap-steps').innerHTML=plan.steps.map((s,i)=>{
+    const [tc,tl]=tagMap[s.time]||['tag-year','Long Term'];
+    return '<div class="action-step"><div class="action-step-num">0'+(i+1)+'</div><div>'+
+      '<div class="action-step-title">'+s.title+'</div>'+
+      '<div class="action-step-desc">'+s.desc+'</div>'+
+      '<span class="action-step-tag '+tc+'">'+tl+'</span>'+
+      '</div></div>';
+  }).join('');
+  box.style.display='block';
 }
 
 try{initQuiz()}catch(e){console.error('initQuiz:',e)}
