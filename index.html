@@ -1294,14 +1294,6 @@ footer{
     </div>
   </div>
 
-  <!-- ACTION PLAN — above bracket creep -->
-  <div class="action-plan" id="action-plan">
-    <div class="action-plan-eyebrow">🛡️ Your Personalized Action Plan</div>
-    <div class="action-plan-country" id="ap-country"></div>
-    <div id="ap-urgent"></div>
-    <div class="action-steps" id="ap-steps"></div>
-  </div>
-
   <!-- BRACKET CREEP -->
   <div class="bracket-card" id="bracket-card">
     <div class="bc-head">⚠️ Bracket Creep Warning</div>
@@ -2171,7 +2163,7 @@ function fmt(v,c){
 }
 function fmtLive(v,c){
   const s=SYM[c]||'$',a=Math.abs(v);
-  return '–'+s+(c==='KRW'||c==='JPY'?a.toFixed(2):a.toFixed(6));
+  return s+(c==='KRW'||c==='JPY'?a.toFixed(2):a.toFixed(6));
 }
 function toast(m){
   const t=document.getElementById('toast');
@@ -3110,11 +3102,10 @@ function igniteWithLoading(){
       if(el){el.classList.remove('visible','done-step');const d=el.querySelector('.ignite-dot');if(d)d.style.animation='';}
     });
     ignite();
-    // Show next CTA and action plan after results load
+    // Show next CTA after results load
     setTimeout(()=>{
       const nc=document.getElementById('dash-next-cta');
       if(nc) nc.style.display='flex';
-      renderActionPlan(document.getElementById('currency').value);
     },300);
     gtag('event','calculate_damage',{currency:document.getElementById('currency').value});
   },1300);
