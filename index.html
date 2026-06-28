@@ -435,6 +435,8 @@ h1 em{color: var(--red); font-style: normal}
   padding:14px; display:flex; gap:12px; align-items:flex-start;
 }
 .def-item.p1{border-left-color:var(--red); background:var(--red-bg)}
+.def-item.p-score{border-left-color:var(--blue); background:#EFF6FF}
+.def-tag.score{background:#DBEAFE; color:#1D4ED8}
 .def-item.p2{border-left-color:var(--amber); background:var(--amber-bg)}
 .def-item.p3{border-left-color:var(--green); background:var(--green-bg)}
 .def-icon{font-size:20px; flex-shrink:0}
@@ -1292,6 +1294,14 @@ footer{
     </div>
   </div>
 
+  <!-- ACTION PLAN — above bracket creep -->
+  <div class="action-plan" id="action-plan">
+    <div class="action-plan-eyebrow">🛡️ Your Personalized Action Plan</div>
+    <div class="action-plan-country" id="ap-country"></div>
+    <div id="ap-urgent"></div>
+    <div class="action-steps" id="ap-steps"></div>
+  </div>
+
   <!-- BRACKET CREEP -->
   <div class="bracket-card" id="bracket-card">
     <div class="bc-head">⚠️ Bracket Creep Warning</div>
@@ -1408,14 +1418,6 @@ footer{
   </div>
 
   <!-- NEXT: shown after Calculate -->
-  <!-- ACTION PLAN — shown after Calculate -->
-  <div class="action-plan" id="action-plan">
-    <div class="action-plan-eyebrow">🛡️ Your Personalized Action Plan</div>
-    <div class="action-plan-country" id="ap-country"></div>
-    <div id="ap-urgent"></div>
-    <div class="action-steps" id="ap-steps"></div>
-  </div>
-
   <div class="next-cta" id="dash-next-cta" style="display:none">
     <span class="next-cta-label">② Up next</span>
     <button class="next-cta-btn" onclick="journeyNext('wage')">
@@ -2442,53 +2444,161 @@ function buildChart(){
 // ── DEFENSE ENGINE ────────────────────────────────────────────────
 function buildDefense(){
   try{
-    const inf=st.inf,tax=st.tax,earn=st.earn,amt=st.amount,cur=st.currency;
-    const gap=Math.max(inf-earn,0);
+    const inf=st.inf, tax=st.tax, earn=st.earn, amt=st.amount, cur=st.currency;
     const sym=SYM[cur]||'$';
-    const isCash=earn===0,isHighTax=tax>=32,isHighInf=inf>=5;
-    const isTRY=cur==='TRY'||cur==='BRL'||cur==='INR';
-    const isLargeAmt=amt>=100000;
 
-    let score=100;
-    if(gap>0) score-=Math.min(gap*9,45);
-    if(isCash) score-=20; else if(earn<inf*0.5) score-=10;
-    if(isHighTax&&gap>0) score-=12;
-    if(isTRY) score-=25; else if(isHighInf) score-=8;
-    if(isCash&&isLargeAmt) score-=8;
-    if(earn>=inf) score+=10;
-    if(earn>=inf+1) score+=5;
-    score=Math.max(0,Math.min(100,Math.round(score)));
+    // ── MULTI-FACTOR SCORING SYSTEM ──────────────────────────────
 
-    const col=score>=70?'var(--green)':score>=40?'var(--amber)':'var(--red)';
-    const ring=document.getElementById('def-ring');
-    ring.textContent=score;
-    ring.style.color=col; ring.style.borderColor=col;
-    ring.style.background=score>=70?'var(--green-bg)':score>=40?'var(--amber-bg)':'var(--red-bg)';
+    // 1. REAL RETURN RATE (30점)
+    // 세후 이자율 - 인플레이션
+    const afterTaxEarn = earn * (1 - tax/100);
+    const realReturn = afterTaxEarn - inf; // 음수면 손실, 양수면 이득
+    let s1 = 0;
+    if(realReturn >= 3)       s1 = 30;
+    else if(realReturn >= 2)  s1 = 26;
+    else if(realReturn >= 1)  s1 = 22;
+    else if(realReturn >= 0.5)s1 = 18;
+    else if(realReturn >= 0)  s1 = 13;
+    else if(realReturn >= -1) s1 = 8;
+    else if(realReturn >= -2) s1 = 4;
+    else                      s1 = 0;
 
-    const lbl=score>=80?'Well Protected — Minor Tune-Ups Available':score>=65?'Decent Defense — 1-2 Gaps to Close':score>=45?'Moderate Risk — Real Money Leaking':score>=25?'High Risk — Significant Losses Daily':'Critical — Urgent Action Required';
-    document.getElementById('def-title').textContent=lbl;
-    const annLoss=fmt(amt*(gap/100),cur);
-    document.getElementById('def-sub').textContent=inf+'% inflation · '+tax+'% tax · '+earn+'% return · '+sym+amt.toLocaleString()+' '+cur+(gap>0?' · Losing '+annLoss+'/yr':'');
+    // 2. 인플레이션 대비 여유 (20점)
+    // 얼마나 앞서거나 뒤처지는가
+    let s2 = 0;
+    if(realReturn >= 3)        s2 = 20;
+    else if(realReturn >= 2)   s2 = 17;
+    else if(realReturn >= 1)   s2 = 14;
+    else if(realReturn >= 0.3) s2 = 10;
+    else if(realReturn >= 0)   s2 = 6;  // 겨우 이기는 건 낮은 점수
+    else if(realReturn >= -1)  s2 = 3;
+    else                       s2 = 0;
 
-    const strats=[];
-    const hysaGain=fmt(amt*0.045,cur);
-    const annInflLoss=fmt(amt*(inf/100),cur);
-    const annGapLoss=fmt(amt*(gap/100),cur);
-    const sp500Gain=fmt(amt*(10-inf)/100,cur);
+    // 3. 세금 효율성 (15점)
+    // 세율이 높을수록, 이자가 높을수록 세금 손실 큼
+    const taxDrag = earn * (tax/100); // 세금으로 날리는 %
+    let s3 = 15;
+    if(taxDrag >= 3)      s3 = 2;
+    else if(taxDrag >= 2) s3 = 5;
+    else if(taxDrag >= 1) s3 = 8;
+    else if(taxDrag >= 0.5) s3 = 11;
+    else                  s3 = 15;
 
-    if(isCash) strats.push({p:'p1',icon:'🏦',name:'Move '+sym+amt.toLocaleString()+' to HYSA — stop losing '+annInflLoss+'/yr',desc:'You earn 0% while '+inf+'% inflation erases '+annInflLoss+' every year. A HYSA pays 4.5-5% with zero risk and zero lockup — that is '+hysaGain+'/yr starting this week. Takes 10 minutes online.',tag:'high',tagLabel:'HIGH IMPACT'});
-    if(isTRY) strats.push({p:'p1',icon:'💵',name:'Convert to USD or EUR immediately',desc:'At '+inf+'% inflation your local currency loses value faster than any investment can compensate. Convert savings to USD/EUR as soon as possible — this is the primary survival strategy in high-inflation economies.',tag:'high',tagLabel:'URGENT'});
-    if(isHighInf&&!isTRY) strats.push({p:'p1',icon:'🔒',name:'Buy I-Bonds — guaranteed '+inf+'% inflation match',desc:'I-Bonds are the only legally guaranteed inflation-matching investment. Max $10,000/person per year at TreasuryDirect.gov. Zero credit risk, zero inflation loss on this portion.',tag:'high',tagLabel:'GUARANTEED'});
-    if(gap>2&&!isTRY) strats.push({p:'p1',icon:'📈',name:'Index funds could recover '+annGapLoss+'/yr currently lost',desc:'Your '+earn+'% return vs '+inf+'% inflation = '+gap.toFixed(1)+'% gap = '+annGapLoss+' lost per year. S&P 500 historical ~10%/yr would generate '+sp500Gain+'/yr above inflation. Money you won\'t need for 5+ years belongs in equities.',tag:'high',tagLabel:annGapLoss+'/YR RECOVERABLE'});
-    if(isHighTax) strats.push({p:'p2',icon:'🧾',name:'Max 401(k)/IRA — your '+tax+'% bracket makes this urgent',desc:'At '+tax+'%, every $1,000 into a 401(k) saves you $'+(tax*10)+' in immediate tax — an instant '+tax+'% return before investments begin. Max limits: $23,500 (401k) + $7,000 (IRA) = $30,500/yr.',tag:'med',tagLabel:tax+'% INSTANT RETURN'});
-    if(isLargeAmt&&!isTRY) strats.push({p:'p2',icon:'🏛️',name:'T-Bills: '+fmt(amt*0.048,cur)+'/yr at government-level safety',desc:'3-6 month Treasury Bills yield 4.8-5.1%. For '+sym+amt.toLocaleString()+' that is '+fmt(amt*0.048,cur)+'/yr. Available free at TreasuryDirect.gov with no fees and no counterparty risk.',tag:'med',tagLabel:fmt(amt*0.048,cur)+'/YR AVAILABLE'});
-    strats.push({p:'p3',icon:'📊',name:'Calculate your personal inflation rate (My Inflation tab)',desc:'The headline '+inf+'% may not reflect your actual spending. If you spend heavily on housing (up 5.2%) and food (up 3.5%), your personal rate may be 1-2 points higher — changing your target return.',tag:'low',tagLabel:'AWARENESS'});
-    if(earn>0&&earn<inf){
-      const upg=fmt(amt*(Math.max(0,4.5-earn))/100,cur);
-      strats.push({p:'p3',icon:'💬',name:'You\'re leaving '+upg+'/yr behind vs best available rates',desc:'Your account earns '+earn+'% while top HYSAs pay 4.5%. On '+sym+amt.toLocaleString()+' that gap is '+upg+'/yr. Call your bank or switch. Zero risk, 10 minutes.',tag:'low',tagLabel:'+'+upg+'/YR EASY WIN'});
+    // 4. 통화 안정성 (15점)
+    // 통화 자체의 신뢰도 — 이자가 높아도 불안정 통화는 감점
+    const currencyStability = {
+      CHF:15, USD:14, EUR:13, GBP:13, AUD:12, CAD:12,
+      JPY:11, KRW:11, CNY:10, INR:9,
+      MXN:7,  ZAR:6,  RUB:5,  BRL:5,
+      TRY:2,  ARG:0
+    };
+    const s4 = currencyStability[cur] !== undefined ? currencyStability[cur] : 8;
+
+    // 5. 인플레이션 수준 위험도 (10점)
+    // 인플레이션 자체가 높으면 리스크 — 이겨도 위험
+    let s5 = 0;
+    if(inf <= 2)       s5 = 10;
+    else if(inf <= 3)  s5 = 8;
+    else if(inf <= 4)  s5 = 6;
+    else if(inf <= 6)  s5 = 4;
+    else if(inf <= 10) s5 = 2;
+    else if(inf <= 20) s5 = 1;
+    else               s5 = 0;
+
+    // 6. 5년 구매력 전망 (10점)
+    // 현재 수익률 유지 시 5년 후 구매력
+    const fiveYrReal = Math.pow(1 + realReturn/100, 5) - 1; // 실질 누적 수익률
+    let s6 = 0;
+    if(fiveYrReal >= 0.15)      s6 = 10;
+    else if(fiveYrReal >= 0.08) s6 = 8;
+    else if(fiveYrReal >= 0.03) s6 = 6;
+    else if(fiveYrReal >= 0)    s6 = 4;
+    else if(fiveYrReal >= -0.1) s6 = 2;
+    else                        s6 = 0;
+
+    // 총점
+    let score = Math.round(s1 + s2 + s3 + s4 + s5 + s6);
+    score = Math.max(0, Math.min(100, score));
+
+    // ── 등급 시스템 ──────────────────────────────────────────────
+    const grades = [
+      { min:92, emoji:'🏆', grade:'Inflation-Proof',      color:'var(--green)',  bg:'var(--green-bg)',  msg:'Your money is growing in real terms across all dimensions.' },
+      { min:82, emoji:'💎', grade:'Real Return King',     color:'var(--green)',  bg:'var(--green-bg)',  msg:'Strong real returns and currency stability. Fine-tune for perfection.' },
+      { min:72, emoji:'⚔️', grade:'Inflation Fighter',    color:'var(--green)',  bg:'var(--green-bg)',  msg:'You are beating inflation but gaps remain in tax efficiency or currency risk.' },
+      { min:62, emoji:'🛡️', grade:'Holding Ground',       color:'#059669',      bg:'#D1FAE5',         msg:'Ahead of inflation but with thin margins. One rate change could flip it.' },
+      { min:50, emoji:'⚖️', grade:'Breaking Even',        color:'var(--amber)',  bg:'var(--amber-bg)', msg:'Your real return is near zero. You are not losing — but you are not winning.' },
+      { min:38, emoji:'🚿', grade:'Slow Drainer',         color:'var(--amber)',  bg:'var(--amber-bg)', msg:'Losing ground slowly. The damage is real but easy to fix.' },
+      { min:26, emoji:'🔥', grade:'Silent Burner',        color:'var(--red)',    bg:'var(--red-bg)',    msg:'Significant purchasing power loss every year. Action needed.' },
+      { min:16, emoji:'👻', grade:'Ghost Earner',         color:'var(--red)',    bg:'var(--red-bg)',    msg:'Working hard but standing still. Inflation is eating everything.' },
+      { min:8,  emoji:'🧊', grade:'Frozen Hoarder',       color:'var(--red)',    bg:'var(--red-bg)',    msg:'You know the problem but are not acting. The cost is compounding.' },
+      { min:0,  emoji:'🌙', grade:'Sleepwalker',          color:'var(--red)',    bg:'var(--red-bg)',    msg:'Critical situation. Immediate action required.' },
+    ];
+    const g = grades.find(x => score >= x.min) || grades[grades.length-1];
+
+    // ── UI 업데이트 ───────────────────────────────────────────────
+    const ring = document.getElementById('def-ring');
+    ring.textContent = score;
+    ring.style.color = g.color;
+    ring.style.borderColor = g.color;
+    ring.style.background = g.bg;
+
+    document.getElementById('def-title').textContent =
+      g.emoji + ' ' + g.grade + ' — ' + g.msg;
+
+    // Sub 텍스트 — 실질 수익률 표시
+    const realReturnStr = realReturn >= 0
+      ? '+' + realReturn.toFixed(2) + '% real return'
+      : realReturn.toFixed(2) + '% real return';
+    const scoreBreakdown =
+      inf + '% inflation · ' + tax + '% tax · ' + earn + '% return · ' +
+      sym + amt.toLocaleString() + ' ' + cur + ' · ' + realReturnStr + '/yr';
+    document.getElementById('def-sub').textContent = scoreBreakdown;
+
+    // ── 점수 세부 내역 표시 ───────────────────────────────────────
+    const scoreDetails = [
+      { label:'Real Return Rate',      score:s1, max:30, desc: realReturn.toFixed(2)+'%/yr after tax & inflation' },
+      { label:'Inflation Margin',      score:s2, max:20, desc: realReturn >= 0 ? 'Beating inflation by '+realReturn.toFixed(2)+'%' : 'Behind by '+Math.abs(realReturn).toFixed(2)+'%' },
+      { label:'Tax Efficiency',        score:s3, max:15, desc: taxDrag.toFixed(2)+'% lost to tax per year' },
+      { label:'Currency Stability',    score:s4, max:15, desc: cur + ' stability rating' },
+      { label:'Inflation Risk Level',  score:s5, max:10, desc: inf + '% current inflation rate' },
+      { label:'5-Year Outlook',        score:s6, max:10, desc: (fiveYrReal*100).toFixed(1)+'% projected real gain over 5 years' },
+    ];
+
+    // def-list에 점수 내역 + 전략 같이 표시
+    const gap = Math.max(inf - earn, 0);
+    const isCash = earn === 0;
+    const isTRY = cur === 'TRY' || cur === 'ARG';
+    const isHighTax = tax >= 32;
+    const isLargeAmt = amt >= 100000;
+    const annInflLoss = fmt(amt*(inf/100), cur);
+    const annGapLoss = fmt(amt*(gap/100), cur);
+    const hysaGain = fmt(amt*0.045, cur);
+    const sp500Gain = fmt(amt*(10-inf)/100, cur);
+
+    const strats = [];
+
+    // 점수 내역 카드
+    strats.push({
+      p:'p-score', icon:'📊',
+      name: 'Score Breakdown — ' + score + '/100',
+      desc: scoreDetails.map(d =>
+        d.label + ': ' + d.score + '/' + d.max + ' (' + d.desc + ')'
+      ).join(' · '),
+      tag:'score', tagLabel: g.emoji + ' ' + g.grade
+    });
+
+    if(isTRY) strats.push({p:'p1',icon:'💵',name:'Convert to USD or EUR immediately',desc:'At '+inf+'% inflation your local currency loses value faster than any investment can compensate. Convert savings to USD/EUR as soon as possible.',tag:'high',tagLabel:'URGENT'});
+    if(isCash) strats.push({p:'p1',icon:'🏦',name:'Move '+sym+amt.toLocaleString()+' to HYSA — stop losing '+annInflLoss+'/yr',desc:'You earn 0% while '+inf+'% inflation erases '+annInflLoss+' every year. A HYSA pays 4.5-5% with zero risk — that is '+hysaGain+'/yr starting this week.',tag:'high',tagLabel:'HIGH IMPACT'});
+    if(gap > 2 && !isTRY) strats.push({p:'p1',icon:'📈',name:'Index funds could recover '+annGapLoss+'/yr currently lost',desc:'Your '+earn+'% return vs '+inf+'% inflation = '+gap.toFixed(1)+'% gap = '+annGapLoss+' lost per year. S&P 500 historical ~10%/yr would generate '+sp500Gain+'/yr above inflation.',tag:'high',tagLabel:annGapLoss+'/YR RECOVERABLE'});
+    if(isHighTax) strats.push({p:'p2',icon:'🧾',name:'Max tax-advantaged accounts — your '+tax+'% bracket makes this urgent',desc:'At '+tax+'%, every $1,000 into a 401(k)/ISA/RRSP saves you $'+(tax*10)+' in immediate tax — an instant '+tax+'% return before investments begin.',tag:'med',tagLabel:tax+'% INSTANT RETURN'});
+    if(isLargeAmt && !isTRY) strats.push({p:'p2',icon:'🏛️',name:'T-Bills / Government Bonds: '+fmt(amt*0.048,cur)+'/yr at sovereign safety',desc:'3-6 month government bonds yield 4.5-5%. For '+sym+amt.toLocaleString()+' that is '+fmt(amt*0.048,cur)+'/yr with no counterparty risk.',tag:'med',tagLabel:fmt(amt*0.048,cur)+'/YR AVAILABLE'});
+    if(earn > 0 && earn < inf) {
+      const upg = fmt(amt*(Math.max(0,4.5-earn))/100,cur);
+      strats.push({p:'p3',icon:'💬',name:'You\'re leaving '+upg+'/yr behind vs best available rates',desc:'Your account earns '+earn+'% while top HYSAs pay 4.5%. On '+sym+amt.toLocaleString()+' that gap is '+upg+'/yr.',tag:'low',tagLabel:'+'+upg+'/YR EASY WIN'});
     }
+    strats.push({p:'p3',icon:'📊',name:'Calculate your personal inflation rate',desc:'The headline '+inf+'% may not reflect your actual spending. If you spend heavily on housing or food, your personal rate may be 1-2 points higher.',tag:'low',tagLabel:'AWARENESS'});
 
-        document.getElementById('def-list').innerHTML=strats.slice(0,6).map(s=>`
+    document.getElementById('def-list').innerHTML = strats.slice(0,6).map(s=>`
       <div class="def-item ${s.p}">
         <div class="def-icon">${s.icon}</div>
         <div class="def-body">
@@ -2498,14 +2608,16 @@ function buildDefense(){
         </div>
       </div>`).join('');
 
-    // Update score preview in Live Tracker
-    const prev=document.getElementById('dash-preview-score');
-    if(prev){
-      prev.textContent=score;
-      prev.style.color=col;
-    }
-    const previewBox=document.getElementById('dash-score-preview');
-    if(previewBox) previewBox.style.display='block';
+    // Score preview in Live Tracker
+    const prev = document.getElementById('dash-preview-score');
+    if(prev){ prev.textContent = score; prev.style.color = g.color; }
+    const previewBox = document.getElementById('dash-score-preview');
+    if(previewBox) previewBox.style.display = 'block';
+
+    // Report score sync
+    document.getElementById('rpt-score').textContent = score;
+    document.getElementById('rpt-score').style.color = g.color;
+
   }catch(e){console.error('buildDefense:',e)}
 }
 
@@ -3112,28 +3224,194 @@ const ACTION_PLANS={
 };
 
 function renderActionPlan(currency){
-  const plan=ACTION_PLANS[currency]||{flag:'🌍',country:'Your Country',urgent:null,steps:[
-    {time:'now',  title:'Move idle cash to a high-yield savings account',desc:'Compare rates at your local banks and fintech platforms. Even 1–2% more makes a real difference compounded over time.'},
-    {time:'month',title:'Start investing in a diversified global ETF',   desc:'MSCI World or FTSE All-World funds give broad global exposure. Low cost and historically outperform inflation by 5–7% annually.'},
-    {time:'month',title:'Maximise tax-advantaged accounts',              desc:'Almost every country has a tax-sheltered investment account. Use it — the tax savings are an instant inflation hedge.'},
-    {time:'year', title:'Reduce cash drag in your portfolio',            desc:'Set a maximum cash reserve (3–6 months expenses) and invest the rest. Every idle dollar is losing value.'},
-  ]};
+  const amount = st.amount || 0;
+  const inf = st.inf || INF[currency] || 3.81;
+  const sym = SYM[currency] || '$';
+  const plan = ACTION_PLANS[currency] || null;
+  const isKRW = currency==='KRW'||currency==='JPY';
 
-  const box=document.getElementById('action-plan');
+  // Format helper — compact for large numbers
+  function fmtA(n){
+    if(isKRW){
+      if(n>=100000000) return sym+(n/100000000).toFixed(1)+'억';
+      if(n>=10000) return sym+(n/10000).toFixed(0)+'만';
+      return sym+Math.round(n).toLocaleString();
+    }
+    if(n>=1000000) return sym+(n/1000000).toFixed(2)+'M';
+    if(n>=1000) return sym+(n/1000).toFixed(1)+'k';
+    return sym+n.toFixed(0);
+  }
+
+  // Key numbers
+  const annualLoss      = amount * (inf/100);
+  const lowRate         = 0.5;   // typical big-bank rate
+  const highRate        = currency==='USD'?4.5:currency==='GBP'?5.0:currency==='AUD'?5.0:
+                          currency==='CAD'?4.2:currency==='KRW'?3.8:currency==='INR'?7.0:
+                          currency==='BRL'?12.0:currency==='MXN'?10.0:currency==='TRY'?35.0:
+                          currency==='ARG'?90.0:3.5;
+  const lowInterest     = amount * (lowRate/100);
+  const highInterest    = amount * (highRate/100);
+  const interestGain    = highInterest - lowInterest;
+  const coverPct        = annualLoss>0 ? Math.round((interestGain/annualLoss)*100) : 0;
+  const sp500Rate       = 10.0;
+  const sp500Real       = amount * ((sp500Rate - inf)/100);
+  const taxSavingRate   = currency==='USD'?22:currency==='GBP'?20:currency==='KRW'?16.5:
+                          currency==='AUD'?32.5:currency==='CAD'?26:20;
+  const maxContrib      = currency==='USD'?7000:currency==='GBP'?20000:currency==='KRW'?7000000:
+                          currency==='AUD'?27500:currency==='CAD'?7000:5000;
+  const taxSaving       = Math.min(amount*0.15, maxContrib*(taxSavingRate/100));
+  const fiveYrSP        = amount * Math.pow(1+(sp500Rate/100), 5) - amount;
+  const fiveYrCash      = amount * Math.pow(1-(inf/100), 5);
+  const fiveYrDiff      = amount - fiveYrCash;
+
+  // Per-currency dynamic step builder
+  function buildSteps(){
+    const flag = plan?plan.flag:'🌍';
+    const country = plan?plan.country:'Your Country';
+
+    // HYSA / high-yield account name by country
+    const hysaName = {
+      USD:'HYSA (Marcus, Ally, SoFi)',
+      GBP:'Cash ISA or Marcus UK',
+      AUD:'ING or Macquarie Savings',
+      CAD:'EQ Bank or Wealthsimple Save',
+      KRW:'카카오뱅크·토스뱅크 파킹통장',
+      JPY:'NISA 계좌',
+      INR:'Liquid Mutual Fund',
+      BRL:'CDB IPCA+',
+      MXN:'CETES',
+      TRY:'USD-linked account',
+      ARG:'USD or UVA account',
+    }[currency] || 'High-Yield Savings Account';
+
+    const etfName = {
+      USD:'VOO or SPY (S&P 500 ETF)',
+      GBP:'Vanguard FTSE Global All Cap',
+      EUR:'iShares Core MSCI World (IWDA)',
+      AUD:'VGS or VAS ETF',
+      CAD:'XEQT or VEQT',
+      KRW:'TIGER 미국S&P500 ETF',
+      JPY:'eMAXIS Slim 全世界株式',
+      INR:'Nifty 50 Index Fund SIP',
+      BRL:'Cedears or Tesouro IPCA+',
+      MXN:'NAFTRAC or VOO via GBM',
+      ZAR:'Satrix MSCI World',
+    }[currency] || 'MSCI World ETF';
+
+    const taxAcctName = {
+      USD:'Roth IRA + 401(k)',
+      GBP:'Stocks & Shares ISA',
+      AUD:'Super voluntary contributions',
+      CAD:'TFSA + RRSP',
+      KRW:'연금저축 + IRP',
+      JPY:'iDeCo',
+      INR:'PPF + NPS',
+      BRL:'PGBL / VGBL',
+      MXN:'AFORE',
+      ZAR:'TFSA + Retirement Annuity',
+      CHF:'Pillar 3a',
+    }[currency] || 'Tax-Advantaged Account';
+
+    // Urgent override for hyperinflation
+    let urgent = plan ? plan.urgent : null;
+
+    const steps = [];
+
+    if(currency==='ARG'){
+      steps.push({time:'now',
+        title:'Convert pesos to USD immediately',
+        desc:`At ${inf}% annual inflation, ${fmtA(amount)} in pesos loses ${fmtA(annualLoss)} in purchasing power this year. Converting to USD is the single most impactful move — do it the same day salary arrives.`
+      });
+      steps.push({time:'now',
+        title:'Move to UVA-linked instruments',
+        desc:`UVA accounts and bonds adjust daily with CPI. They are the minimum viable protection for peso savings in Argentina.`
+      });
+      steps.push({time:'month',
+        title:'Buy Cedears for global exposure',
+        desc:`Cedears let you hold Apple, Amazon, Alphabet shares priced in pesos but tracking USD assets. Available on Balanz and IOL.`
+      });
+      steps.push({time:'year',
+        title:'Build a dollar-denominated emergency fund',
+        desc:`Target 6 months of expenses in USD. This is your inflation firewall.`
+      });
+    } else if(currency==='TRY'){
+      steps.push({time:'now',
+        title:'Convert lira to USD or EUR immediately',
+        desc:`Your ${fmtA(amount)} in lira is losing ${fmtA(annualLoss)} in purchasing power this year (${inf}% inflation). At this rate, waiting a week costs you ${fmtA(annualLoss/52)}.`
+      });
+      steps.push({time:'now',
+        title:'Buy gold (gram altın)',
+        desc:`Gold has historically matched or beaten Turkish inflation. Gram altın accounts at banks are accessible and liquid.`
+      });
+      steps.push({time:'month',
+        title:'Invest in TÜFE-linked government bonds',
+        desc:`Turkish Treasury CPI-linked bonds guarantee your principal grows with official inflation. Buy through your bank's mobile app.`
+      });
+      steps.push({time:'year',
+        title:'Build USD-denominated emergency fund',
+        desc:`Target 6 months of expenses in hard currency. This is your inflation firewall.`
+      });
+    } else {
+      // Step 1: High-yield savings
+      steps.push({time:'now',
+        title:`Move to ${hysaName}`,
+        desc:`Your ${fmtA(amount)} in a standard account earns ~${fmtA(lowInterest)}/yr (${lowRate}%). ${hysaName} pays ~${highRate}%, earning ${fmtA(highInterest)}/yr instead. That's +${fmtA(interestGain)}/yr — covering ${coverPct}% of your ${fmtA(annualLoss)} annual inflation loss.`
+      });
+
+      // Step 2: ETF investing
+      steps.push({time:'month',
+        title:`Start investing in ${etfName}`,
+        desc:`If ${fmtA(amount)} grows at the S&P 500's historical ~${sp500Rate}% annually, your real gain after ${inf}% inflation is +${fmtA(sp500Real)}/yr. Over 5 years that's +${fmtA(fiveYrSP)} — vs losing ${fmtA(fiveYrDiff)} in purchasing power by staying in cash.`
+      });
+
+      // Step 3: Tax-advantaged
+      if(taxSaving > 0){
+        steps.push({time:'month',
+          title:`Maximize ${taxAcctName}`,
+          desc:`Contributing up to ${fmtA(maxContrib)}/yr into a tax-advantaged account saves you ~${fmtA(taxSaving)} in taxes. That's an instant ${Math.round(taxSaving/Math.max(amount,1)*100*100)/100}% return before any investment growth — better than most savings accounts.`
+        });
+      }
+
+      // Step 4: Emergency fund framing
+      const emergencyFund = amount * 0.15;
+      const excessCash = Math.max(0, amount - emergencyFund*2);
+      if(excessCash > 0){
+        steps.push({time:'year',
+          title:'Reduce your cash drag',
+          desc:`You need ~${fmtA(emergencyFund*2)} in cash (3–6 months expenses). Everything above that is losing ${fmtA(excessCash*(inf/100))}/yr sitting idle. Moving ${fmtA(excessCash)} into investments could generate +${fmtA(excessCash*(sp500Rate/100-inf/100))}/yr in real returns.`
+        });
+      } else {
+        steps.push({time:'year',
+          title:'Build your inflation firewall',
+          desc:`Even small, consistent monthly investments beat inflation over time. ${fmtA(100)}/month invested at ${sp500Rate}% becomes ${fmtA(100*12*((Math.pow(1+sp500Rate/1200,120)-1)/(sp500Rate/1200)))} in 10 years — ${fmtA(100*12*10)} in contributions becoming much more in real terms.`
+        });
+      }
+    }
+
+    return {flag, country, urgent, steps};
+  }
+
+  const {flag, country, urgent, steps} = buildSteps();
+
+  const box = document.getElementById('action-plan');
   if(!box) return;
-  const tagMap={now:['tag-now','Do Today'],month:['tag-month','This Month'],year:['tag-year','This Year']};
+  const tagMap = {now:['tag-now','Do Today'],month:['tag-month','This Month'],year:['tag-year','This Year']};
 
-  document.getElementById('ap-country').innerHTML=(plan.flag||'🌍')+' '+plan.country+' — What to do right now';
-  document.getElementById('ap-urgent').innerHTML=plan.urgent?'<div class="action-urgent">'+plan.urgent+'</div>':'';
-  document.getElementById('ap-steps').innerHTML=plan.steps.map((s,i)=>{
-    const [tc,tl]=tagMap[s.time]||['tag-year','Long Term'];
-    return '<div class="action-step"><div class="action-step-num">0'+(i+1)+'</div><div>'+
+  document.getElementById('ap-country').innerHTML =
+    flag + ' ' + country + ' — Personalized for ' + fmtA(amount);
+  document.getElementById('ap-urgent').innerHTML =
+    urgent ? '<div class="action-urgent">'+urgent+'</div>' : '';
+  document.getElementById('ap-steps').innerHTML = steps.map((s,i)=>{
+    const [tc,tl] = tagMap[s.time] || ['tag-year','Long Term'];
+    return '<div class="action-step">'+
+      '<div class="action-step-num">0'+(i+1)+'</div>'+
+      '<div>'+
       '<div class="action-step-title">'+s.title+'</div>'+
       '<div class="action-step-desc">'+s.desc+'</div>'+
       '<span class="action-step-tag '+tc+'">'+tl+'</span>'+
       '</div></div>';
   }).join('');
-  box.style.display='block';
+  box.style.display = 'block';
 }
 
 try{initQuiz()}catch(e){console.error('initQuiz:',e)}
