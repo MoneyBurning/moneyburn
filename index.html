@@ -2320,9 +2320,14 @@ function ignite(){
   localStorage.setItem('mb_t',st.tax);
   localStorage.setItem('mb_d',Date.now());
 
-  const gap=Math.max(st.inf-st.earn,0);
-  lossPS=(a*(gap/100))/YS;
-  netLossPS=lossPS*(1-(st.tax/100)*0.5);
+  // 세후 실질 수익률
+  const afterTaxEarn = st.earn * (1 - st.tax/100);
+  const realReturn = afterTaxEarn - st.inf; // 양수=이득, 음수=손실
+  const isGaining = realReturn > 0;
+
+  // 초당 변화량 (양수=이득, 음수=손실)
+  lossPS = (a * (realReturn/100)) / YS;
+  netLossPS = lossPS;
   const sym=SYM[st.currency]||'$';
 
   // Show blocks
@@ -2333,14 +2338,43 @@ function ignite(){
   const sr=document.getElementById('share-row');
   if(sr) sr.style.display='flex';
 
+  // 카운터 색상/레이블 전환
+  const counterWrap = document.getElementById('counter-wrap');
+  const grossNum = document.getElementById('gross-num');
+  const netNum = document.getElementById('net-num');
+  const grossBox = grossNum ? grossNum.closest('.counter-box') : null;
+  const netBox = netNum ? netNum.closest('.counter-box') : null;
+
+  if(isGaining){
+    if(counterWrap){ counterWrap.style.borderColor='var(--green)'; counterWrap.style.background='#F0FDF4'; }
+    if(grossNum) grossNum.style.color='var(--green)';
+    if(netNum) netNum.style.color='var(--green)';
+    const gl=document.querySelector('#counter-wrap .counter-label');
+    const nl=document.querySelectorAll('#counter-wrap .counter-label')[1];
+    if(gl) gl.textContent='PURCHASING POWER GAINED';
+    if(nl) nl.textContent='AFTER-TAX REAL GAIN';
+  } else {
+    if(counterWrap){ counterWrap.style.borderColor=''; counterWrap.style.background=''; }
+    if(grossNum) grossNum.style.color='';
+    if(netNum) netNum.style.color='';
+    const gl=document.querySelector('#counter-wrap .counter-label');
+    const nl=document.querySelectorAll('#counter-wrap .counter-label')[1];
+    if(gl) gl.textContent='GROSS LOSS (BEFORE TAX)';
+    if(nl) nl.textContent='AFTER-TAX REAL LOSS';
+  }
+
   // Stats
-  const pD=lossPS*86400, pY=lossPS*YS, pYn=netLossPS*YS;
-  document.getElementById('ps').textContent=fmt(lossPS,st.currency)+'/s';
-  document.getElementById('pm').textContent=fmt(lossPS*60,st.currency);
-  document.getElementById('ph').textContent=fmt(lossPS*3600,st.currency);
-  document.getElementById('pd').textContent=fmt(pD,st.currency);
-  document.getElementById('py').textContent=fmt(pY,st.currency);
-  document.getElementById('pyn').textContent=fmt(pYn,st.currency);
+  const absPS=Math.abs(lossPS);
+  const pfx=isGaining?'+':'';
+  document.getElementById('ps').textContent=pfx+fmt(absPS,st.currency)+'/s';
+  document.getElementById('pm').textContent=pfx+fmt(absPS*60,st.currency);
+  document.getElementById('ph').textContent=pfx+fmt(absPS*3600,st.currency);
+  document.getElementById('pd').textContent=pfx+fmt(absPS*86400,st.currency);
+  document.getElementById('py').textContent=pfx+fmt(absPS*YS,st.currency);
+  document.getElementById('pyn').textContent=pfx+fmt(absPS*YS,st.currency);
+  const statColor=isGaining?'var(--green)':'var(--red)';
+  ['ps','pm','ph','pd','py'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.color=statColor;});
+  document.getElementById('pyn').style.color=isGaining?'var(--green)':'var(--blue)';
 
   // Bracket creep
   const drag=st.inf+st.tax;
@@ -2351,10 +2385,10 @@ function ignite(){
   document.getElementById('bc-tax-pct').textContent=st.tax+'%';
   document.getElementById('bc-drag-pct').textContent=drag.toFixed(1)+'%';
   document.getElementById('bc-verdict').innerHTML=drag>50
-    ?'<strong>Critical.</strong> At '+drag.toFixed(1)+'% combined drag, you need investments returning over '+drag.toFixed(1)+'% just to stay even. That requires significant equity exposure.'
+    ?'<strong>Critical.</strong> At '+drag.toFixed(1)+'% combined drag, you need investments returning over '+drag.toFixed(1)+'% just to stay even.'
     :drag>35
-    ?'<strong>High pressure.</strong> At '+drag.toFixed(1)+'% combined drag, a good index fund (~10%/yr) barely beats your hurdle rate. Every % of account interest matters.'
-    :'<strong>Manageable.</strong> At '+drag.toFixed(1)+'% combined drag, a decent HYSA or index fund can meaningfully beat your hurdle rate. You\'re in a better position than most.';
+    ?'<strong>High pressure.</strong> At '+drag.toFixed(1)+'% combined drag, a good index fund (~10%/yr) barely beats your hurdle rate.'
+    :'<strong>Manageable.</strong> At '+drag.toFixed(1)+'% combined drag, a decent HYSA or index fund can meaningfully beat your hurdle rate.';
 
   // Compare
   const lY=a*(st.inf/100), eY=a*(st.earn/100);
@@ -2369,10 +2403,11 @@ function ignite(){
   document.getElementById('c-earn').innerHTML=cH(eY-lY);
   document.getElementById('c-earn-lbl').textContent=st.earn+'%';
 
-  // Reality
-  document.getElementById('reality-txt').innerHTML=gap>0
-    ?`At <strong>${st.inf}% inflation</strong> vs your <strong>${st.earn}%</strong> return and <strong>${st.tax}%</strong> tax bracket — you lose <strong>${fmt(pD,st.currency)}/day</strong>. After tax, the real annual damage is <strong>${fmt(pYn,st.currency)}</strong>.`
-    :`Your account earns <strong>${st.earn}%</strong>, which currently beats ${st.inf}% inflation. You\'re ahead of most. Watch the bracket creep warning above — tax drag is the remaining risk.`;
+  // Reality card
+  const annAbs=fmt(absPS*YS,st.currency);
+  document.getElementById('reality-txt').innerHTML=isGaining
+    ?`Your <strong>${st.earn}%</strong> return beats ${st.inf}% inflation. After ${st.tax}% tax, real return: <strong style="color:var(--green)">+${realReturn.toFixed(2)}%/yr</strong>. You are building <strong style="color:var(--green)">${annAbs}/yr</strong> in real purchasing power.`
+    :`At <strong>${st.inf}% inflation</strong> vs your <strong>${st.earn}%</strong> return and <strong>${st.tax}%</strong> tax — real return: <strong style="color:var(--red)">${realReturn.toFixed(2)}%/yr</strong>. Annual real loss: <strong>${annAbs}</strong>.`;
 
   buildChart();
   buildDefense();
@@ -2385,8 +2420,11 @@ function ignite(){
 // ── TICK ──────────────────────────────────────────────────────────
 function tick(){
   const el=(performance.now()-startTime)/1000;
-  document.getElementById('gross-num').textContent=fmtLive(lossPS*el,st.currency);
-  document.getElementById('net-num').textContent=fmtLive(netLossPS*el,st.currency);
+  const isGaining = lossPS > 0;
+  const absVal = Math.abs(lossPS*el);
+  const pfx = isGaining ? '+' : '–';
+  document.getElementById('gross-num').textContent = pfx + fmtLive(absVal, st.currency);
+  document.getElementById('net-num').textContent   = pfx + fmtLive(absVal, st.currency);
   const s=Math.floor(el);
   if(s!==lastSec){
     lastSec=s;
