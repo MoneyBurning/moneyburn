@@ -1642,9 +1642,77 @@ footer{
         <div class="rpt-5yr-row"><span class="rl">📈 If in S&amp;P 500 (~10%/yr)</span><span class="rv" style="color:var(--green)" id="rpt-5sp">—</span></div>
       </div>
 
-      <div class="rpt-action-box">
-        <div class="rpt-action-lbl">🎯 #1 Priority Action</div>
-        <div class="rpt-action-txt" id="rpt-action">—</div>
+      <!-- RANK SECTION -->
+      <div id="rpt-rank-box" style="
+        background:linear-gradient(135deg,#0f0c29,#1a0a2e);
+        border:1px solid rgba(139,92,246,.3);
+        border-radius:var(--radius-sm);
+        padding:20px;
+        margin-bottom:16px;
+        position:relative;
+        overflow:hidden;
+      ">
+        <div style="position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(139,92,246,.15),transparent 70%);pointer-events:none"></div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(139,92,246,.8);font-weight:700;margin-bottom:14px;position:relative">
+          🌍 YOUR RANK AMONG <span id="rpt-rank-cur-label">USD</span> HOLDERS
+        </div>
+
+        <!-- PERCENTILE BAR -->
+        <div style="position:relative;margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+            <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.4)">Losing most</span>
+            <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.4)">Losing least</span>
+          </div>
+          <div style="height:10px;background:linear-gradient(to right,#DC2626,#F59E0B,#34D399);border-radius:5px;position:relative">
+            <div id="rpt-rank-marker" style="
+              position:absolute;top:50%;transform:translate(-50%,-50%);
+              width:18px;height:18px;background:#fff;border-radius:50%;
+              border:3px solid #7C3AED;
+              box-shadow:0 0 0 3px rgba(124,58,237,.3);
+              transition:left .6s ease;
+            "></div>
+          </div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);margin-top:4px;text-align:center" id="rpt-rank-bar-label">calculating...</div>
+        </div>
+
+        <!-- HEADLINE -->
+        <div style="text-align:center;margin-bottom:16px">
+          <div id="rpt-rank-headline" style="font-size:clamp(15px,3vw,20px);font-weight:700;color:#fff;line-height:1.3;margin-bottom:4px">—</div>
+          <div id="rpt-rank-sub" style="font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,.4)">—</div>
+        </div>
+
+        <!-- 3 COMPARISON STATS -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px">Top 10%</div>
+            <div id="rpt-rank-top10" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#DC2626">—</div>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
+          </div>
+          <div style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(139,92,246,.7);margin-bottom:4px">YOU</div>
+            <div id="rpt-rank-you" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#A78BFA">—</div>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
+          </div>
+          <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px">Average</div>
+            <div id="rpt-rank-avg" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#F59E0B">—</div>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
+          </div>
+        </div>
+
+        <!-- BETTER/WORSE -->
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <div style="flex:1;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(52,211,153,.7);margin-bottom:2px">BETTER THAN</div>
+            <div id="rpt-rank-better" style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:#34D399">—%</div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3)">of <span id="rpt-rank-cur2">USD</span> holders</div>
+          </div>
+          <div style="flex:1;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(220,38,38,.7);margin-bottom:2px">WORSE THAN</div>
+            <div id="rpt-rank-worse" style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:#F87171">—%</div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3)">of <span id="rpt-rank-cur3">USD</span> holders</div>
+          </div>
+        </div>
       </div>
 
       <div class="rpt-watermark">inflationclock.com</div>
@@ -2877,6 +2945,103 @@ function renderWorld(){
 
 // ── REPORT ────────────────────────────────────────────────────────
 let projChartInst=null;
+
+// ── RANK AMONG CURRENCY HOLDERS ───────────────────────────────────
+function renderRank(cur, amt, earn, tax, inf){
+  try{
+    // Average savings by currency (estimated median household financial assets)
+    const avgSavings={
+      USD:45000, EUR:35000, GBP:40000, JPY:5000000, KRW:30000000,
+      CAD:38000, AUD:42000, CHF:80000, SGD:55000, CNY:80000,
+      INR:500000, BRL:15000, MXN:80000, ZAR:50000, TRY:200000,
+      ARG:500000, RUB:500000, AED:80000, SAR:60000, VND:100000000
+    };
+    const FX_TO_USD={
+      USD:1, EUR:1.08, GBP:1.27, JPY:0.0067, KRW:0.00073,
+      BRL:0.18, INR:0.012, TRY:0.028, CAD:0.73, CNY:0.138,
+      RUB:0.011, AUD:0.645, MXN:0.052, CHF:1.12, SGD:0.74,
+      AED:0.272, SAR:0.267, ZAR:0.054, ARG:0.001, VND:0.000039
+    };
+
+    // Real annual loss = amount × max(inf - afterTaxEarn, 0)
+    const afterTaxEarn = earn * (1 - tax/100);
+    const realLossPct = Math.max(inf - afterTaxEarn, 0);
+    const myLoss = amt * (realLossPct/100);
+    const myLossUSD = myLoss * (FX_TO_USD[cur]||1);
+
+    // Distribution: model as log-normal around average savings
+    // loss = savings × realLossPct%
+    const avgAmt = avgSavings[cur] || 50000;
+    const avgLoss = avgAmt * (realLossPct/100);
+    const avgLossUSD = avgLoss * (FX_TO_USD[cur]||1);
+
+    // Percentile: assume log-normal distribution of savings (σ=0.9 in log space)
+    // P(X < myAmt) approximation using normal CDF on log scale
+    const sigma = 0.9;
+    const mu = Math.log(avgAmt) - 0.5*sigma*sigma; // median = e^mu
+    const z = (Math.log(Math.max(amt,1)) - mu) / sigma;
+    // Standard normal CDF approximation
+    function normCDF(z){
+      const t=1/(1+0.2316419*Math.abs(z));
+      const d=0.3989423*Math.exp(-z*z/2);
+      const p=d*t*(0.3193815+t*(-0.3565638+t*(1.7814779+t*(-1.8212560+t*1.3302744))));
+      return z>=0?1-p:p;
+    }
+    // Higher savings = higher loss (same %) → percentile of loss = percentile of savings
+    const pctLoss = normCDF(z); // fraction with LESS loss than me
+    const betterThan = Math.round(pctLoss * 100);
+    const worseThan = 100 - betterThan;
+
+    // Marker position on bar (0%=left=worst, 100%=right=best)
+    const markerPct = betterThan;
+    const marker = document.getElementById('rpt-rank-marker');
+    if(marker) marker.style.left = markerPct+'%';
+
+    // Currency label
+    const curLabels={USD:'USD',EUR:'EUR',GBP:'GBP',JPY:'JPY',KRW:'KRW',CAD:'CAD',
+      AUD:'AUD',CHF:'CHF',SGD:'SGD',CNY:'CNY',INR:'INR',BRL:'BRL',MXN:'MXN',
+      ZAR:'ZAR',TRY:'TRY',ARG:'ARG',RUB:'RUB',AED:'AED',SAR:'SAR',VND:'VND'};
+    ['rpt-rank-cur-label','rpt-rank-cur2','rpt-rank-cur3'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.textContent=curLabels[cur]||cur;
+    });
+
+    // Top 10% loss (90th percentile of savings = high loss)
+    const top10Amt = Math.exp(mu + 1.282*sigma);
+    const top10Loss = top10Amt * (realLossPct/100);
+
+    // Format numbers
+    const SYM_LOCAL=SYM[cur]||'$';
+    function fmtRank(v){
+      if(cur==='KRW'||cur==='JPY') return SYM_LOCAL+Math.round(v).toLocaleString();
+      if(v>=1e6) return SYM_LOCAL+(v/1e6).toFixed(1)+'M';
+      if(v>=1e3) return SYM_LOCAL+(v/1e3).toFixed(1)+'K';
+      return SYM_LOCAL+Math.round(v).toLocaleString();
+    }
+
+    // Headline
+    let headline='', sub='';
+    if(betterThan >= 75){
+      headline="You're losing <span style='color:#34D399'>less than most</span> "+cur+" holders.";
+      sub='Your savings amount means inflation hurts you less than '+betterThan+'% of '+cur+' holders.';
+    } else if(betterThan >= 40){
+      headline="You're <span style='color:#F59E0B'>around average</span> for "+cur+" holders.";
+      sub='Your inflation damage is in the middle range — '+betterThan+'% of '+cur+' holders are worse off.';
+    } else {
+      headline="You're losing <span style='color:#F87171'>more than most</span> "+cur+" holders.";
+      sub='High savings means inflation costs you more. Only '+betterThan+'% of '+cur+' holders lose less.';
+    }
+
+    document.getElementById('rpt-rank-headline').innerHTML=headline;
+    document.getElementById('rpt-rank-sub').textContent=sub;
+    document.getElementById('rpt-rank-bar-label').textContent='You are better than '+betterThan+'% of '+cur+' holders';
+    document.getElementById('rpt-rank-top10').textContent=fmtRank(top10Loss);
+    document.getElementById('rpt-rank-you').textContent=fmtRank(myLoss);
+    document.getElementById('rpt-rank-avg').textContent=fmtRank(avgLoss);
+    document.getElementById('rpt-rank-better').textContent=betterThan+'%';
+    document.getElementById('rpt-rank-worse').textContent=worseThan+'%';
+  }catch(e){console.error('renderRank:',e)}
+}
 function renderReport(){
   const now=new Date();
   const doy=Math.floor((now-new Date(now.getFullYear(),0,0))/864e5);
@@ -2925,33 +3090,8 @@ function renderReport(){
   document.getElementById('rpt-5sp').textContent=fmt(fiveYrSP,cur)+' (+'+fmt(fiveYrSP-amt,cur)+')';
 
   const gapRpt = Math.max(inf - earn, 0);
-  // Localized savings account name
-  const savingsAcctMap = {
-    USD:'High-Yield Savings Account (HYSA)', CAD:'High-Interest Savings Account (HISA)',
-    GBP:'Cash ISA', EUR:'high-yield savings account', AUD:'High-Interest Savings Account',
-    JPY:'high-yield bank deposit (定期預金)', KRW:'high-yield savings (정기예금)',
-    CHF:'savings account (Sparkonto)', SGD:'high-yield savings account',
-    INR:'Fixed Deposit (FD)', BRL:'Tesouro Direto or CDB',
-    CNY:'money market fund (货币基金)',
-  };
-  const savingsAcct = savingsAcctMap[cur] || 'high-yield savings account';
-  // Localized tax-advantaged account
-  const retAcctMap = {
-    USD:'401(k) and IRA', CAD:'RRSP and TFSA', GBP:'ISA and SIPP',
-    AUD:'superannuation', JPY:'iDeCo and NISA', KRW:'IRP and ISA (연금저축)',
-    CHF:'Pillar 3a (Säule 3a)', SGD:'SRS and CPF', INR:'PPF and NPS',
-    BRL:'PGBL or VGBL', EUR:'pension plan',
-  };
-  const retAcct = retAcctMap[cur] || 'tax-advantaged retirement account';
-  // High-inflation currencies — convert advice
-  const isHighInflation = inf >= 20;
-  let action='';
-  if(isHighInflation) action='With '+inf+'% inflation, '+sym+' is losing value faster than almost any local investment can compensate. Strongly consider converting a portion to USD, EUR, or gold to preserve purchasing power.';
-  else if(earn===0) action='Move your '+sym+amt.toLocaleString()+' to a '+savingsAcct+'. You are losing '+fmt(annLoss,cur)+'/yr to inflation for free — a '+savingsAcct+' can offset much of this at near-zero risk.';
-  else if(gapRpt>2) action='Move savings not needed for 5+ years into a diversified index fund. Your '+earn+'% return vs '+inf+'% inflation costs '+fmt(annLoss,cur)+'/yr. Global index funds historically return 8-10%/yr.';
-  else if(tax>=32) action='Maximize '+retAcct+' contributions. At '+tax+'%, every unit contributed saves '+tax+'% in immediate tax — your highest-return available move right now.';
-  else action='Your setup is above average. Fine-tune: calculate your personal inflation rate (My Inflation tab) and ensure your account pays at least the inflation rate ('+inf+'%).';
-  document.getElementById('rpt-action').textContent=action;
+  // Priority Action removed — replaced by rank section
+  renderRank(cur, amt, earn, tax, inf);
 
   document.getElementById('sl-inf').value=inf;
   document.getElementById('sl-earn').value=earn;
@@ -3052,7 +3192,10 @@ function dlRpt(){
   const score=document.getElementById('rpt-score')?document.getElementById('rpt-score').textContent:'—';
   const scoreCol=parseInt(score)>=70?'#059669':parseInt(score)>=40?'#D97706':'#DC2626';
   const now=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  const action=document.getElementById('rpt-action')?document.getElementById('rpt-action').textContent:'';
+  const betterEl=document.getElementById('rpt-rank-better');
+  const betterPct=betterEl?betterEl.textContent:'—';
+  const rankHeadEl=document.getElementById('rpt-rank-headline');
+  const rankHead=rankHeadEl?rankHeadEl.innerText||rankHeadEl.textContent:'—';
 
   const wrap=document.createElement('div');
   wrap.style.cssText='position:fixed;left:-9999px;top:0;width:480px;font-family:Inter,sans-serif;background:#F3F4F6;padding:24px;box-sizing:border-box;';
@@ -3093,9 +3236,21 @@ function dlRpt(){
         <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #E5E7EB;font-size:13px"><span style="color:#111827;font-weight:500">📉 Real purchasing power</span><span style="font-family:monospace;font-weight:700;color:#DC2626">${fiveYrReal}</span></div>
         <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:13px"><span style="color:#111827;font-weight:500">📈 If in S&P 500 (~10%/yr)</span><span style="font-family:monospace;font-weight:700;color:#059669">${fiveYrSP}</span></div>
       </div>
-      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:14px;margin-bottom:16px">
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#DC2626;font-family:monospace;font-weight:700;margin-bottom:6px">🎯 #1 Priority Action</div>
-        <div style="font-size:13px;color:#111827;line-height:1.6;font-weight:500">${action}</div>
+      <div style="background:linear-gradient(135deg,#1a0a2e,#0f0c29);border:1px solid rgba(139,92,246,.4);border-radius:8px;padding:14px;margin-bottom:16px">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(139,92,246,.9);font-family:monospace;font-weight:700;margin-bottom:8px">🌍 YOUR RANK AMONG ${st.currency} HOLDERS</div>
+        <div style="font-size:15px;color:#fff;font-weight:700;margin-bottom:6px">${rankHead}</div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <div style="flex:1;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);border-radius:6px;padding:8px;text-align:center">
+            <div style="font-family:monospace;font-size:9px;color:rgba(52,211,153,.8);margin-bottom:2px">BETTER THAN</div>
+            <div style="font-family:monospace;font-size:20px;font-weight:700;color:#34D399">${betterPct}</div>
+            <div style="font-family:monospace;font-size:9px;color:rgba(255,255,255,.3)">of ${st.currency} holders</div>
+          </div>
+          <div style="flex:1;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:6px;padding:8px;text-align:center">
+            <div style="font-family:monospace;font-size:9px;color:rgba(220,38,38,.8);margin-bottom:2px">ANNUAL LOSS</div>
+            <div style="font-family:monospace;font-size:20px;font-weight:700;color:#F87171">–${fmt(pY,st.currency)}</div>
+            <div style="font-family:monospace;font-size:9px;color:rgba(255,255,255,.3)">this year</div>
+          </div>
+        </div>
       </div>
       <div style="text-align:center;font-family:monospace;font-size:10px;color:#9CA3AF;letter-spacing:2px">inflationclock.com · Not financial advice</div>
     </div>`;
