@@ -1423,22 +1423,26 @@ footer{
       <div class="ifield" style="max-width:140px">
         <label>Inflation Rate</label>
         <select id="w-inf">
-          <option value="3.81">🇺🇸 US — 3.81%</option>
-          <option value="2.7">🇨🇦 Canada — 2.7%</option>
-          <option value="2.2">🇪🇺 EU — 2.2%</option>
-          <option value="3.4">🇬🇧 UK — 3.4%</option>
-          <option value="3.0">🇯🇵 Japan — 3.0%</option>
-          <option value="2.6">🇰🇷 S. Korea — 2.6%</option>
-          <option value="3.2">🇦🇺 Australia — 3.2%</option>
-          <option value="1.1">🇨🇭 Switzerland — 1.1%</option>
-          <option value="0.4">🇨🇳 China — 0.4%</option>
-          <option value="9.1">🇷🇺 Russia — 9.1%</option>
-          <option value="4.8">🇮🇳 India — 4.8%</option>
-          <option value="5.1">🇧🇷 Brazil — 5.1%</option>
-          <option value="4.2">🇲🇽 Mexico — 4.2%</option>
-          <option value="4.8">🇿🇦 S. Africa — 4.8%</option>
-          <option value="38.0">🇹🇷 Turkey — 38%</option>
-          <option value="211.0">🇦🇷 Argentina — 211%</option>
+          <option value="3.81" data-cur="USD">🇺🇸 US — 3.81%</option>
+          <option value="2.7"  data-cur="CAD">🇨🇦 Canada — 2.7%</option>
+          <option value="2.2"  data-cur="EUR">🇪🇺 EU — 2.2%</option>
+          <option value="3.4"  data-cur="GBP">🇬🇧 UK — 3.4%</option>
+          <option value="3.0"  data-cur="JPY">🇯🇵 Japan — 3.0%</option>
+          <option value="2.6"  data-cur="KRW">🇰🇷 S. Korea — 2.6%</option>
+          <option value="3.2"  data-cur="AUD">🇦🇺 Australia — 3.2%</option>
+          <option value="1.1"  data-cur="CHF">🇨🇭 Switzerland — 1.1%</option>
+          <option value="0.4"  data-cur="CNY">🇨🇳 China — 0.4%</option>
+          <option value="9.1"  data-cur="RUB">🇷🇺 Russia — 9.1%</option>
+          <option value="4.8"  data-cur="INR">🇮🇳 India — 4.8%</option>
+          <option value="5.1"  data-cur="BRL">🇧🇷 Brazil — 5.1%</option>
+          <option value="4.2"  data-cur="MXN">🇲🇽 Mexico — 4.2%</option>
+          <option value="4.8"  data-cur="ZAR">🇿🇦 S. Africa — 4.8%</option>
+          <option value="2.8"  data-cur="SGD">🇸🇬 Singapore — 2.8%</option>
+          <option value="2.3"  data-cur="AED">🇦🇪 UAE — 2.3%</option>
+          <option value="1.9"  data-cur="SAR">🇸🇦 Saudi Arabia — 1.9%</option>
+          <option value="3.8"  data-cur="VND">🇻🇳 Vietnam — 3.8%</option>
+          <option value="38.0" data-cur="TRY">🇹🇷 Turkey — 38%</option>
+          <option value="211.0"data-cur="ARG">🇦🇷 Argentina — 211%</option>
         </select>
       </div>
       <button class="btn-primary" onclick="calcWage()">Calculate</button>
@@ -1738,9 +1742,16 @@ footer{
           <option value="KRW">🇰🇷 KRW 2.6%</option>
           <option value="CAD">🇨🇦 CAD 2.7%</option>
           <option value="AUD">🇦🇺 AUD 3.2%</option>
+          <option value="CHF">🇨🇭 CHF 1.1%</option>
           <option value="CNY">🇨🇳 CNY 0.4%</option>
+          <option value="SGD">🇸🇬 SGD 2.8%</option>
           <option value="INR">🇮🇳 INR 4.8%</option>
           <option value="BRL">🇧🇷 BRL 5.1%</option>
+          <option value="MXN">🇲🇽 MXN 4.2%</option>
+          <option value="ZAR">🇿🇦 ZAR 4.8%</option>
+          <option value="AED">🇦🇪 AED 2.3%</option>
+          <option value="SAR">🇸🇦 SAR 1.9%</option>
+          <option value="VND">🇻🇳 VND 3.8%</option>
           <option value="TRY">🇹🇷 TRY 38%</option>
           <option value="ARG">🇦🇷 ARG 211%</option>
           <option value="RUB">🇷🇺 RUB 9.1%</option>
@@ -2058,8 +2069,8 @@ const SYM={
   USD:'$',   EUR:'€',  GBP:'£',  JPY:'¥',  KRW:'₩',
   BRL:'R$',  INR:'₹',  TRY:'₺',
   CAD:'C$',  CNY:'¥',  RUB:'₽',  AUD:'A$',
-  MXN:'$',   CHF:'Fr', SGD:'S$', AED:'د.إ',
-  SAR:'﷼',  ZAR:'R',  ARG:'$',  VND:'₫'
+  MXN:'MX$', CHF:'Fr', SGD:'S$', AED:'AED',
+  SAR:'SAR', ZAR:'R',  ARG:'AR$',VND:'₫'
 };
 const YS=365.25*24*3600;
 
@@ -2696,28 +2707,52 @@ function calcWage(){
   const gross=parseFloat(document.getElementById('w-salary').value);
   const hours=parseFloat(document.getElementById('w-hours').value)||40;
   const tax=parseFloat(document.getElementById('w-tax').value);
-  const inf=parseFloat(document.getElementById('w-inf').value);
+  const wInfEl=document.getElementById('w-inf');
+  const inf=parseFloat(wInfEl.value);
+  // Get currency code from selected option's data-cur attribute
+  const selOpt=wInfEl.options[wInfEl.selectedIndex];
+  const wCur=selOpt?selOpt.getAttribute('data-cur')||'USD':'USD';
+  const sym=SYM[wCur]||'$';
+  const fxRate=FX_TO_USD[wCur]||1;
   if(!gross||gross<=0) return;
 
   const hrNom=gross/(hours*52);
   const hrTax=hrNom*(1-tax/100);
-  const hrReal=hrTax*(1-inf/100);
-  const isGood=hrReal>=hrTax*.98;
+  const hrRealRaw=hrTax*(1-inf/100);
+  // Guard: if real wage goes negative (e.g. ARG 211%), show 0 with warning
+  const hrReal=Math.max(0, hrRealRaw);
+  const isNegative=hrRealRaw<0;
+  const isGood=!isNegative && hrReal>=hrTax*.98;
   const diff=hrNom-hrReal;
 
-  document.getElementById('w-nominal').textContent='$'+hrNom.toFixed(2)+'/hr';
-  document.getElementById('w-aftertax').textContent='$'+hrTax.toFixed(2)+'/hr';
-  document.getElementById('w-real').textContent='$'+hrReal.toFixed(2)+'/hr';
-  document.getElementById('w-real').style.color=isGood?'var(--green)':'var(--red)';
+  // Format wage: for large-unit currencies use no decimals
+  function fmtWage(v){
+    if(wCur==='KRW'||wCur==='JPY') return sym+Math.round(v).toLocaleString();
+    return sym+v.toFixed(2);
+  }
+
+  document.getElementById('w-nominal').textContent=fmtWage(hrNom)+'/hr';
+  document.getElementById('w-aftertax').textContent=fmtWage(hrTax)+'/hr';
+  if(isNegative){
+    document.getElementById('w-real').textContent='Inflation exceeds all earnings';
+    document.getElementById('w-real').style.color='var(--red)';
+  } else {
+    document.getElementById('w-real').textContent=fmtWage(hrReal)+'/hr';
+    document.getElementById('w-real').style.color=isGood?'var(--green)':'var(--red)';
+  }
   const rr=document.getElementById('w-real-row');
   rr.className='wage-row '+(isGood?'real-good':'real-bad');
 
   document.getElementById('w-insight').innerHTML=
-    'Your headline wage is <strong>$'+hrNom.toFixed(2)+'/hr</strong>. After '+tax+'% income tax and '+inf+'% inflation, your real hourly purchasing power is <strong style="color:'+(isGood?'var(--green)':'var(--red)')+'">$'+hrReal.toFixed(2)+'/hr</strong> — a gap of <strong>$'+diff.toFixed(2)+'/hr</strong> ($'+Math.round(diff*hours*52).toLocaleString()+'/yr) that tax and inflation silently take. To maintain this real wage next year, you need a raise of at least <strong>'+(inf/(1-tax/100)).toFixed(1)+'%</strong>.';
+    isNegative
+    ? 'With <strong>'+inf+'% inflation</strong>, your real hourly wage is <strong style="color:var(--red)">negative</strong> — inflation is destroying purchasing power faster than you can earn. Even a raise would not keep up without structural changes to your savings or currency.'
+    : 'Your headline wage is <strong>'+fmtWage(hrNom)+'/hr</strong>. After '+tax+'% income tax and '+inf+'% inflation, your real hourly purchasing power is <strong style="color:'+(isGood?'var(--green)':'var(--red)')+'">'+fmtWage(hrReal)+'/hr</strong> — a gap of <strong>'+fmtWage(diff)+'/hr</strong> ('+fmtWage(diff*hours*52).replace('/hr','')+'/yr) that tax and inflation silently take. To maintain this real wage next year, you need a raise of at least <strong>'+(inf/(1-tax/100)).toFixed(1)+'%</strong>.';
 
+  // Buys — convert hrReal to USD for fair comparison, show USD-denominated items
+  const hrRealUSD=hrReal*fxRate;
   const buys=[{item:'Starbucks latte',price:7.5,icon:'☕'},{item:'Gallon of gas',price:3.4,icon:'⛽'},{item:'Grocery items (avg)',price:8,icon:'🛒'},{item:'Netflix month',price:15.5,icon:'📺'},{item:'Fast food combo',price:12,icon:'🍔'},{item:'1 Uber mile',price:2.5,icon:'🚗'}];
   document.getElementById('w-buys').innerHTML=buys.map(b=>{
-    const qty=hrReal/b.price;
+    const qty=hrRealUSD/b.price;
     return '<div class="stat-box"><div class="sb-label">'+b.icon+' '+b.item+'</div><div class="sb-val '+(qty>=1?'green':'red')+'">'+(qty>=1?qty.toFixed(1)+'×':Math.round(qty*100)+'%')+'</div></div>';
   }).join('');
   document.getElementById('wage-result').style.display='block';
