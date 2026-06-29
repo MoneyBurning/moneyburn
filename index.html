@@ -2946,100 +2946,177 @@ function renderWorld(){
 // ── REPORT ────────────────────────────────────────────────────────
 let projChartInst=null;
 
-// ── RANK AMONG CURRENCY HOLDERS ───────────────────────────────────
+// ── MONEY BURN RANK (B+ Algorithm) ────────────────────────────────
+// Score = 40% real return rate + 30% absolute loss (USD-normalized)
+//       + 20% tax drag + 10% inflation risk
+// Higher score = burning faster = worse rank
+function calcBurnScore(cur, amt, earn, tax, inf){
+  const FX={USD:1,EUR:1.08,GBP:1.27,JPY:0.0067,KRW:0.00073,
+    BRL:0.18,INR:0.012,TRY:0.028,CAD:0.73,CNY:0.138,
+    RUB:0.011,AUD:0.645,MXN:0.052,CHF:1.12,SGD:0.74,
+    AED:0.272,SAR:0.267,ZAR:0.054,ARG:0.001,VND:0.000039};
+  const fx = FX[cur]||1;
+
+  // Component 1: Real return rate (40%)
+  const afterTaxEarn = earn * (1 - tax/100);
+  const realReturn = afterTaxEarn - inf;
+  const c1 = Math.min(100, Math.max(0, ((-realReturn) / 20) * 100));
+
+  // Component 2: Absolute annual loss — normalized within each currency (30%)
+  // Reference = typical user's annual loss for this currency
+  // avgSavings × inflation rate = average annual loss baseline
+  const avgSavings={
+    USD:45000,EUR:35000,GBP:40000,JPY:5000000,KRW:30000000,
+    CAD:38000,AUD:42000,CHF:80000,SGD:55000,CNY:80000,
+    INR:500000,BRL:15000,MXN:80000,ZAR:50000,TRY:200000,
+    ARG:500000,RUB:500000,AED:80000,SAR:60000,VND:100000000
+  };
+  const typicalTax={
+    USD:22,EUR:30,GBP:25,JPY:20,KRW:16,BRL:27,INR:20,
+    TRY:20,CAD:26,CNY:20,RUB:13,AUD:32,MXN:20,CHF:18,
+    SGD:11,AED:0,SAR:0,ZAR:26,ARG:25,VND:10
+  };
+  const avgAmt = avgSavings[cur]||50000;
+  // Typical user reference: earn=0, typical local tax
+  const avgTax = typicalTax[cur]||22;
+  const avgRealReturn = 0*(1-avgTax/100) - inf; // earn=0 typical
+  const avgAnnLossUSD = Math.max(0, avgAmt * fx * (Math.max(-avgRealReturn,0)/100));
+  // My loss
+  const annLossUSD = Math.max(0, amt * fx * (Math.max(-realReturn,0)/100));
+  // Normalize: my loss relative to 3× the average (top of range)
+  const c2RefUSD = Math.max(avgAnnLossUSD * 3, 1);
+  const c2 = Math.min(100, (annLossUSD / c2RefUSD) * 100);
+
+  // Component 3: Tax drag (20%)
+  const taxDrag = earn > 0 ? (earn * (tax/100)) / Math.max(inf,0.1) : 0;
+  const c3 = Math.min(100, taxDrag * 50);
+
+  // Component 4: Inflation risk (10%)
+  const c4 = Math.min(100, (inf / 50) * 100);
+
+  const score = 0.4*c1 + 0.3*c2 + 0.2*c3 + 0.1*c4;
+  return { score, c1, c2, c3, c4, realReturn, annLossUSD };
+}
+
 function renderRank(cur, amt, earn, tax, inf){
   try{
-    // Average savings by currency (estimated median household financial assets)
-    const avgSavings={
-      USD:45000, EUR:35000, GBP:40000, JPY:5000000, KRW:30000000,
-      CAD:38000, AUD:42000, CHF:80000, SGD:55000, CNY:80000,
-      INR:500000, BRL:15000, MXN:80000, ZAR:50000, TRY:200000,
-      ARG:500000, RUB:500000, AED:80000, SAR:60000, VND:100000000
-    };
-    const FX_TO_USD={
-      USD:1, EUR:1.08, GBP:1.27, JPY:0.0067, KRW:0.00073,
-      BRL:0.18, INR:0.012, TRY:0.028, CAD:0.73, CNY:0.138,
-      RUB:0.011, AUD:0.645, MXN:0.052, CHF:1.12, SGD:0.74,
-      AED:0.272, SAR:0.267, ZAR:0.054, ARG:0.001, VND:0.000039
-    };
-
-    // Real annual loss = amount × max(inf - afterTaxEarn, 0)
-    const afterTaxEarn = earn * (1 - tax/100);
-    const realLossPct = Math.max(inf - afterTaxEarn, 0);
-    const myLoss = amt * (realLossPct/100);
-    const myLossUSD = myLoss * (FX_TO_USD[cur]||1);
-
-    // Distribution: model as log-normal around average savings
-    // loss = savings × realLossPct%
-    const avgAmt = avgSavings[cur] || 50000;
-    const avgLoss = avgAmt * (realLossPct/100);
-    const avgLossUSD = avgLoss * (FX_TO_USD[cur]||1);
-
-    // Percentile: assume log-normal distribution of savings (σ=0.9 in log space)
-    // P(X < myAmt) approximation using normal CDF on log scale
-    const sigma = 0.9;
-    const mu = Math.log(avgAmt) - 0.5*sigma*sigma; // median = e^mu
-    const z = (Math.log(Math.max(amt,1)) - mu) / sigma;
-    // Standard normal CDF approximation
     function normCDF(z){
       const t=1/(1+0.2316419*Math.abs(z));
       const d=0.3989423*Math.exp(-z*z/2);
       const p=d*t*(0.3193815+t*(-0.3565638+t*(1.7814779+t*(-1.8212560+t*1.3302744))));
       return z>=0?1-p:p;
     }
-    // Higher savings = higher loss (same %) → percentile of loss = percentile of savings
-    const pctLoss = normCDF(z); // fraction with LESS loss than me
-    const betterThan = Math.round(pctLoss * 100);
-    const worseThan = 100 - betterThan;
 
-    // Marker position on bar (0%=left=worst, 100%=right=best)
-    const markerPct = betterThan;
+    const FX={USD:1,EUR:1.08,GBP:1.27,JPY:0.0067,KRW:0.00073,
+      BRL:0.18,INR:0.012,TRY:0.028,CAD:0.73,CNY:0.138,
+      RUB:0.011,AUD:0.645,MXN:0.052,CHF:1.12,SGD:0.74,
+      AED:0.272,SAR:0.267,ZAR:0.054,ARG:0.001,VND:0.000039};
+
+    // My burn score
+    const my = calcBurnScore(cur, amt, earn, tax, inf);
+
+    // Reference population burn scores for this currency
+    // Model: typical user has median savings, earn=0, tax=22%
+    // Score distribution is roughly normal around a mean score
+    // We compute mean score for this currency's typical user
+    const avgSavings={
+      USD:45000,EUR:35000,GBP:40000,JPY:5000000,KRW:30000000,
+      CAD:38000,AUD:42000,CHF:80000,SGD:55000,CNY:80000,
+      INR:500000,BRL:15000,MXN:80000,ZAR:50000,TRY:200000,
+      ARG:500000,RUB:500000,AED:80000,SAR:60000,VND:100000000
+    };
+    const avgAmt = avgSavings[cur]||50000;
+    // Typical user: earn=0, tax=22% (no optimization)
+    const avgRef = calcBurnScore(cur, avgAmt, 0, 22, inf);
+    // Top 10% worst: earn=0, tax=37%, 3× average savings
+    const top10Ref = calcBurnScore(cur, avgAmt*3, 0, 37, inf);
+    // Best 10%: earn=4%, tax=10%, 0.3× average savings
+    const best10Ref = calcBurnScore(cur, avgAmt*0.3, 4, 10, inf);
+
+    // Percentile: where does my score fall?
+    // Assume scores are normally distributed with mean=avgRef.score, σ=15
+    const mu = avgRef.score;
+    const sigma = 15;
+    const z = (my.score - mu) / sigma;
+    // Higher score = burning MORE = worse
+    // burningWorseThan = fraction of population with LOWER score than me
+    const burningWorseThan = Math.round(normCDF(z) * 100);
+    // "Better than X%" means X% are burning faster than me (higher score)
+    const betterThan = 100 - burningWorseThan;
+    const worseThan = burningWorseThan;
+
+    // Marker: leftmost = burning most (score 100), rightmost = burning least (score 0)
+    // marker position = (100 - my.score) / 100 * 100%
+    // betterThan = % of people burning faster than me
+    // bar: left=losing most(0%), right=losing least(100%)
+    // my position = betterThan% from left
+    const markerPct = Math.min(97, Math.max(3, betterThan));
     const marker = document.getElementById('rpt-rank-marker');
-    if(marker) marker.style.left = markerPct+'%';
+    if(marker){
+      marker.style.left = markerPct+'%';
+      marker.style.transition = 'left 0.8s cubic-bezier(.34,1.56,.64,1)';
+    }
 
     // Currency label
-    const curLabels={USD:'USD',EUR:'EUR',GBP:'GBP',JPY:'JPY',KRW:'KRW',CAD:'CAD',
-      AUD:'AUD',CHF:'CHF',SGD:'SGD',CNY:'CNY',INR:'INR',BRL:'BRL',MXN:'MXN',
-      ZAR:'ZAR',TRY:'TRY',ARG:'ARG',RUB:'RUB',AED:'AED',SAR:'SAR',VND:'VND'};
     ['rpt-rank-cur-label','rpt-rank-cur2','rpt-rank-cur3'].forEach(id=>{
       const el=document.getElementById(id);
-      if(el) el.textContent=curLabels[cur]||cur;
+      if(el) el.textContent=cur;
     });
 
-    // Top 10% loss (90th percentile of savings = high loss)
-    const top10Amt = Math.exp(mu + 1.282*sigma);
-    const top10Loss = top10Amt * (realLossPct/100);
-
-    // Format numbers
+    // Format absolute losses for display
     const SYM_LOCAL=SYM[cur]||'$';
-    function fmtRank(v){
+    const fx=FX[cur]||1;
+    function fmtRank(usdVal){
+      const v=usdVal/fx;
       if(cur==='KRW'||cur==='JPY') return SYM_LOCAL+Math.round(v).toLocaleString();
       if(v>=1e6) return SYM_LOCAL+(v/1e6).toFixed(1)+'M';
       if(v>=1e3) return SYM_LOCAL+(v/1e3).toFixed(1)+'K';
       return SYM_LOCAL+Math.round(v).toLocaleString();
     }
 
+    // Reference annual losses
+    const myAnnLoss = Math.max(0, amt*(Math.max(-my.realReturn,0)/100));
+    const avgAnnLoss = Math.max(0, avgAmt*(Math.max(-avgRef.realReturn,0)/100));
+    const top10AnnLoss = Math.max(0, avgAmt*3*(Math.max(-top10Ref.realReturn,0)/100));
+
     // Headline
     let headline='', sub='';
-    if(betterThan >= 75){
-      headline="You're losing <span style='color:#34D399'>less than most</span> "+cur+" holders.";
-      sub='Your savings amount means inflation hurts you less than '+betterThan+'% of '+cur+' holders.';
+    if(my.realReturn >= 0){
+      headline="<span style='color:#34D399'>Your money is beating inflation.</span>";
+      sub="You're in the top "+betterThan+"% — most "+cur+" holders are losing faster than you.";
+    } else if(betterThan >= 75){
+      headline="You're burning <span style='color:#34D399'>slower than most</span> "+cur+" holders.";
+      sub="Only "+worseThan+"% of "+cur+" holders are burning purchasing power faster than you.";
     } else if(betterThan >= 40){
-      headline="You're <span style='color:#F59E0B'>around average</span> for "+cur+" holders.";
-      sub='Your inflation damage is in the middle range — '+betterThan+'% of '+cur+' holders are worse off.';
+      headline="You're burning at an <span style='color:#F59E0B'>average rate</span> for "+cur+" holders.";
+      sub="About "+worseThan+"% of "+cur+" holders are in a worse position than you.";
     } else {
-      headline="You're losing <span style='color:#F87171'>more than most</span> "+cur+" holders.";
-      sub='High savings means inflation costs you more. Only '+betterThan+'% of '+cur+' holders lose less.';
+      headline="You're burning <span style='color:#F87171'>faster than most</span> "+cur+" holders.";
+      sub="Only "+betterThan+"% of "+cur+" holders are losing purchasing power faster than you.";
     }
+
+    // Score breakdown label
+    const barLabel = my.realReturn >= 0
+      ? "Your money is growing in real terms — top "+betterThan+"% of "+cur+" holders"
+      : "Burning faster than "+worseThan+"% · slower than "+betterThan+"% of "+cur+" holders";
 
     document.getElementById('rpt-rank-headline').innerHTML=headline;
     document.getElementById('rpt-rank-sub').textContent=sub;
-    document.getElementById('rpt-rank-bar-label').textContent='You are better than '+betterThan+'% of '+cur+' holders';
-    document.getElementById('rpt-rank-top10').textContent=fmtRank(top10Loss);
-    document.getElementById('rpt-rank-you').textContent=fmtRank(myLoss);
-    document.getElementById('rpt-rank-avg').textContent=fmtRank(avgLoss);
+    document.getElementById('rpt-rank-bar-label').textContent=barLabel;
+
+    // 3 stat boxes: top 10% burn, you, average burn
+    document.getElementById('rpt-rank-top10').textContent=fmtRank(top10Ref.annLossUSD);
+    document.getElementById('rpt-rank-you').textContent=fmtRank(my.annLossUSD);
+    document.getElementById('rpt-rank-avg').textContent=fmtRank(avgRef.annLossUSD);
+
+    // Better/Worse
     document.getElementById('rpt-rank-better').textContent=betterThan+'%';
     document.getElementById('rpt-rank-worse').textContent=worseThan+'%';
+
+    // Score breakdown tooltip (store for sharing)
+    window._mbBurnScore = Math.round(my.score);
+    window._mbBurnRank = betterThan;
+
   }catch(e){console.error('renderRank:',e)}
 }
 function renderReport(){
