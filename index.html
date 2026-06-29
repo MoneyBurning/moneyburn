@@ -825,25 +825,7 @@ h1 em{color: var(--red); font-style: normal}
 .mbti-preview-emoji{font-size:26px;margin-bottom:6px}
 .mbti-preview-name{font-size:11px;font-weight:600;color:var(--t2)}
 
-/* ── JOURNEY PROGRESS ── */
-.journey-bar{
-  background:var(--card); border-bottom:1px solid var(--border);
-  padding:8px 16px; display:flex; align-items:center;
-  gap:12px; position:sticky; top:52px; z-index:99;
-  box-shadow:0 1px 4px rgba(0,0,0,.04);
-}
-.journey-steps{display:flex; gap:4px; flex:1}
-.journey-step{
-  height:4px; border-radius:2px; flex:1;
-  background:var(--border); transition:background .3s ease;
-}
-.journey-step.done{background:var(--red)}
-.journey-step.active{background:#F87171}
-.journey-label{
-  font-family:'Space Mono',monospace; font-size:9px;
-  letter-spacing:1.5px; text-transform:uppercase;
-  color:var(--t3); white-space:nowrap; font-weight:700;
-}
+
 
 /* ── NEXT CTA ── */
 .next-cta{
@@ -1079,19 +1061,7 @@ footer{
   <div class="live-badge"><div class="live-dot"></div>LIVE</div>
 </nav>
 
-<!-- JOURNEY PROGRESS BAR -->
-<div class="journey-bar" id="journey-bar" style="display:none">
-  <div class="journey-steps">
-    <div class="journey-step" id="js-0"></div>
-    <div class="journey-step" id="js-1"></div>
-    <div class="journey-step" id="js-2"></div>
-    <div class="journey-step" id="js-3"></div>
-    <div class="journey-step" id="js-4"></div>
-    <div class="journey-step" id="js-5"></div>
-    <div class="journey-step" id="js-6"></div>
-  </div>
-  <div class="journey-label" id="journey-label">STEP 1 OF 7</div>
-</div>
+
 
 <!-- PAGE 1: LIVE TRACKER -->
 <div id="pg-dash" class="pg on" style="position:relative;z-index:1">
@@ -2093,6 +2063,15 @@ const SYM={
 };
 const YS=365.25*24*3600;
 
+// ── FX RATES TO USD (approximate, for comparison normalization) ──
+const FX_TO_USD={
+  USD:1,      EUR:1.08,  GBP:1.27,  JPY:0.0067, KRW:0.00073,
+  BRL:0.18,   INR:0.012, TRY:0.028,
+  CAD:0.73,   CNY:0.138, RUB:0.011, AUD:0.645,
+  MXN:0.052,  CHF:1.12,  SGD:0.74,  AED:0.272,
+  SAR:0.267,  ZAR:0.054, ARG:0.001, VND:0.000039
+};
+
 const CPI_COMPS=[
   {name:'Housing / Rent',key:'housing',rate:5.2,weight:33,icon:'🏠'},
   {name:'Food & Groceries',key:'food',rate:3.5,weight:14,icon:'🛒'},
@@ -2183,8 +2162,7 @@ function showPage(id){
     if(id==='world') renderWorld();
     if(id==='personal') renderPersonal();
     if(id==='report') renderReport();
-    updateJourneyBar(id);
-    markVisited(id);
+
     gtag('event','page_view_tab',{tab:id});
   }catch(e){console.error('showPage error:',e)}
 }
@@ -2335,9 +2313,13 @@ function ignite(){
     if(gn) gn.style.color = '#F87171';
   }
 
-  // Build shock comparisons
+  // Build shock comparisons — normalize to USD for fair cross-currency comparison
   const shockItems = document.getElementById('shock-items');
   if(shockItems && !isGaining) {
+    // Convert annual loss to USD equivalent for fair comparison
+    const fxRate = FX_TO_USD[st.currency] || 1;
+    const annualLossUSD = annualLossAbs * fxRate;
+    // All prices in USD
     const comparisons = [
       { emoji:'☕', label:'Starbucks lattes',    price:7.5   },
       { emoji:'🍕', label:'pizzas',              price:15    },
@@ -2349,7 +2331,7 @@ function ignite(){
       { emoji:'🛒', label:'weeks of groceries',   price:150   },
     ];
     shockItems.innerHTML = comparisons.slice(0,6).map(c => {
-      const qty = Math.round(annualLossAbs / c.price);
+      const qty = Math.round(annualLossUSD / c.price);
       return `<div style="
         background:var(--card2);border:1px solid var(--border);
         border-radius:var(--radius-sm);padding:14px;text-align:center;
@@ -3088,35 +3070,13 @@ try{document.getElementById('w-salary').addEventListener('keydown',e=>{if(e.key=
 
 // ── INIT ──────────────────────────────────────────────────────────
 // ── JOURNEY SYSTEM ───────────────────────────────────────────────
-const JOURNEY_PAGES=['dash','wage','personal','world','report','mbti','sleep'];
-const JOURNEY_LABELS=['Live Tracker','Real Wage','My Inflation','World Pain','My Report','My Type','While You Slept'];
-let journeyStarted=false;
 
 function journeyNext(page){
-  journeyStarted=true;
   showPage(page);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function updateJourneyBar(pageId){
-  const idx=JOURNEY_PAGES.indexOf(pageId);
-  const bar=document.getElementById('journey-bar');
-  if(!bar) return;
 
-  if(idx===-1||!journeyStarted){
-    bar.style.display='none';
-    return;
-  }
-  bar.style.display='flex';
-
-  JOURNEY_PAGES.forEach((_,i)=>{
-    const el=document.getElementById('js-'+i);
-    if(!el) return;
-    el.className='journey-step'+(i<idx?' done':i===idx?' active':'');
-  });
-  document.getElementById('journey-label').textContent=
-    'STEP '+(idx+1)+' OF '+JOURNEY_PAGES.length;
-}
 
 // ── IGNITE WITH LOADING ANIMATION ────────────────────────────────
 function igniteWithLoading(){
@@ -3131,9 +3091,6 @@ function igniteWithLoading(){
 
   const loader=document.getElementById('ignite-loading');
   loader.style.display='flex';
-  journeyStarted=true;
-  updateJourneyBar('dash');
-
   const steps=[
     {id:'il-1',delay:0},
     {id:'il-2',delay:380},
