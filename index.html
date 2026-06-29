@@ -55,8 +55,8 @@ body{
   color: var(--t1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.7;
 }
 
 /* ── NAV ── */
@@ -97,7 +97,7 @@ nav{
 .ntab.on{color: var(--t1); background: var(--page); font-weight: 600}
 .ntab-num{
   font-family:'Space Mono',monospace;
-  font-size:9px; font-weight:700;
+  font-size:15px; font-weight:700;
   color:var(--red); margin-right:3px;
   opacity:.7;
 }
@@ -138,7 +138,7 @@ nav{
 /* ── TYPE ── */
 .eyebrow{
   font-family: 'Space Mono', monospace;
-  font-size: 10px; letter-spacing: 3px;
+  font-size: 12px; letter-spacing: 3px;
   text-transform: uppercase; color: var(--red);
   font-weight: 700; margin-bottom: 8px; display: block;
 }
@@ -155,7 +155,7 @@ h1 em{color: var(--red); font-style: normal}
 }
 .sec-label{
   font-family: 'Space Mono', monospace;
-  font-size: 9px; letter-spacing: 2.5px;
+  font-size: 11px; letter-spacing: 2px;
   text-transform: uppercase; color: var(--t3);
   font-weight: 700; margin-bottom: 6px; display: block;
 }
@@ -180,7 +180,7 @@ h1 em{color: var(--red); font-style: normal}
 .irow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
 .ifield{display:flex; flex-direction:column; gap:5px; flex:1; min-width:110px}
 .ifield label{
-  font-size: 10px; letter-spacing: 1.5px;
+  font-size: 12px; letter-spacing: 1.5px;
   text-transform: uppercase; color: var(--t3);
   font-weight: 700; font-family: 'Space Mono', monospace;
 }
@@ -213,8 +213,8 @@ h1 em{color: var(--red); font-style: normal}
   background: var(--card2); color: var(--t2);
   border: 1px solid var(--border2);
   border-radius: var(--radius-sm);
-  font-family: 'Inter', sans-serif; font-size: 13px;
-  font-weight: 500; padding: 8px 16px;
+  font-family: 'Inter', sans-serif; font-size: 15px;
+  font-weight: 500; padding: 10px 18px;
   cursor: pointer; transition: background .15s;
 }
 .btn-secondary:hover{background: var(--border)}
@@ -227,12 +227,12 @@ h1 em{color: var(--red); font-style: normal}
   padding:12px 16px; margin-bottom:12px;
   display:flex; align-items:center; gap:12px; flex-wrap:wrap;
 }
-.cpi-txt{font-size:13px; color:var(--t1); flex:1; line-height:1.5}
+.cpi-txt{font-size:16px; color:var(--t1); flex:1; line-height:1.6}
 .cpi-txt strong{color:var(--blue)}
 .cpi-badge{
   background:var(--blue); color:#fff;
   border-radius:20px; padding:3px 11px;
-  font-size:10px; font-family:'Space Mono',monospace;
+  font-size:14px; font-family:'Space Mono',monospace;
   font-weight:700; white-space:nowrap; flex-shrink:0;
 }
 
@@ -242,7 +242,7 @@ h1 em{color: var(--red); font-style: normal}
   border:1px solid #FECACA; border-radius:var(--radius);
   padding:14px 18px; margin-bottom:12px;
 }
-#ret p{font-size:13px; line-height:1.6; color:var(--t1)}
+#ret p{font-size:15px; line-height:1.6; color:var(--t1)}
 #ret strong{color:var(--red)}
 .ret-btns{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
 
@@ -260,7 +260,7 @@ h1 em{color: var(--red); font-style: normal}
   font-weight:700; color:var(--red); line-height:1;
 }
 .comm-lbl{
-  font-size:9px; letter-spacing:1px; text-transform:uppercase;
+  font-size:15px; letter-spacing:1px; text-transform:uppercase;
   color:var(--t3); margin-top:3px; font-weight:600;
 }
 
@@ -281,7 +281,7 @@ h1 em{color: var(--red); font-style: normal}
 .counter-box.gross{background:var(--red-bg); border:1px solid #FECACA}
 .counter-box.net{background:var(--amber-bg); border:1px solid #FDE68A}
 .cb-label{
-  font-family:'Space Mono',monospace; font-size:9px;
+  font-family:'Space Mono',monospace; font-size:15px;
   letter-spacing:2px; text-transform:uppercase;
   font-weight:700; margin-bottom:6px;
 }
@@ -297,7 +297,7 @@ h1 em{color: var(--red); font-style: normal}
 @keyframes flash{0%{opacity:.3}100%{opacity:1}}
 .cb-num.flash{animation:flash .25s ease-out}
 .counter-since{
-  font-family:'Space Mono',monospace; font-size:11px;
+  font-family:'Space Mono',monospace; font-size:15px;
   color:var(--t3); margin-bottom:16px;
 }
 
@@ -306,16 +306,16 @@ h1 em{color: var(--red); font-style: normal}
 @media(max-width:400px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
 .stat-box{
   background:var(--card2); border:1px solid var(--border);
-  border-radius:var(--radius-sm); padding:12px 10px;
+  border-radius:var(--radius-sm); padding:16px 14px;
   min-width:0; overflow:hidden;
 }
 .sb-label{
-  font-family:'Inter',sans-serif; font-size:11px;
-  font-weight:600; color:var(--t2); margin-bottom:6px;
+  font-family:'Inter',sans-serif; font-size:15px;
+  font-weight:600; color:var(--t2); margin-bottom:8px;
   line-height:1.3;
 }
 .sb-val{
-  font-family:'Space Mono',monospace; font-size:clamp(14px,4vw,20px);
+  font-family:'Space Mono',monospace; font-size:clamp(18px,4vw,26px);
   font-weight:700; color:var(--red);
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
@@ -328,24 +328,24 @@ h1 em{color: var(--red); font-style: normal}
 .bracket-card{
   background:var(--card); border:1px solid var(--border);
   border-left:4px solid var(--amber); border-radius:var(--radius);
-  box-shadow:var(--shadow); padding:20px;
+  box-shadow:var(--shadow); padding:24px;
   margin-bottom:12px; display:none;
 }
-.bc-head{font-size:14px; font-weight:700; color:var(--t1); margin-bottom:4px}
-.bc-sub{font-size:12px; color:var(--t2); margin-bottom:14px; line-height:1.5}
-.bc-row{display:flex; align-items:center; gap:10px; margin-bottom:8px}
-.bc-name{font-size:11px; color:var(--t2); width:120px; flex-shrink:0; font-weight:500}
-.bc-track{flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden}
-.bc-fill{height:100%; border-radius:3px; transition:width 1s ease}
+.bc-head{font-size:17px; font-weight:700; color:var(--t1); margin-bottom:6px}
+.bc-sub{font-size:14px; color:var(--t2); margin-bottom:16px; line-height:1.6}
+.bc-row{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+.bc-name{font-size:15px; color:var(--t2); width:140px; flex-shrink:0; font-weight:500}
+.bc-track{flex:1; height:8px; background:var(--border); border-radius:4px; overflow:hidden}
+.bc-fill{height:100%; border-radius:4px; transition:width 1s ease}
 .bc-pct{
-  font-family:'Space Mono',monospace; font-size:12px;
-  font-weight:700; width:40px; text-align:right; flex-shrink:0;
+  font-family:'Space Mono',monospace; font-size:14px;
+  font-weight:700; width:48px; text-align:right; flex-shrink:0;
 }
 .bc-verdict{
-  margin-top:12px; padding:12px 14px;
+  margin-top:14px; padding:14px 18px;
   background:var(--amber-bg); border:1px solid #FDE68A;
-  border-radius:var(--radius-sm); font-size:13px;
-  color:var(--t1); line-height:1.6;
+  border-radius:var(--radius-sm); font-size:15px;
+  color:var(--t1); line-height:1.7;
 }
 .bc-verdict strong{color:var(--amber)}
 
@@ -357,12 +357,12 @@ h1 em{color: var(--red); font-style: normal}
 }
 .chart-wrap{position:relative; height:220px}
 .chart-legend{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
-.legend-item{display:flex; align-items:center; gap:6px; font-size:11px; color:var(--t2); font-weight:500}
+.legend-item{display:flex; align-items:center; gap:6px; font-size:15px; color:var(--t2); font-weight:500}
 .legend-line{height:3px; width:18px; border-radius:2px; flex-shrink:0}
 .chart-note{
   margin-top:10px; padding:10px 12px;
   background:var(--card2); border:1px solid var(--border);
-  border-radius:var(--radius-sm); font-size:11px; color:var(--t2); line-height:1.6;
+  border-radius:var(--radius-sm); font-size:15px; color:var(--t2); line-height:1.7;
 }
 .chart-note strong{color:var(--t1)}
 
@@ -370,24 +370,24 @@ h1 em{color: var(--red); font-style: normal}
 .compare-card{
   background:var(--card); border:1px solid var(--border);
   border-radius:var(--radius); box-shadow:var(--shadow);
-  padding:20px; margin-bottom:12px; display:none;
+  padding:24px; margin-bottom:12px; display:none;
 }
 .cmp-row{
   display:flex; justify-content:space-between;
-  align-items:center; padding:11px 0;
+  align-items:center; padding:15px 0;
   border-bottom:1px solid var(--border);
 }
 .cmp-row:last-child{border-bottom:none}
-.cmp-name{font-size:13px; color:var(--t1); font-weight:500}
-.cmp-name small{display:block; font-size:11px; color:var(--t3); margin-top:1px; font-weight:400}
-.cmp-val{font-family:'Space Mono',monospace; font-size:14px; font-weight:700; text-align:right}
-.cmp-pct{font-size:10px; display:block; margin-top:1px; font-weight:400}
+.cmp-name{font-size:15px; color:var(--t1); font-weight:500}
+.cmp-name small{display:block; font-size:14px; color:var(--t3); margin-top:2px; font-weight:400}
+.cmp-val{font-family:'Space Mono',monospace; font-size:16px; font-weight:700; text-align:right}
+.cmp-pct{font-size:14px; display:block; margin-top:1px; font-weight:400}
 
 /* ── DEFENSE ── */
 .defense-card{
   background:var(--card); border:1px solid var(--border);
   border-radius:var(--radius); box-shadow:var(--shadow);
-  padding:20px; margin-bottom:12px; display:none;
+  padding:24px; margin-bottom:12px; display:none;
 }
 .def-header{display:flex; align-items:center; gap:14px; margin-bottom:18px}
 .def-score-ring{
@@ -396,27 +396,27 @@ h1 em{color: var(--red); font-style: normal}
   font-family:'Space Mono',monospace; font-size:18px; font-weight:700;
   flex-shrink:0; border:3px solid;
 }
-.def-title{font-size:15px; font-weight:700; color:var(--t1)}
-.def-sub{font-size:12px; color:var(--t3); margin-top:2px; line-height:1.5}
-.def-list{display:flex; flex-direction:column; gap:10px}
+.def-title{font-size:17px; font-weight:700; color:var(--t1)}
+.def-sub{font-size:14px; color:var(--t3); margin-top:4px; line-height:1.6}
+.def-list{display:flex; flex-direction:column; gap:12px}
 .def-item{
   background:var(--card2); border:1px solid var(--border);
   border-left:4px solid; border-radius:var(--radius-sm);
-  padding:14px; display:flex; gap:12px; align-items:flex-start;
+  padding:18px 16px; display:flex; gap:14px; align-items:flex-start;
 }
 .def-item.p1{border-left-color:var(--red); background:var(--red-bg)}
 .def-item.p-score{border-left-color:var(--blue); background:#EFF6FF}
 .def-tag.score{background:#DBEAFE; color:#1D4ED8}
 .def-item.p2{border-left-color:var(--amber); background:var(--amber-bg)}
 .def-item.p3{border-left-color:var(--green); background:var(--green-bg)}
-.def-icon{font-size:20px; flex-shrink:0}
+.def-icon{font-size:26px; flex-shrink:0; margin-top:2px}
 .def-body{}
-.def-name{font-size:13px; font-weight:700; color:var(--t1); margin-bottom:3px}
-.def-desc{font-size:12px; color:var(--t2); line-height:1.6}
+.def-name{font-size:15px; font-weight:700; color:var(--t1); margin-bottom:5px}
+.def-desc{font-size:14px; color:var(--t2); line-height:1.7}
 .def-tag{
-  display:inline-block; margin-top:6px;
-  font-family:'Space Mono',monospace; font-size:10px;
-  font-weight:700; padding:2px 8px; border-radius:4px;
+  display:inline-block; margin-top:8px;
+  font-family:'Space Mono',monospace; font-size:14px;
+  font-weight:700; padding:4px 12px; border-radius:4px;
 }
 .def-tag.high{background:var(--red); color:#fff}
 .def-tag.med{background:var(--amber); color:#fff}
@@ -427,7 +427,7 @@ h1 em{color: var(--red); font-style: normal}
   background:var(--red-bg); border:1px solid #FECACA;
   border-radius:var(--radius); padding:16px 20px;
   margin-bottom:12px; display:none;
-  font-size:13px; color:var(--t1); line-height:1.7;
+  font-size:15px; color:var(--t1); line-height:1.7;
 }
 .reality-card strong{color:var(--red)}
 
@@ -447,11 +447,11 @@ h1 em{color: var(--red); font-style: normal}
 .wage-row.aftertax{background:var(--amber-bg); border-color:#FDE68A}
 .wage-row.real-bad{background:var(--red-bg); border-color:#FECACA}
 .wage-row.real-good{background:var(--green-bg); border-color:#A7F3D0}
-.wr-label{font-size:13px; color:var(--t1); font-weight:500}
-.wr-label small{display:block; font-size:11px; color:var(--t3); margin-top:1px}
+.wr-label{font-size:15px; color:var(--t1); font-weight:500}
+.wr-label small{display:block; font-size:15px; color:var(--t3); margin-top:1px}
 .wr-val{font-family:'Space Mono',monospace; font-size:20px; font-weight:700}
 .wage-insight{
-  font-size:13px; color:var(--t1); line-height:1.7;
+  font-size:15px; color:var(--t1); line-height:1.7;
   padding:14px 16px; background:var(--card2);
   border:1px solid var(--border); border-radius:var(--radius-sm);
   margin-bottom:16px;
@@ -464,10 +464,10 @@ h1 em{color: var(--red); font-style: normal}
   background:var(--card2); border:1px solid var(--border);
   border-radius:var(--radius-sm); padding:12px;
 }
-.pi-name{font-size:11px; color:var(--t2); font-weight:600; margin-bottom:6px}
+.pi-name{font-size:15px; color:var(--t2); font-weight:600; margin-bottom:6px}
 .pi-row{display:flex; align-items:center; gap:8px}
 .pi-slider{flex:1; accent-color:var(--red); cursor:pointer}
-.pi-val{font-family:'Space Mono',monospace; font-size:13px; font-weight:700; color:var(--t1); width:36px; text-align:right}
+.pi-val{font-family:'Space Mono',monospace; font-size:15px; font-weight:700; color:var(--t1); width:36px; text-align:right}
 .pi-result{
   background:var(--card2); border:1px solid var(--border);
   border-radius:var(--radius); padding:20px;
@@ -479,27 +479,27 @@ h1 em{color: var(--red); font-style: normal}
   font-weight:700; line-height:1;
 }
 .pi-big .pi-lbl{
-  font-size:9px; letter-spacing:2px; text-transform:uppercase;
+  font-size:15px; letter-spacing:2px; text-transform:uppercase;
   color:var(--t3); font-weight:700; margin-top:4px;
 }
 .pi-cmp-list{flex:1; display:flex; flex-direction:column; gap:6px}
 .pi-cmp-row{
   display:flex; justify-content:space-between; align-items:center;
   padding:8px 10px; background:var(--card); border:1px solid var(--border);
-  border-radius:var(--radius-sm); font-size:13px;
+  border-radius:var(--radius-sm); font-size:15px;
 }
 .pi-cmp-row .lbl{color:var(--t2); font-weight:500}
 .pi-cmp-row .val{font-family:'Space Mono',monospace; font-weight:700}
-.pi-total-check{font-size:12px; color:var(--t3); text-align:center; margin-bottom:10px}
+.pi-total-check{font-size:14px; color:var(--t3); text-align:center; margin-bottom:10px}
 .cpi-comp-row{
   display:flex; justify-content:space-between; align-items:center;
-  padding:8px 0; border-bottom:1px solid var(--border); font-size:13px;
+  padding:8px 0; border-bottom:1px solid var(--border); font-size:15px;
 }
 .cpi-comp-row:last-child{border-bottom:none}
 .cpi-comp-name{color:var(--t1); font-weight:500}
 .cpi-comp-right{display:flex; gap:16px; align-items:center}
-.cpi-comp-wt{font-size:11px; color:var(--t3)}
-.cpi-comp-rate{font-family:'Space Mono',monospace; font-size:13px; font-weight:700}
+.cpi-comp-wt{font-size:15px; color:var(--t3)}
+.cpi-comp-rate{font-family:'Space Mono',monospace; font-size:15px; font-weight:700}
 
 /* ── WORLD PAIN ── */
 .world-explain{
@@ -511,8 +511,8 @@ h1 em{color: var(--red); font-style: normal}
   border-radius:var(--radius-sm); box-shadow:var(--shadow);
   padding:14px 16px;
 }
-.we-box-title{font-size:12px; font-weight:700; margin-bottom:4px}
-.we-box-text{font-size:12px; color:var(--t2); line-height:1.6}
+.we-box-title{font-size:14px; font-weight:700; margin-bottom:4px}
+.we-box-text{font-size:14px; color:var(--t2); line-height:1.6}
 .country-tbl{
   width:100%; border-collapse:collapse;
   background:var(--card); border-radius:var(--radius);
@@ -520,7 +520,7 @@ h1 em{color: var(--red); font-style: normal}
   box-shadow:var(--shadow);
 }
 .country-tbl th{
-  font-family:'Space Mono',monospace; font-size:9px;
+  font-family:'Space Mono',monospace; font-size:15px;
   letter-spacing:2px; text-transform:uppercase;
   color:var(--t3); font-weight:700;
   padding:10px 12px; text-align:left;
@@ -528,14 +528,14 @@ h1 em{color: var(--red); font-style: normal}
 }
 .country-tbl td{
   padding:11px 12px; border-bottom:1px solid var(--border);
-  font-size:13px; color:var(--t1);
+  font-size:15px; color:var(--t1);
 }
 .country-tbl tr:last-child td{border-bottom:none}
 .country-tbl tr:hover td{background:var(--card2)}
 .rank-num{
   display:inline-flex; align-items:center; justify-content:center;
   width:22px; height:22px; border-radius:5px;
-  font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+  font-family:'Space Mono',monospace; font-size:14px; font-weight:700;
   color:#fff;
 }
 .pain-bar-wrap{height:4px; background:var(--border); border-radius:2px; overflow:hidden; margin-top:4px}
@@ -549,7 +549,7 @@ h1 em{color: var(--red); font-style: normal}
 }
 .report-empty .empty-icon{font-size:48px; margin-bottom:12px}
 .report-empty h3{font-size:16px; font-weight:700; color:var(--t1); margin-bottom:6px}
-.report-empty p{font-size:13px; color:var(--t2)}
+.report-empty p{font-size:15px; color:var(--t2)}
 
 .report-card{
   background:#fff; border:2px solid var(--red);
@@ -568,14 +568,14 @@ h1 em{color: var(--red); font-style: normal}
   align-items:flex-start; margin-bottom:20px;
 }
 .rpt-brand{
-  font-family:'Space Mono',monospace; font-size:10px;
+  font-family:'Space Mono',monospace; font-size:14px;
   letter-spacing:3px; color:var(--red);
   text-transform:uppercase; font-weight:700;
 }
-.rpt-date-text{font-size:11px; color:var(--t3); margin-top:4px; font-family:'Space Mono',monospace}
+.rpt-date-text{font-size:15px; color:var(--t3); margin-top:4px; font-family:'Space Mono',monospace}
 .rpt-score-area{text-align:right}
 .rpt-score-lbl{
-  font-size:9px; letter-spacing:2px; text-transform:uppercase;
+  font-size:15px; letter-spacing:2px; text-transform:uppercase;
   color:var(--t3); font-family:'Space Mono',monospace; font-weight:700;
 }
 .rpt-score-num{
@@ -588,7 +588,7 @@ h1 em{color: var(--red); font-style: normal}
   margin-bottom:16px;
 }
 .rpt-loss-label{
-  font-family:'Space Mono',monospace; font-size:9px;
+  font-family:'Space Mono',monospace; font-size:15px;
   letter-spacing:2px; text-transform:uppercase;
   color:var(--red); font-weight:700; margin-bottom:6px;
 }
@@ -597,7 +597,7 @@ h1 em{color: var(--red); font-style: normal}
   font-weight:700; color:var(--red); letter-spacing:-1px; line-height:1;
 }
 .rpt-loss-net{
-  font-family:'Space Mono',monospace; font-size:13px;
+  font-family:'Space Mono',monospace; font-size:15px;
   color:var(--amber); margin-top:5px; font-weight:700;
 }
 .rpt-stats{
@@ -610,7 +610,7 @@ h1 em{color: var(--red); font-style: normal}
   box-shadow:var(--shadow);
 }
 .rpt-stat-lbl{
-  font-size:8px; letter-spacing:1px; text-transform:uppercase;
+  font-size:15px; letter-spacing:1px; text-transform:uppercase;
   color:var(--t3); font-family:'Space Mono',monospace;
   font-weight:700; margin-bottom:4px;
 }
@@ -623,14 +623,14 @@ h1 em{color: var(--red); font-style: normal}
   margin-bottom:16px; box-shadow:var(--shadow);
 }
 .rpt-5yr-label{
-  font-size:9px; letter-spacing:2px; text-transform:uppercase;
+  font-size:15px; letter-spacing:2px; text-transform:uppercase;
   color:var(--t3); font-family:'Space Mono',monospace;
   font-weight:700; margin-bottom:10px;
 }
 .rpt-5yr-row{
   display:flex; justify-content:space-between; align-items:center;
   padding:7px 0; border-bottom:1px solid var(--border);
-  font-size:13px;
+  font-size:15px;
 }
 .rpt-5yr-row:last-child{border-bottom:none}
 .rpt-5yr-row .rl{color:var(--t1); font-weight:500}
@@ -640,14 +640,14 @@ h1 em{color: var(--red); font-style: normal}
   border-radius:var(--radius-sm); padding:14px; margin-bottom:16px;
 }
 .rpt-action-lbl{
-  font-size:9px; letter-spacing:2px; text-transform:uppercase;
+  font-size:15px; letter-spacing:2px; text-transform:uppercase;
   color:var(--red); font-family:'Space Mono',monospace;
   font-weight:700; margin-bottom:6px;
 }
-.rpt-action-txt{font-size:13px; color:var(--t1); line-height:1.6; font-weight:500}
+.rpt-action-txt{font-size:15px; color:var(--t1); line-height:1.6; font-weight:500}
 .rpt-watermark{
   text-align:center; font-family:'Space Mono',monospace;
-  font-size:10px; color:var(--t4); letter-spacing:2px;
+  font-size:14px; color:var(--t4); letter-spacing:2px;
 }
 .rpt-share-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px}
 .proj-card{
@@ -657,7 +657,7 @@ h1 em{color: var(--red); font-style: normal}
 .proj-controls{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px}
 .proj-ctrl{flex:1; min-width:140px}
 .proj-ctrl-lbl{
-  font-size:10px; color:var(--t3); font-family:'Space Mono',monospace;
+  font-size:14px; color:var(--t3); font-family:'Space Mono',monospace;
   font-weight:700; margin-bottom:5px;
 }
 .insight-card{
@@ -666,12 +666,12 @@ h1 em{color: var(--red); font-style: normal}
   padding:18px 20px; margin-bottom:12px;
 }
 .insight-ey{
-  font-family:'Space Mono',monospace; font-size:9px;
+  font-family:'Space Mono',monospace; font-size:15px;
   letter-spacing:2px; text-transform:uppercase;
   color:var(--blue); font-weight:700; margin-bottom:8px;
 }
 .insight-txt{font-size:14px; color:var(--t1); line-height:1.7; font-weight:600}
-.insight-impact{font-size:12px; color:var(--t2); margin-top:6px; line-height:1.6}
+.insight-impact{font-size:14px; color:var(--t2); margin-top:6px; line-height:1.6}
 
 /* ── SLEEP TRACKER ── */
 .sleep-hero{
@@ -711,7 +711,7 @@ h1 em{color: var(--red); font-style: normal}
 .sleep-time-row{display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:16px}
 .sleep-time-field{display:flex; flex-direction:column; gap:6px; flex:1; min-width:120px}
 .sleep-time-field label{
-  font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  font-size:14px; letter-spacing:1.5px; text-transform:uppercase;
   color:var(--t3); font-weight:700; font-family:'Space Mono',monospace;
 }
 .sleep-time-input{
@@ -732,7 +732,7 @@ h1 em{color: var(--red); font-style: normal}
 .sleep-quick-btns{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:20px}
 .sleep-quick-btn{
   background:var(--card2); border:1px solid var(--border2);
-  border-radius:20px; padding:5px 14px; font-size:12px;
+  border-radius:20px; padding:5px 14px; font-size:14px;
   color:var(--t2); cursor:pointer; font-weight:600;
   font-family:'Space Mono',monospace; transition:all .15s;
 }
@@ -751,7 +751,7 @@ h1 em{color: var(--red); font-style: normal}
   pointer-events:none;
 }
 .sleep-loss-eyebrow{
-  font-family:'Space Mono',monospace; font-size:9px;
+  font-family:'Space Mono',monospace; font-size:15px;
   letter-spacing:3px; text-transform:uppercase;
   color:rgba(220,38,38,.7); font-weight:700; margin-bottom:10px;
 }
@@ -761,19 +761,19 @@ h1 em{color: var(--red); font-style: normal}
   color:#F87171; letter-spacing:-2px; line-height:1;
   margin-bottom:6px; position:relative; z-index:1;
 }
-.sleep-loss-label{font-size:13px; color:rgba(255,255,255,.5); font-family:'Space Mono',monospace; position:relative; z-index:1}
-.sleep-loss-hours{font-size:11px; color:rgba(255,255,255,.35); margin-top:6px; font-family:'Space Mono',monospace; position:relative; z-index:1}
+.sleep-loss-label{font-size:15px; color:rgba(255,255,255,.5); font-family:'Space Mono',monospace; position:relative; z-index:1}
+.sleep-loss-hours{font-size:15px; color:rgba(255,255,255,.35); margin-top:6px; font-family:'Space Mono',monospace; position:relative; z-index:1}
 .sleep-cards-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px}
 @media(max-width:520px){.sleep-cards-grid{grid-template-columns:1fr}}
 .sleep-stat-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow)}
-.sleep-stat-ey{font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--t3); font-weight:700; margin-bottom:6px}
+.sleep-stat-ey{font-family:'Space Mono',monospace; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:var(--t3); font-weight:700; margin-bottom:6px}
 .sleep-stat-val{font-family:'Space Mono',monospace; font-size:22px; font-weight:700; color:var(--red); line-height:1; margin-bottom:4px}
-.sleep-stat-desc{font-size:12px; color:var(--t2); line-height:1.5}
+.sleep-stat-desc{font-size:14px; color:var(--t2); line-height:1.5}
 .sleep-compare-box{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; box-shadow:var(--shadow)}
-.sleep-cmp-row{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px}
+.sleep-cmp-row{display:flex; justify-content:space-between; align-items:center; padding:13px 0; border-bottom:1px solid var(--border); font-size:15px}
 .sleep-cmp-row:last-child{border-bottom:none}
 .sleep-cmp-label{color:var(--t1); font-weight:500}
-.sleep-cmp-label small{display:block; font-size:11px; color:var(--t3); margin-top:1px}
+.sleep-cmp-label small{display:block; font-size:15px; color:var(--t3); margin-top:1px}
 .sleep-cmp-val{font-family:'Space Mono',monospace; font-weight:700; color:var(--red)}
 .sleep-share-card{background:var(--red-bg); border:1px solid #FECACA; border-radius:var(--radius); padding:18px 20px; margin-bottom:12px}
 .sleep-share-text{font-size:15px; color:var(--t1); line-height:1.8; font-weight:600; margin-bottom:14px}
@@ -784,46 +784,46 @@ h1 em{color: var(--red); font-style: normal}
 .mbti-progress-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px;box-shadow:var(--shadow)}
 .mbti-progress-track{height:4px;background:var(--border);border-radius:2px;margin-bottom:6px}
 .mbti-progress-fill{height:100%;background:var(--red);border-radius:2px;transition:width .35s ease}
-.mbti-progress-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase}
+.mbti-progress-label{font-family:'Space Mono',monospace;font-size:14px;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase}
 .mbti-q-card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--red);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 20px;margin-bottom:12px;animation:fadein .25s ease}
-.mbti-q-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:8px}
+.mbti-q-num{font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:8px}
 .mbti-q-text{font-size:16px;font-weight:600;color:var(--t1);line-height:1.5;margin-bottom:18px}
 .mbti-opts{display:flex;flex-direction:column;gap:8px}
-.mbti-opt{background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:13px 16px;cursor:pointer;font-size:14px;color:var(--t2);font-family:'Inter',sans-serif;font-weight:500;transition:all .15s;text-align:left;display:flex;align-items:center;gap:12px}
+.mbti-opt{background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:13px 16px;cursor:pointer;font-size:16px;color:var(--t2);font-family:'Inter',sans-serif;font-weight:500;transition:all .15s;text-align:left;display:flex;align-items:center;gap:12px}
 .mbti-opt:hover{border-color:var(--red);color:var(--t1);background:#fff;transform:translateX(3px)}
 .mbti-opt.selected{border-color:var(--red);background:var(--red-bg);color:var(--t1)}
-.mbti-opt-letter{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--red);min-width:16px}
+.mbti-opt-letter{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--red);min-width:16px}
 .mbti-result-header{background:var(--card);border:1px solid var(--border);border-top:4px solid var(--red);border-radius:var(--radius);box-shadow:var(--shadow-md);padding:28px 24px;text-align:center;margin-bottom:12px}
 .mbti-result-emoji{font-size:56px;margin-bottom:12px;display:block}
-.mbti-result-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:6px}
+.mbti-result-label{font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:6px}
 .mbti-result-name{font-size:clamp(22px,4vw,36px);font-weight:700;color:var(--t1);line-height:1.1;margin-bottom:4px}
-.mbti-result-sub{font-size:13px;color:var(--t3);font-style:italic;margin-bottom:12px}
+.mbti-result-sub{font-size:15px;color:var(--t3);font-style:italic;margin-bottom:12px}
 .mbti-result-tagline{font-size:14px;color:var(--t2);line-height:1.65;max-width:440px;margin:0 auto 16px}
 .mbti-damage-meter{max-width:300px;margin:0 auto}
-.mbti-damage-labels{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:1px;margin-bottom:5px}
+.mbti-damage-labels{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:15px;color:var(--t3);letter-spacing:1px;margin-bottom:5px}
 .mbti-damage-track{height:6px;background:var(--border);border-radius:3px}
 .mbti-damage-fill{height:100%;border-radius:3px;width:0%;transition:width 1s ease .3s}
 .mbti-cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 @media(max-width:520px){.mbti-cards-grid{grid-template-columns:1fr}}
 .mbti-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;box-shadow:var(--shadow)}
 .mbti-card-full{grid-column:1/-1}
-.mbti-card-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:8px}
-.mbti-card-content{font-size:13px;color:var(--t2);line-height:1.65}
+.mbti-card-label{font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:8px}
+.mbti-card-content{font-size:15px;color:var(--t2);line-height:1.65}
 .mbti-card-content strong{color:var(--t1)}
 .mbti-survival-num{font-family:'Space Mono',monospace;font-size:36px;font-weight:700;line-height:1}
 .mbti-action-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
 .mbti-all-types{border-top:1px solid var(--border);padding-top:24px;margin-top:24px}
-.mbti-all-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+.mbti-all-label{font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
 .mbti-type-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--radius-sm);margin-bottom:4px;border:1px solid transparent;transition:background .12s}
 .mbti-type-row.active{background:var(--red-bg);border-color:#FECACA}
 .mbti-type-emoji{font-size:18px;min-width:26px}
-.mbti-type-name{font-weight:600;font-size:13px;flex:1;color:var(--t1)}
-.mbti-type-sub{font-size:11px;color:var(--t3);font-style:italic}
-.mbti-type-skulls{font-size:11px;color:var(--red)}
+.mbti-type-name{font-weight:600;font-size:15px;flex:1;color:var(--t1)}
+.mbti-type-sub{font-size:15px;color:var(--t3);font-style:italic}
+.mbti-type-skulls{font-size:15px;color:var(--red)}
 .mbti-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:16px}
 .mbti-preview-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 12px;text-align:center;box-shadow:var(--shadow)}
 .mbti-preview-emoji{font-size:26px;margin-bottom:6px}
-.mbti-preview-name{font-size:11px;font-weight:600;color:var(--t2)}
+.mbti-preview-name{font-size:15px;font-weight:600;color:var(--t2)}
 
 
 
@@ -832,7 +832,7 @@ h1 em{color: var(--red); font-style: normal}
   margin-top:12px;
 }
 .next-cta-label{
-  font-family:'Space Mono',monospace; font-size:9px;
+  font-family:'Space Mono',monospace; font-size:15px;
   letter-spacing:2px; text-transform:uppercase;
   color:var(--t3); margin-bottom:8px; display:block;
 }
@@ -854,7 +854,7 @@ h1 em{color: var(--red); font-style: normal}
 }
 .next-cta-btn:hover .next-cta-arrow{transform:translateX(4px)}
 .next-cta-title{font-size:15px; font-weight:700; color:var(--t1); margin-bottom:3px}
-.next-cta-sub{font-size:12px; color:var(--t3)}
+.next-cta-sub{font-size:14px; color:var(--t3)}
 
 /* ── COMPLETION CARD ── */
 .completion-card{
@@ -875,7 +875,7 @@ h1 em{color: var(--red); font-style: normal}
   line-height:1; margin-bottom:4px;
 }
 .completion-score-label{
-  font-family:'Space Mono',monospace; font-size:10px;
+  font-family:'Space Mono',monospace; font-size:14px;
   letter-spacing:2px; text-transform:uppercase;
   color:rgba(255,255,255,.4); margin-bottom:20px;
 }
@@ -889,7 +889,7 @@ h1 em{color: var(--red); font-style: normal}
   margin-top:12px;
 }
 .ignite-loading-step{
-  font-family:'Space Mono',monospace; font-size:12px;
+  font-family:'Space Mono',monospace; font-size:14px;
   color:var(--t3); opacity:0; transition:opacity .3s;
   display:flex; align-items:center; gap:8px;
 }
@@ -914,7 +914,7 @@ h1 em{color: var(--red); font-style: normal}
 }
 .email-sub-eyebrow{
   font-family:'Space Mono',monospace;
-  font-size:9px; letter-spacing:2.5px; text-transform:uppercase;
+  font-size:15px; letter-spacing:2.5px; text-transform:uppercase;
   color:var(--t3); font-weight:700; margin-bottom:8px;
 }
 .email-sub-headline{
@@ -923,7 +923,7 @@ h1 em{color: var(--red); font-style: normal}
 }
 .email-sub-headline em{color:var(--red); font-style:normal}
 .email-sub-desc{
-  font-size:13px; color:var(--t2);
+  font-size:15px; color:var(--t2);
   line-height:1.65; margin-bottom:16px;
 }
 .email-sub-form{
@@ -946,7 +946,7 @@ h1 em{color: var(--red); font-style: normal}
 .email-sub-btn{
   background:var(--t1); color:#fff;
   border:none; border-radius:var(--radius-sm);
-  font-family:'Inter',sans-serif; font-size:13px;
+  font-family:'Inter',sans-serif; font-size:15px;
   font-weight:600; padding:9px 20px;
   cursor:pointer; white-space:nowrap;
   transition:background .15s;
@@ -954,7 +954,7 @@ h1 em{color: var(--red); font-style: normal}
 }
 .email-sub-btn:hover{background:var(--red)}
 .email-sub-note{
-  font-size:11px; color:var(--t4);
+  font-size:15px; color:var(--t4);
   margin-top:8px;
 }
 .email-sub-success{
@@ -964,7 +964,7 @@ h1 em{color: var(--red); font-style: normal}
 .email-sub-success-msg{
   display:inline; font-size:14px; font-weight:600; color:var(--green);
 }
-.email-sub-success-sub{font-size:12px; color:var(--t3); margin-top:4px}
+.email-sub-success-sub{font-size:14px; color:var(--t3); margin-top:4px}
 
 /* ── FOOTER ── */
 footer{
@@ -976,20 +976,20 @@ footer{
   display:flex; justify-content:space-between;
   align-items:center; flex-wrap:wrap; gap:12px;
 }
-.foot-brand{font-family:'Space Mono',monospace; font-size:13px; font-weight:700; color:var(--red)}
+.foot-brand{font-family:'Space Mono',monospace; font-size:15px; font-weight:700; color:var(--red)}
 .foot-links{display:flex; gap:14px; flex-wrap:wrap}
-.foot-links a{font-size:12px; color:var(--t3); text-decoration:none; transition:color .15s}
+.foot-links a{font-size:14px; color:var(--t3); text-decoration:none; transition:color .15s}
 .foot-links a:hover{color:var(--t1)}
 .foot-note{
   max-width:860px; margin:10px auto 0;
-  font-size:10px; color:var(--t4);
+  font-size:14px; color:var(--t4);
   font-family:'Space Mono',monospace; line-height:1.7;
 }
 
 /* ── RESPONSIVE ── */
 @media(max-width:600px){
   nav{padding:0 10px; gap:4px}
-  .ntab{font-size:12px; padding:4px 8px}
+  .ntab{font-size:14px; padding:4px 8px}
   .wrap,.wrap-wide{padding:24px 12px 60px}
   .irow{flex-direction:column}
   .btn-primary{width:100%}
@@ -1002,8 +1002,8 @@ footer{
   .world-explain{grid-template-columns:1fr}
 }
 @media(max-width:380px){
-  .ntab{font-size:11px; padding:4px 6px}
-  .logo{font-size:12px}
+  .ntab{font-size:15px; padding:4px 6px}
+  .logo{font-size:14px}
 }
 </style>
 <!-- Microsoft Clarity -->
@@ -1069,7 +1069,7 @@ footer{
 
   <!-- HERO -->
   <div style="padding:48px 0 36px;text-align:center">
-    <span class="eyebrow" style="letter-spacing:4px;font-size:10px">The World's Economy</span>
+    <span class="eyebrow" style="letter-spacing:4px;font-size:14px">The World's Economy</span>
     <h1 style="font-size:clamp(32px,6vw,58px);line-height:1.05;margin-bottom:14px">
       Translated into<br><em>your wallet.</em>
     </h1>
@@ -1080,11 +1080,11 @@ footer{
     <div style="display:inline-flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:40px;padding:10px 24px;flex-wrap:wrap;justify-content:center">
       <div style="display:flex;align-items:center;gap:6px">
         <div style="width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1.4s infinite"></div>
-        <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--red)" id="ct">$—</span>
-        <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--t3)">burned in US today (est.)</span>
+        <span style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:var(--red)" id="ct">$—</span>
+        <span style="font-family:'Space Mono',monospace;font-size:14px;color:var(--t3)">burned in US today (est.)</span>
       </div>
       <div style="width:1px;height:16px;background:var(--border)"></div>
-      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--t3)">🇺🇸 <strong style="color:var(--t1)">3.81%</strong> US inflation</div>
+      <div style="font-family:'Space Mono',monospace;font-size:14px;color:var(--t3)">🇺🇸 <strong style="color:var(--t1)">3.81%</strong> US inflation</div>
     </div>
   </div>
 
@@ -1092,7 +1092,7 @@ footer{
   <div id="ret" style="margin-bottom:16px">
     <p id="ret-txt">Welcome back.</p>
     <div class="ret-btns">
-      <button class="btn-primary" style="font-size:12px;padding:7px 14px" onclick="loadSaved()">▶ Resume my numbers</button>
+      <button class="btn-primary" style="font-size:14px;padding:7px 14px" onclick="loadSaved()">▶ Resume my numbers</button>
       <button class="btn-secondary" onclick="clearSaved()">Clear &amp; reset</button>
     </div>
   </div>
@@ -1106,7 +1106,7 @@ footer{
 
   <!-- INPUT -->
   <div class="input-panel" style="border-top:3px solid var(--red)">
-    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:14px">Step 1 — Tell us about your money</div>
+    <div style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:14px">Step 1 — Tell us about your money</div>
     <div class="irow">
       <div class="ifield">
         <label>Your Savings / Cash</label>
@@ -1185,7 +1185,7 @@ footer{
       margin-bottom:12px;
     ">
       <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:260px;height:260px;background:radial-gradient(circle,rgba(220,38,38,.12),transparent 70%);pointer-events:none"></div>
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(220,38,38,.6);font-weight:700;margin-bottom:16px;position:relative">
+      <div style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:rgba(220,38,38,.6);font-weight:700;margin-bottom:16px;position:relative">
         🔥 YOUR FINANCIAL REALITY
       </div>
       <!-- SHOCK HEADLINE -->
@@ -1193,9 +1193,9 @@ footer{
       <div id="shock-sub" style="font-size:14px;color:rgba(255,255,255,.45);margin-bottom:28px;font-family:'Space Mono',monospace;position:relative"></div>
       <!-- LIVE COUNTER -->
       <div style="position:relative">
-        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(220,38,38,.5);margin-bottom:8px" id="shock-counter-label">PURCHASING POWER LOST THIS SESSION</div>
+        <div style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(220,38,38,.5);margin-bottom:8px" id="shock-counter-label">PURCHASING POWER LOST THIS SESSION</div>
         <div id="gross-num" style="font-family:'Space Mono',monospace;font-size:clamp(36px,8vw,64px);font-weight:700;color:#F87171;letter-spacing:-2px;line-height:1">$0.000000</div>
-        <div id="counter-since" style="font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,.2);margin-top:6px">0s since you opened this page</div>
+        <div id="counter-since" style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.3);margin-top:8px">0s since you opened this page</div>
       </div>
     </div>
 
@@ -1204,15 +1204,15 @@ footer{
       background:var(--card);border:1px solid var(--border);
       border-radius:var(--radius);padding:24px;margin-bottom:12px;
     ">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:16px">
-        THIS YEAR'S INFLATION TAX = EQUAL TO...
+      <div style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--t1);font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)">
+        🔥 This Year's Inflation Tax = Equal To...
       </div>
       <div id="shock-items" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
     </div>
 
     <!-- STATS ROW -->
     <div class="card" style="padding:20px;margin-bottom:12px">
-      <span class="sec-label" style="margin-bottom:12px">Your numbers — live</span>
+      <span class="sec-label" style="margin-bottom:14px;font-size:15px">Your numbers — live</span>
       <div class="stat-grid">
         <div class="stat-box"><div class="sb-label">Per Second</div><div class="sb-val" id="ps">—</div></div>
         <div class="stat-box"><div class="sb-label">Per Minute</div><div class="sb-val" id="pm">—</div></div>
@@ -1239,35 +1239,36 @@ footer{
         <div style="position:absolute;top:-30px;right:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(220,38,38,.15),transparent 70%);pointer-events:none"></div>
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
           <div>
-            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(220,38,38,.7);font-weight:700;margin-bottom:4px">🔥 MONEY BURN · Inflation Card</div>
-            <div style="font-size:11px;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace" id="ic-date"></div>
+            <div style="font-family:'Space Mono',monospace;font-size:18px;letter-spacing:1px;text-transform:uppercase;color:#fff;font-weight:700;margin-bottom:4px;text-shadow:0 0 20px rgba(220,38,38,.6)">🔥 MONEY BURN</div>
+          <div style="font-family:'Space Mono',monospace;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:rgba(220,38,38,.7);font-weight:700;margin-bottom:4px">· Inflation Card</div>
+            <div style="font-size:15px;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace" id="ic-date"></div>
           </div>
           <div style="text-align:right">
-            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);font-family:'Space Mono',monospace;margin-bottom:2px">Defense Score</div>
+            <div style="font-size:15px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);font-family:'Space Mono',monospace;margin-bottom:2px">Defense Score</div>
             <div id="ic-score" style="font-family:'Space Mono',monospace;font-size:42px;font-weight:700;line-height:1;color:#DC2626">—</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.25);font-family:'Space Mono',monospace">/100</div>
+            <div style="font-size:14px;color:rgba(255,255,255,.25);font-family:'Space Mono',monospace">/100</div>
           </div>
         </div>
         <div style="background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.15);border-radius:10px;padding:14px 18px;margin-bottom:14px">
-          <div id="ic-loss-label" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(220,38,38,.6);font-weight:700;margin-bottom:5px">ANNUAL PURCHASING POWER LOSS</div>
+          <div id="ic-loss-label" style="font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:#FCA5A5;font-weight:700;margin-bottom:8px">ANNUAL PURCHASING POWER LOSS</div>
           <div id="ic-loss-num" style="font-family:'Space Mono',monospace;font-size:clamp(24px,5vw,38px);font-weight:700;color:#F87171;letter-spacing:-1px;line-height:1">—</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
           <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Per Day</div>
-            <div id="ic-per-day" style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#F87171">—</div>
+            <div style="font-size:15px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Per Day</div>
+            <div id="ic-per-day" style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#F87171">—</div>
           </div>
           <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Inflation</div>
-            <div id="ic-inf" style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#D97706">—</div>
+            <div style="font-size:15px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Inflation</div>
+            <div id="ic-inf" style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#D97706">—</div>
           </div>
           <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Real Return</div>
-            <div id="ic-real-return" style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#fff">—</div>
+            <div style="font-size:15px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Real Return</div>
+            <div id="ic-real-return" style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#fff">—</div>
           </div>
         </div>
-        <div id="ic-grade" style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px;font-family:'Space Mono',monospace"></div>
-        <div style="text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.2);letter-spacing:2px">inflationclock.com · Not financial advice</div>
+        <div id="ic-grade" style="font-size:15px;color:rgba(255,255,255,.5);margin-bottom:14px;font-family:'Space Mono',monospace"></div>
+        <div style="text-align:center;font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.2);letter-spacing:2px">inflationclock.com · Not financial advice</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
         <button class="btn-primary" onclick="shareInstantCard()" style="flex:1">𝕏 Share My Card</button>
@@ -1279,9 +1280,9 @@ footer{
         <div style="display:flex;align-items:center;gap:12px">
           <span style="font-size:28px">🌙</span>
           <div>
-            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:3px">WHILE YOU SLEPT LAST NIGHT</div>
+            <div style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:3px">WHILE YOU SLEPT LAST NIGHT</div>
             <div style="font-size:15px;font-weight:700;color:#fff">Your money was burning.</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">See how much inflation stole while you slept →</div>
+            <div style="font-size:14px;color:rgba(255,255,255,.4);margin-top:2px">See how much inflation stole while you slept →</div>
           </div>
         </div>
       </div>
@@ -1313,7 +1314,7 @@ footer{
 
   <!-- CHART -->
   <div class="chart-card" id="chart-card">
-    <span class="sec-label">12-month purchasing power — cash vs alternatives</span>
+    <div style="font-size:17px;font-weight:700;color:var(--t1);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border)">📈 12-Month Purchasing Power — Cash vs Alternatives</div>
     <div class="chart-wrap"><canvas id="lossChart"></canvas></div>
     <div class="chart-legend" id="chart-legend"></div>
     <div class="chart-note"><strong>Note:</strong> "Your account" shows nominal (actual dollar) value. Other lines show real purchasing power after inflation adjustment.</div>
@@ -1321,7 +1322,7 @@ footer{
 
   <!-- COMPARE -->
   <div class="compare-card" id="compare-card">
-    <span class="sec-label">1-year outcome if you moved this money</span>
+    <div style="font-size:17px;font-weight:700;color:var(--t1);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border)">💸 1-Year Outcome If You Moved This Money</div>
     <div class="cmp-row"><div class="cmp-name">💸 Cash (doing nothing)<small>0% return, full inflation hit</small></div><div class="cmp-val" id="c-cash">—</div></div>
     <div class="cmp-row"><div class="cmp-name">📈 S&amp;P 500 (~10%/yr)<small>Historical average, not guaranteed</small></div><div class="cmp-val" id="c-sp">—</div></div>
     <div class="cmp-row"><div class="cmp-name">🥇 Gold (~7%/yr)<small>Long-term inflation hedge</small></div><div class="cmp-val" id="c-gold">—</div></div>
@@ -1353,8 +1354,8 @@ footer{
     <p id="reality-txt"></p>
   </div>
 
-  <div style="font-size:12px;color:#374151;line-height:1.9;border-top:2px solid var(--border);padding-top:16px;background:#F9FAFB;padding:18px;border-radius:10px;margin-top:8px;font-family:'Space Mono',monospace">
-    <strong style="color:#111827;font-size:13px">📅 Data last updated: June 2026</strong><br>
+  <div style="font-size:14px;color:#374151;line-height:1.9;border-top:2px solid var(--border);padding-top:16px;background:#F9FAFB;padding:18px;border-radius:10px;margin-top:8px;font-family:'Space Mono',monospace">
+    <strong style="color:#111827;font-size:15px">📅 Data last updated: June 2026</strong><br>
     <span style="color:#374151">USD 3.81% · CAD 2.7% · EUR 2.2% · GBP 3.4% · AUD 3.2% · JPY 3.0% · KRW 2.6%<br>CHF 1.1% · CNY 0.4% · RUB 9.1% · INR 4.8% · BRL 5.1% · MXN 4.2% · ZAR 4.8% · TRY 38.0% · ARG 211%</span><br>
     <span style="color:#374151">Sources: FRED · BLS · ECB · ONS · TUIK · Statistics Bureau of Japan</span><br>
     <span style="color:var(--red);font-weight:700">NOT FINANCIAL ADVICE.</span> Educational use only.
@@ -1367,7 +1368,7 @@ footer{
       <div style="background:var(--red);border-radius:8px;padding:6px 10px;font-size:18px;line-height:1">💾</div>
       <div>
         <div class="email-sub-eyebrow" style="margin-bottom:2px">Save My Results</div>
-        <div style="font-size:11px;color:var(--t3);font-family:'Space Mono',monospace" id="save-score-preview"></div>
+        <div style="font-size:15px;color:var(--t3);font-family:'Space Mono',monospace" id="save-score-preview"></div>
       </div>
     </div>
     <div class="email-sub-headline" style="font-size:15px;margin-bottom:6px">Get your score sent to your inbox.<br><em>Review it anytime.</em></div>
@@ -1496,8 +1497,8 @@ footer{
   <p class="page-sub">The government CPI of 3.81% is a statistical average for everyone. If you spend more on rent and food than the average person, your real inflation is higher. This tool calculates your actual number.</p>
 
   <div class="card" style="padding:16px 18px;margin-bottom:12px;border-left:4px solid var(--blue);background:var(--blue-bg);border-color:#BFDBFE">
-    <strong style="color:var(--blue);display:block;margin-bottom:4px;font-size:13px">Why this matters</strong>
-    <span style="font-size:13px;color:var(--t1);line-height:1.6">If the headline CPI says 3.81% but your personal rate is 5.2%, you need to earn at least 5.2% on your savings to break even — not 3.81%. Most people are targeting the wrong number.</span>
+    <strong style="color:var(--blue);display:block;margin-bottom:4px;font-size:15px">Why this matters</strong>
+    <span style="font-size:15px;color:var(--t1);line-height:1.6">If the headline CPI says 3.81% but your personal rate is 5.2%, you need to earn at least 5.2% on your savings to break even — not 3.81%. Most people are targeting the wrong number.</span>
   </div>
 
   <div class="card" style="padding:20px;margin-bottom:12px">
@@ -1610,7 +1611,7 @@ footer{
         <div class="rpt-score-area">
           <div class="rpt-score-lbl">Defense Score</div>
           <div class="rpt-score-num" id="rpt-score">—</div>
-          <div style="font-size:10px;color:var(--t4);font-family:'Space Mono',monospace">/ 100</div>
+          <div style="font-size:14px;color:var(--t4);font-family:'Space Mono',monospace">/ 100</div>
         </div>
       </div>
 
@@ -1653,15 +1654,15 @@ footer{
         overflow:hidden;
       ">
         <div style="position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(139,92,246,.15),transparent 70%);pointer-events:none"></div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(139,92,246,.8);font-weight:700;margin-bottom:14px;position:relative">
+        <div style="font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(139,92,246,.8);font-weight:700;margin-bottom:14px;position:relative">
           🌍 YOUR RANK AMONG <span id="rpt-rank-cur-label">USD</span> HOLDERS
         </div>
 
         <!-- PERCENTILE BAR -->
         <div style="position:relative;margin-bottom:16px">
           <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-            <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.4)">Losing most</span>
-            <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.4)">Losing least</span>
+            <span style="font-family:'Space Mono',monospace;font-size:14px;color:rgba(255,255,255,.4)">Losing most</span>
+            <span style="font-family:'Space Mono',monospace;font-size:14px;color:rgba(255,255,255,.4)">Losing least</span>
           </div>
           <div style="height:10px;background:linear-gradient(to right,#DC2626,#F59E0B,#34D399);border-radius:5px;position:relative">
             <div id="rpt-rank-marker" style="
@@ -1672,45 +1673,45 @@ footer{
               transition:left .6s ease;
             "></div>
           </div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);margin-top:4px;text-align:center" id="rpt-rank-bar-label">calculating...</div>
+          <div style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.3);margin-top:4px;text-align:center" id="rpt-rank-bar-label">calculating...</div>
         </div>
 
         <!-- HEADLINE -->
         <div style="text-align:center;margin-bottom:16px">
           <div id="rpt-rank-headline" style="font-size:clamp(15px,3vw,20px);font-weight:700;color:#fff;line-height:1.3;margin-bottom:4px">—</div>
-          <div id="rpt-rank-sub" style="font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,.4)">—</div>
+          <div id="rpt-rank-sub" style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.4)">—</div>
         </div>
 
         <!-- 3 COMPARISON STATS -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
           <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px">Top 10%</div>
-            <div id="rpt-rank-top10" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#DC2626">—</div>
-            <div style="font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px">Top 10%</div>
+            <div id="rpt-rank-top10" style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#DC2626">—</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
           </div>
           <div style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(139,92,246,.7);margin-bottom:4px">YOU</div>
-            <div id="rpt-rank-you" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#A78BFA">—</div>
-            <div style="font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:rgba(139,92,246,.7);margin-bottom:4px">YOU</div>
+            <div id="rpt-rank-you" style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#A78BFA">—</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
           </div>
           <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px">Average</div>
-            <div id="rpt-rank-avg" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#F59E0B">—</div>
-            <div style="font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px">Average</div>
+            <div id="rpt-rank-avg" style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#F59E0B">—</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.25);margin-top:2px">losing /yr</div>
           </div>
         </div>
 
         <!-- BETTER/WORSE -->
         <div style="display:flex;gap:8px;margin-top:12px">
           <div style="flex:1;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(52,211,153,.7);margin-bottom:2px">BETTER THAN</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(52,211,153,.7);margin-bottom:2px">BETTER THAN</div>
             <div id="rpt-rank-better" style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:#34D399">—%</div>
-            <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3)">of <span id="rpt-rank-cur2">USD</span> holders</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.3)">of <span id="rpt-rank-cur2">USD</span> holders</div>
           </div>
           <div style="flex:1;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(220,38,38,.7);margin-bottom:2px">WORSE THAN</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(220,38,38,.7);margin-bottom:2px">WORSE THAN</div>
             <div id="rpt-rank-worse" style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:#F87171">—%</div>
-            <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3)">of <span id="rpt-rank-cur3">USD</span> holders</div>
+            <div style="font-family:'Space Mono',monospace;font-size:15px;color:rgba(255,255,255,.3)">of <span id="rpt-rank-cur3">USD</span> holders</div>
           </div>
         </div>
       </div>
@@ -1726,7 +1727,7 @@ footer{
 
     <div class="proj-card">
       <span class="sec-label" style="margin-bottom:4px">10-Year Interactive Projection</span>
-      <p style="font-size:12px;color:var(--t3);margin-bottom:14px">Drag sliders to model different scenarios</p>
+      <p style="font-size:14px;color:var(--t3);margin-bottom:14px">Drag sliders to model different scenarios</p>
       <div class="proj-controls">
         <div class="proj-ctrl">
           <div class="proj-ctrl-lbl">INFLATION: <span id="sl-inf-val">3.8</span>%</div>
@@ -1828,7 +1829,7 @@ footer{
     </div>
 
     <div style="margin-bottom:14px">
-      <span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);font-weight:700;font-family:'Space Mono',monospace;display:block;margin-bottom:8px">Quick select — typical sleep duration</span>
+      <span style="font-size:14px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);font-weight:700;font-family:'Space Mono',monospace;display:block;margin-bottom:8px">Quick select — typical sleep duration</span>
       <div class="sleep-quick-btns" id="sl-quick-btns">
         <button class="sleep-quick-btn" onclick="sleepQuick(6)">6h</button>
         <button class="sleep-quick-btn on" onclick="sleepQuick(7)">7h</button>
@@ -1922,7 +1923,7 @@ footer{
       </div>
 
       <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-bottom:16px">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px">Your Defense Score</div>
+        <div style="font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px">Your Defense Score</div>
         <div class="completion-score" id="completion-score">—</div>
         <div class="completion-score-label">/ 100</div>
       </div>
@@ -1993,40 +1994,40 @@ footer{
 
   <div class="card" style="padding:24px;margin-bottom:12px">
     <h3 style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)">⚠️ Not Financial Advice</h3>
-    <p style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">
+    <p style="font-size:15px;color:var(--t2);line-height:1.8;margin-bottom:12px">
       All content on this website, including inflation calculations, tax estimates, investment comparisons, and defense strategy recommendations, is provided for <strong>educational and informational purposes only</strong>. Nothing on this site constitutes financial, investment, tax, or legal advice.
     </p>
-    <p style="font-size:13px;color:var(--t2);line-height:1.8">
+    <p style="font-size:15px;color:var(--t2);line-height:1.8">
       Always consult a qualified and licensed financial advisor, tax professional, or attorney before making any financial decisions. Past performance of any asset (S&P 500, gold, Bitcoin, etc.) does not guarantee future results.
     </p>
   </div>
 
   <div class="card" style="padding:24px;margin-bottom:12px">
     <h3 style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)">📊 Data Accuracy</h3>
-    <p style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">
+    <p style="font-size:15px;color:var(--t2);line-height:1.8;margin-bottom:12px">
       Inflation rates, CPI data, and tax information are sourced from publicly available government datasets (FRED, BLS, ECB, IRS, OECD). Data is updated manually on a monthly basis following official CPI publication dates.
     </p>
-    <p style="font-size:13px;color:var(--t2);line-height:1.8">
+    <p style="font-size:15px;color:var(--t2);line-height:1.8">
       Community statistics (estimated total burned, average loss figures) are <strong>estimates based on publicly available macroeconomic research</strong> and are clearly labeled as such. They are not real-time measurements.
     </p>
   </div>
 
   <div class="card" style="padding:24px;margin-bottom:12px">
     <h3 style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)">©️ Intellectual Property</h3>
-    <p style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">
+    <p style="font-size:15px;color:var(--t2);line-height:1.8;margin-bottom:12px">
       © 2026 inflationclock.com. All rights reserved.
     </p>
-    <p style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">
+    <p style="font-size:15px;color:var(--t2);line-height:1.8;margin-bottom:12px">
       The design, layout, code, written content, tool logic, and unique combination of features on this website are protected by copyright law. Unauthorized reproduction, distribution, or derivative use of this website's content or code is prohibited without express written permission.
     </p>
-    <p style="font-size:13px;color:var(--t2);line-height:1.8">
+    <p style="font-size:15px;color:var(--t2);line-height:1.8">
       Publicly available data (CPI rates, tax brackets) used by this tool are not claimed as proprietary.
     </p>
   </div>
 
   <div class="card" style="padding:24px;margin-bottom:12px">
     <h3 style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)">🔒 No Liability</h3>
-    <p style="font-size:13px;color:var(--t2);line-height:1.8">
+    <p style="font-size:15px;color:var(--t2);line-height:1.8">
       inflationclock.com and its operators accept no liability for any financial loss, investment decisions, or damages arising from the use of this tool. All calculations are approximations. Actual inflation impact on individual finances will vary based on personal spending patterns, account types, geographic location, and other factors not captured by this tool.
     </p>
   </div>
@@ -2048,24 +2049,24 @@ footer{
     <h3 style="font-size:14px;font-weight:700;color:var(--t1);margin-bottom:14px">📈 Inflation Rates (CPI)</h3>
     <div style="display:flex;flex-direction:column;gap:10px">
       <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)">
-        <div><strong style="color:var(--t1)">🇺🇸 US (USD) — 3.81%</strong><div style="font-size:11px;color:var(--t3);margin-top:2px">BLS Consumer Price Index · Table 18-10-0004-01 · May 2026</div></div>
-        <a href="https://fred.stlouisfed.org" target="_blank" style="font-size:11px;color:var(--blue);text-decoration:none;font-weight:600">FRED ↗</a>
+        <div><strong style="color:var(--t1)">🇺🇸 US (USD) — 3.81%</strong><div style="font-size:15px;color:var(--t3);margin-top:2px">BLS Consumer Price Index · Table 18-10-0004-01 · May 2026</div></div>
+        <a href="https://fred.stlouisfed.org" target="_blank" style="font-size:15px;color:var(--blue);text-decoration:none;font-weight:600">FRED ↗</a>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)">
-        <div><strong style="color:var(--t1)">🇪🇺 EU (EUR) — 2.2%</strong><div style="font-size:11px;color:var(--t3);margin-top:2px">ECB Harmonised Index of Consumer Prices · May 2026</div></div>
-        <a href="https://www.ecb.europa.eu" target="_blank" style="font-size:11px;color:var(--blue);text-decoration:none;font-weight:600">ECB ↗</a>
+        <div><strong style="color:var(--t1)">🇪🇺 EU (EUR) — 2.2%</strong><div style="font-size:15px;color:var(--t3);margin-top:2px">ECB Harmonised Index of Consumer Prices · May 2026</div></div>
+        <a href="https://www.ecb.europa.eu" target="_blank" style="font-size:15px;color:var(--blue);text-decoration:none;font-weight:600">ECB ↗</a>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)">
-        <div><strong style="color:var(--t1)">🇬🇧 UK (GBP) — 3.4%</strong><div style="font-size:11px;color:var(--t3);margin-top:2px">ONS Consumer Price Index · May 2026</div></div>
-        <a href="https://www.ons.gov.uk" target="_blank" style="font-size:11px;color:var(--blue);text-decoration:none;font-weight:600">ONS ↗</a>
+        <div><strong style="color:var(--t1)">🇬🇧 UK (GBP) — 3.4%</strong><div style="font-size:15px;color:var(--t3);margin-top:2px">ONS Consumer Price Index · May 2026</div></div>
+        <a href="https://www.ons.gov.uk" target="_blank" style="font-size:15px;color:var(--blue);text-decoration:none;font-weight:600">ONS ↗</a>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)">
-        <div><strong style="color:var(--t1)">🇯🇵 Japan (JPY) — 3.0%</strong><div style="font-size:11px;color:var(--t3);margin-top:2px">Statistics Bureau of Japan · CPI · May 2026</div></div>
-        <a href="https://www.stat.go.jp" target="_blank" style="font-size:11px;color:var(--blue);text-decoration:none;font-weight:600">SBJ ↗</a>
+        <div><strong style="color:var(--t1)">🇯🇵 Japan (JPY) — 3.0%</strong><div style="font-size:15px;color:var(--t3);margin-top:2px">Statistics Bureau of Japan · CPI · May 2026</div></div>
+        <a href="https://www.stat.go.jp" target="_blank" style="font-size:15px;color:var(--blue);text-decoration:none;font-weight:600">SBJ ↗</a>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)">
-        <div><strong style="color:var(--t1)">🇹🇷 Turkey (TRY) — 38.0%</strong><div style="font-size:11px;color:var(--t3);margin-top:2px">TUIK Turkish Statistical Institute · May 2026</div></div>
-        <a href="https://www.tuik.gov.tr" target="_blank" style="font-size:11px;color:var(--blue);text-decoration:none;font-weight:600">TUIK ↗</a>
+        <div><strong style="color:var(--t1)">🇹🇷 Turkey (TRY) — 38.0%</strong><div style="font-size:15px;color:var(--t3);margin-top:2px">TUIK Turkish Statistical Institute · May 2026</div></div>
+        <a href="https://www.tuik.gov.tr" target="_blank" style="font-size:15px;color:var(--blue);text-decoration:none;font-weight:600">TUIK ↗</a>
       </div>
     </div>
   </div>
@@ -2075,18 +2076,18 @@ footer{
     <div style="display:flex;flex-direction:column;gap:10px">
       <div style="padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)">
         <strong style="color:var(--t1)">US Federal Tax Brackets</strong>
-        <div style="font-size:11px;color:var(--t3);margin-top:2px">IRS Revenue Procedure 2025-28 · 2026 Tax Year Brackets</div>
+        <div style="font-size:15px;color:var(--t3);margin-top:2px">IRS Revenue Procedure 2025-28 · 2026 Tax Year Brackets</div>
       </div>
       <div style="padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)">
         <strong style="color:var(--t1)">International Top Marginal Rates</strong>
-        <div style="font-size:11px;color:var(--t3);margin-top:2px">OECD Tax Database · Taxing Wages 2025 Report</div>
+        <div style="font-size:15px;color:var(--t3);margin-top:2px">OECD Tax Database · Taxing Wages 2025 Report</div>
       </div>
     </div>
   </div>
 
   <div class="card" style="padding:24px;margin-bottom:12px">
     <h3 style="font-size:14px;font-weight:700;color:var(--t1);margin-bottom:14px">📦 Investment Return Assumptions</h3>
-    <div style="font-size:13px;color:var(--t2);line-height:1.8">
+    <div style="font-size:15px;color:var(--t2);line-height:1.8">
       <p style="margin-bottom:8px">• <strong>S&P 500 ~10%/yr:</strong> Based on 1928–2025 historical average total return (Damodaran NYU dataset)</p>
       <p style="margin-bottom:8px">• <strong>Gold ~7%/yr:</strong> Based on 1971–2025 long-term average (World Gold Council)</p>
       <p style="margin-bottom:8px">• <strong>I-Bond rate:</strong> US Treasury composite rate (treasury.gov)</p>
@@ -2415,9 +2416,9 @@ function ignite(){
         background:var(--card2);border:1px solid var(--border);
         border-radius:var(--radius-sm);padding:14px;text-align:center;
       ">
-        <div style="font-size:24px;margin-bottom:6px">${c.emoji}</div>
-        <div style="font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--red);line-height:1">${qty.toLocaleString()}</div>
-        <div style="font-size:11px;color:var(--t2);margin-top:4px">${c.label}</div>
+        <div style="font-size:32px;margin-bottom:8px">${c.emoji}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--red);line-height:1">${qty.toLocaleString()}</div>
+        <div style="font-size:13px;color:var(--t2);margin-top:6px;font-weight:500">${c.label}</div>
       </div>`;
     }).join('');
   } else if(shockItems) {
