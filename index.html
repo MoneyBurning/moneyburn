@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Money Burn — Real-Time Inflation & Tax Damage Tracker</title>
-<meta name="description" content="Watch your savings lose value live. After-tax inflation counter, personal inflation rate, bracket creep detector, real hourly wage, world pain index.">
+<title>Money Burn — The World's Economy, Translated Into Your Wallet</title>
+<meta name="description" content="The world's economy, translated into your wallet. See exactly what today's inflation means for your money — live, in real dollars, right now.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
@@ -219,39 +219,6 @@ h1 em{color: var(--red); font-style: normal}
 }
 .btn-secondary:hover{background: var(--border)}
 
-/* ── QUIZ ── */
-.quiz-card{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--amber);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 18px 20px; margin-bottom: 12px;
-}
-.quiz-ey{
-  font-family:'Space Mono',monospace; font-size:9px;
-  letter-spacing:2px; text-transform:uppercase;
-  color:var(--amber); font-weight:700; margin-bottom:8px;
-}
-.quiz-q{font-size:14px; font-weight:600; color:var(--t1); margin-bottom:12px; line-height:1.5}
-.quiz-opts{display:flex; gap:6px; flex-wrap:wrap}
-.qopt{
-  background:var(--card2); border:1px solid var(--border2);
-  border-radius:6px; padding:6px 14px; font-size:12px;
-  color:var(--t2); cursor:pointer; font-weight:500;
-  font-family:'Inter',sans-serif; transition:all .15s;
-}
-.qopt:hover{border-color:var(--amber); color:var(--amber)}
-.qopt.correct{background:var(--green-bg); border-color:var(--green); color:var(--green)}
-.qopt.wrong{background:var(--red-bg); border-color:var(--red); color:var(--red)}
-.qopt:disabled{cursor:default}
-.quiz-res{
-  display:none; margin-top:10px; font-size:13px;
-  line-height:1.65; color:var(--t2); padding:10px 12px;
-  background:var(--card2); border-radius:6px;
-  border:1px solid var(--border);
-}
-.quiz-res strong{color:var(--red)}
 
 /* ── CPI BANNER ── */
 .cpi-bar{
@@ -335,19 +302,22 @@ h1 em{color: var(--red); font-style: normal}
 }
 
 /* ── STAT GRID ── */
-.stat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); gap:8px}
+.stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+@media(max-width:400px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
 .stat-box{
   background:var(--card2); border:1px solid var(--border);
-  border-radius:var(--radius-sm); padding:14px 12px;
+  border-radius:var(--radius-sm); padding:12px 10px;
+  min-width:0; overflow:hidden;
 }
 .sb-label{
-  font-family:'Inter',sans-serif; font-size:12px;
+  font-family:'Inter',sans-serif; font-size:11px;
   font-weight:600; color:var(--t2); margin-bottom:6px;
   line-height:1.3;
 }
 .sb-val{
-  font-family:'Space Mono',monospace; font-size:22px;
+  font-family:'Space Mono',monospace; font-size:clamp(14px,4vw,20px);
   font-weight:700; color:var(--red);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .sb-val.amber{color:var(--amber)}
 .sb-val.blue{color:var(--blue)}
@@ -808,12 +778,6 @@ h1 em{color: var(--red); font-style: normal}
 .sleep-share-card{background:var(--red-bg); border:1px solid #FECACA; border-radius:var(--radius); padding:18px 20px; margin-bottom:12px}
 .sleep-share-text{font-size:15px; color:var(--t1); line-height:1.8; font-weight:600; margin-bottom:14px}
 .sleep-share-text span{color:var(--red)}
-.sleep-year-card{
-  background:var(--amber-bg); border:1px solid #FDE68A;
-  border-left:4px solid var(--amber); border-radius:var(--radius);
-  padding:16px 18px; margin-bottom:12px; display:none;
-}
-.sleep-year-card strong{color:var(--amber)}
 
 /* ── MY TYPE (MBTI) ── */
 .mbti-hero{text-align:center;padding:32px 16px 24px;border-bottom:1px solid var(--border);margin-bottom:20px}
@@ -958,48 +922,6 @@ h1 em{color: var(--red); font-style: normal}
   background:var(--green); animation:none;
 }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* ── ACTION PLAN ── */
-.action-plan{
-  background:var(--card); border:1px solid var(--border);
-  border-radius:var(--radius); padding:20px;
-  margin-top:8px; display:none; box-shadow:var(--shadow);
-}
-.action-plan-eyebrow{
-  font-family:'Space Mono',monospace; font-size:9px;
-  letter-spacing:2.5px; text-transform:uppercase;
-  color:var(--t3); font-weight:700; margin-bottom:10px;
-}
-.action-plan-country{
-  font-size:15px; font-weight:700; color:var(--t1);
-  margin-bottom:14px; display:flex; align-items:center; gap:8px;
-}
-.action-steps{display:flex; flex-direction:column; gap:8px}
-.action-step{
-  background:var(--card2); border:1px solid var(--border);
-  border-radius:var(--radius-sm); padding:14px 16px;
-  display:flex; gap:14px; align-items:flex-start;
-}
-.action-step-num{
-  font-family:'Space Mono',monospace; font-size:11px;
-  font-weight:700; color:var(--red); min-width:22px; padding-top:2px;
-}
-.action-step-title{font-size:13px; font-weight:700; color:var(--t1); margin-bottom:3px}
-.action-step-desc{font-size:12px; color:var(--t2); line-height:1.6}
-.action-step-tag{
-  display:inline-block; font-size:9px; font-weight:700;
-  font-family:'Space Mono',monospace; letter-spacing:1px;
-  text-transform:uppercase; border-radius:4px; padding:2px 7px; margin-top:5px;
-}
-.tag-now{background:#FEE2E2; color:var(--red)}
-.tag-month{background:#FEF3C7; color:#92400E}
-.tag-year{background:#D1FAE5; color:#065F46}
-.action-urgent{
-  background:#FEF2F2; border:1px solid #FECACA;
-  border-left:4px solid var(--red); border-radius:var(--radius-sm);
-  padding:12px 16px; font-size:13px; color:var(--t1);
-  line-height:1.6; margin-bottom:10px; font-weight:600;
-}
 
 .email-subscribe{
   background:var(--card);
@@ -1146,13 +1068,13 @@ footer{
 <nav style="position:relative;z-index:100">
   <a class="logo" href="#" onclick="showPage('dash');return false">🔥 MONEY BURN</a>
   <div class="nav-tabs">
-    <button class="ntab on"  onclick="showPage('dash')"><span class="ntab-num">①</span> Live Tracker</button>
-    <button class="ntab"     onclick="showPage('wage')"><span class="ntab-num">②</span> Real Wage</button>
-    <button class="ntab"     onclick="showPage('personal')"><span class="ntab-num">③</span> My Inflation</button>
-    <button class="ntab"     onclick="showPage('world')"><span class="ntab-num">④</span> World Pain</button>
-    <button class="ntab"     onclick="showPage('report')"><span class="ntab-num">⑤</span> My Report</button>
-    <button class="ntab"     onclick="showPage('mbti')"><span class="ntab-num">⑥</span> My Type</button>
-    <button class="ntab"     onclick="showPage('sleep')"><span class="ntab-num">⑦</span> While You Slept</button>
+    <button class="ntab on"  onclick="showPage('dash')">My Wallet</button>
+    <button class="ntab"     onclick="showPage('wage')">Real Wage</button>
+    <button class="ntab"     onclick="showPage('world')">World Pain</button>
+    <button class="ntab"     onclick="showPage('report')">My Report</button>
+    <button class="ntab"     onclick="showPage('personal')">My Rate</button>
+    <button class="ntab"     onclick="showPage('mbti')">My Type</button>
+    <button class="ntab"     onclick="showPage('sleep')">While I Slept</button>
   </div>
   <div class="live-badge"><div class="live-dot"></div>LIVE</div>
 </nav>
@@ -1174,39 +1096,54 @@ footer{
 <!-- PAGE 1: LIVE TRACKER -->
 <div id="pg-dash" class="pg on" style="position:relative;z-index:1">
 <div class="wrap">
-  <span class="eyebrow">Real-Time · After-Tax Loss Counter</span>
-  <h1>Your money is<br><em>burning</em> right now.</h1>
-  <p class="page-sub">The only tracker that shows both gross and after-tax inflation damage — live, every second. Enter your balance to see your real numbers.</p>
 
-  <div class="quiz-card">
-    <p class="quiz-ey">📊 Daily Quiz — <span id="qdate"></span></p>
-    <p class="quiz-q" id="qq">Loading...</p>
-    <div class="quiz-opts" id="qopts"></div>
-    <div class="quiz-res" id="qres"></div>
+  <!-- HERO -->
+  <div style="padding:48px 0 36px;text-align:center">
+    <span class="eyebrow" style="letter-spacing:4px;font-size:10px">The World's Economy</span>
+    <h1 style="font-size:clamp(32px,6vw,58px);line-height:1.05;margin-bottom:14px">
+      Translated into<br><em>your wallet.</em>
+    </h1>
+    <p style="font-size:16px;color:var(--t2);max-width:460px;margin:0 auto 32px;line-height:1.65">
+      Enter your savings below and see exactly what inflation is doing to your money — live, in real dollars, right now.
+    </p>
+    <!-- Social proof ticker -->
+    <div style="display:inline-flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:40px;padding:10px 24px;flex-wrap:wrap;justify-content:center">
+      <div style="display:flex;align-items:center;gap:6px">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1.4s infinite"></div>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--red)" id="ct">$—</span>
+        <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--t3)">burned in US today (est.)</span>
+      </div>
+      <div style="width:1px;height:16px;background:var(--border)"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--t3)">🇺🇸 <strong style="color:var(--t1)">3.81%</strong> US inflation</div>
+    </div>
   </div>
 
-  <div class="cpi-bar">
+  <!-- RETURNING USER BANNER -->
+  <div id="ret" style="margin-bottom:16px">
+    <p id="ret-txt">Welcome back.</p>
+    <div class="ret-btns">
+      <button class="btn-primary" style="font-size:12px;padding:7px 14px" onclick="loadSaved()">▶ Resume my numbers</button>
+      <button class="btn-secondary" onclick="clearSaved()">Clear &amp; reset</button>
+    </div>
+  </div>
+
+  <!-- CPI TICKER -->
+  <div class="cpi-bar" style="margin-bottom:16px">
     <span style="font-size:20px;flex-shrink:0">📅</span>
     <div class="cpi-txt" id="cpi-txt">Loading CPI schedule...</div>
     <div class="cpi-badge" id="cpi-badge">CPI</div>
   </div>
 
-  <div id="ret">
-    <p id="ret-txt">Welcome back.</p>
-    <div class="ret-btns">
-      <button class="btn-primary" style="font-size:12px;padding:7px 14px" onclick="loadSaved()">▶ Resume saved data</button>
-      <button class="btn-secondary" onclick="clearSaved()">Clear &amp; reset</button>
-    </div>
-  </div>
-
-  <div class="input-panel">
+  <!-- INPUT -->
+  <div class="input-panel" style="border-top:3px solid var(--red)">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:14px">Step 1 — Tell us about your money</div>
     <div class="irow">
       <div class="ifield">
         <label>Your Savings / Cash</label>
         <input type="number" id="amount" placeholder="100000" min="0"/>
       </div>
       <div class="ifield" style="min-width:185px;flex:1.5">
-        <label>Currency</label>
+        <label>Currency / Country</label>
         <select id="currency">
           <option value="USD">🇺🇸 USD — 3.81%</option>
           <option value="EUR">🇪🇺 EUR — 2.2%</option>
@@ -1253,7 +1190,9 @@ footer{
           <option value="37">37% (top)</option>
         </select>
       </div>
-      <button class="btn-primary" onclick="igniteWithLoading()">🔥 Calculate My Loss →</button>
+      <button class="btn-primary" onclick="igniteWithLoading()" style="font-size:15px;padding:12px 24px">
+        See My Financial Reality →
+      </button>
     </div>
   </div>
 
@@ -1264,35 +1203,121 @@ footer{
     <div class="ignite-loading-step" id="il-3"><div class="ignite-dot"></div>Measuring purchasing power loss...</div>
   </div>
 
-  <div class="comm-bar">
-    <div class="comm-item"><div class="comm-val" id="ca" style="color:var(--amber)">$4,820</div><div class="comm-lbl">avg US yearly loss (est.)</div></div>
-    <div class="comm-item"><div class="comm-val" id="ct">$15.6M</div><div class="comm-lbl">est. total burned today*</div></div>
-    <div class="comm-item"><div class="comm-val" style="color:var(--blue);font-size:14px">3.81%</div><div class="comm-lbl">current US inflation</div></div>
-  </div>
+  <!-- SHOCK MOMENT — shown immediately after Calculate -->
+  <div id="shock-moment" style="display:none;margin-top:20px">
+    <div style="
+      background:linear-gradient(135deg,#1a0000,#2d0808);
+      border:1px solid rgba(220,38,38,.3);
+      border-radius:var(--radius);
+      padding:32px 28px;
+      text-align:center;
+      position:relative;overflow:hidden;
+      margin-bottom:12px;
+    ">
+      <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:260px;height:260px;background:radial-gradient(circle,rgba(220,38,38,.12),transparent 70%);pointer-events:none"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(220,38,38,.6);font-weight:700;margin-bottom:16px;position:relative">
+        🔥 YOUR FINANCIAL REALITY
+      </div>
+      <!-- SHOCK HEADLINE -->
+      <div id="shock-headline" style="font-size:clamp(18px,4vw,28px);font-weight:700;color:#fff;line-height:1.3;margin-bottom:8px;position:relative"></div>
+      <div id="shock-sub" style="font-size:14px;color:rgba(255,255,255,.45);margin-bottom:28px;font-family:'Space Mono',monospace;position:relative"></div>
+      <!-- LIVE COUNTER -->
+      <div style="position:relative">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(220,38,38,.5);margin-bottom:8px" id="shock-counter-label">PURCHASING POWER LOST THIS SESSION</div>
+        <div id="gross-num" style="font-family:'Space Mono',monospace;font-size:clamp(36px,8vw,64px);font-weight:700;color:#F87171;letter-spacing:-2px;line-height:1">$0.000000</div>
+        <div id="counter-since" style="font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,.2);margin-top:6px">0s since you opened this page</div>
+      </div>
+    </div>
 
-  <!-- DUAL COUNTER -->
-  <div class="counter-wrap" id="counter-wrap">
-    <span class="sec-label">Purchasing power lost since you opened this page</span>
-    <div class="dual-grid">
-      <div class="counter-box gross">
-        <div class="cb-label">Gross loss (before tax)</div>
-        <div class="cb-num" id="gross-num">–$0.000000</div>
+    <!-- REAL-LIFE COMPARISONS — the "Shock" section -->
+    <div id="shock-comparisons" style="
+      background:var(--card);border:1px solid var(--border);
+      border-radius:var(--radius);padding:24px;margin-bottom:12px;
+    ">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:16px">
+        THIS YEAR'S INFLATION TAX = EQUAL TO...
       </div>
-      <div class="counter-box net">
-        <div class="cb-label">After-tax real loss</div>
-        <div class="cb-num" id="net-num">–$0.000000</div>
+      <div id="shock-items" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="card" style="padding:20px;margin-bottom:12px">
+      <span class="sec-label" style="margin-bottom:12px">Your numbers — live</span>
+      <div class="stat-grid">
+        <div class="stat-box"><div class="sb-label">Per Second</div><div class="sb-val" id="ps">—</div></div>
+        <div class="stat-box"><div class="sb-label">Per Minute</div><div class="sb-val" id="pm">—</div></div>
+        <div class="stat-box"><div class="sb-label">Per Hour</div><div class="sb-val" id="ph">—</div></div>
+        <div class="stat-box"><div class="sb-label">Per Day</div><div class="sb-val" id="pd">—</div></div>
+        <div class="stat-box"><div class="sb-label">Per Year</div><div class="sb-val amber" id="py">—</div></div>
+        <div class="stat-box"><div class="sb-label">After-Tax Year</div><div class="sb-val blue" id="pyn">—</div></div>
       </div>
     </div>
-    <div class="counter-since" id="counter-since">calculating...</div>
-    <div class="stat-grid">
-      <div class="stat-box"><div class="sb-label">Per Second</div><div class="sb-val" id="ps">—</div></div>
-      <div class="stat-box"><div class="sb-label">Per Minute</div><div class="sb-val" id="pm">—</div></div>
-      <div class="stat-box"><div class="sb-label">Per Hour</div><div class="sb-val" id="ph">—</div></div>
-      <div class="stat-box"><div class="sb-label">Per Day</div><div class="sb-val" id="pd">—</div></div>
-      <div class="stat-box"><div class="sb-label">Per Year</div><div class="sb-val amber" id="py">—</div></div>
-      <div class="stat-box"><div class="sb-label">After-Tax Year</div><div class="sb-val blue" id="pyn">—</div></div>
+
+    <!-- NET COUNTER (hidden, keep for JS compat) -->
+    <div id="net-num" style="display:none">$0.000000</div>
+
+    <!-- SHARE CARD -->
+    <div id="dash-score-preview" style="display:none;margin-bottom:12px">
+      <div id="instant-card" style="
+        background:linear-gradient(135deg,#1a0000,#2d0808);
+        border:1px solid rgba(220,38,38,.25);
+        border-radius:var(--radius);
+        padding:24px;
+        position:relative;
+        overflow:hidden;
+      ">
+        <div style="position:absolute;top:-30px;right:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(220,38,38,.15),transparent 70%);pointer-events:none"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(220,38,38,.7);font-weight:700;margin-bottom:4px">🔥 MONEY BURN · Inflation Card</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace" id="ic-date"></div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);font-family:'Space Mono',monospace;margin-bottom:2px">Defense Score</div>
+            <div id="ic-score" style="font-family:'Space Mono',monospace;font-size:42px;font-weight:700;line-height:1;color:#DC2626">—</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.25);font-family:'Space Mono',monospace">/100</div>
+          </div>
+        </div>
+        <div style="background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.15);border-radius:10px;padding:14px 18px;margin-bottom:14px">
+          <div id="ic-loss-label" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(220,38,38,.6);font-weight:700;margin-bottom:5px">ANNUAL PURCHASING POWER LOSS</div>
+          <div id="ic-loss-num" style="font-family:'Space Mono',monospace;font-size:clamp(24px,5vw,38px);font-weight:700;color:#F87171;letter-spacing:-1px;line-height:1">—</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+          <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Per Day</div>
+            <div id="ic-per-day" style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#F87171">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Inflation</div>
+            <div id="ic-inf" style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#D97706">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;margin-bottom:3px">Real Return</div>
+            <div id="ic-real-return" style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#fff">—</div>
+          </div>
+        </div>
+        <div id="ic-grade" style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px;font-family:'Space Mono',monospace"></div>
+        <div style="text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.2);letter-spacing:2px">inflationclock.com · Not financial advice</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn-primary" onclick="shareInstantCard()" style="flex:1">𝕏 Share My Card</button>
+        <button class="btn-secondary" onclick="downloadInstantCard()" style="flex:1">📸 Save as Image</button>
+        <button class="btn-secondary" onclick="journeyNext('report')" style="flex:1">📊 Full Report</button>
+      </div>
+      <!-- SLEEP TEASER -->
+      <div style="background:#0f0c29;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:14px 18px;margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;cursor:pointer" onclick="journeyNext('sleep')">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="font-size:28px">🌙</span>
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:3px">WHILE YOU SLEPT LAST NIGHT</div>
+            <div style="font-size:15px;font-weight:700;color:#fff">Your money was burning.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">See how much inflation stole while you slept →</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+
+  </div><!-- /shock-moment -->
 
   <!-- BRACKET CREEP -->
   <div class="bracket-card" id="bracket-card">
@@ -1358,30 +1383,7 @@ footer{
     <p id="reality-txt"></p>
   </div>
 
-  <!-- SCORE PREVIEW (shows after Calculate) -->
-  <div id="dash-score-preview" style="display:none;margin-top:8px">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:4px">Your Defense Score</div>
-        <div style="display:flex;align-items:baseline;gap:6px">
-          <span id="dash-preview-score" style="font-family:'Space Mono',monospace;font-size:36px;font-weight:700;line-height:1">—</span>
-          <span style="font-family:'Space Mono',monospace;font-size:14px;color:var(--t3)">/100</span>
-        </div>
-      </div>
-      <button class="btn-secondary" onclick="journeyNext('report')" style="white-space:nowrap">📊 Full Report →</button>
-    </div>
-
-    <!-- SLEEP TEASER -->
-    <div style="background:#0f0c29;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:16px 20px;margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;cursor:pointer" onclick="journeyNext('sleep')">
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:4px">😴 Curious?</div>
-        <div style="font-size:14px;font-weight:600;color:#fff;line-height:1.4">See how much money disappeared<br>while you slept last night.</div>
-      </div>
-      <div style="font-size:22px;color:#F87171">→</div>
-    </div>
-  </div>
-
-  <div style="font-size:10px;font-size:12px;color:#374151;line-height:1.9;border-top:2px solid var(--border);padding-top:16px;background:#F9FAFB;padding:18px;border-radius:10px;margin-top:8px;font-family:'Space Mono',monospace">
+  <div style="font-size:12px;color:#374151;line-height:1.9;border-top:2px solid var(--border);padding-top:16px;background:#F9FAFB;padding:18px;border-radius:10px;margin-top:8px;font-family:'Space Mono',monospace">
     <strong style="color:#111827;font-size:13px">📅 Data last updated: June 2026</strong><br>
     <span style="color:#374151">USD 3.81% · CAD 2.7% · EUR 2.2% · GBP 3.4% · AUD 3.2% · JPY 3.0% · KRW 2.6%<br>CHF 1.1% · CNY 0.4% · RUB 9.1% · INR 4.8% · BRL 5.1% · MXN 4.2% · ZAR 4.8% · TRY 38.0% · ARG 211%</span><br>
     <span style="color:#374151">Sources: FRED · BLS · ECB · ONS · TUIK · Statistics Bureau of Japan</span><br>
@@ -1389,29 +1391,34 @@ footer{
     <a href="#" onclick="showPage('disclaimer');return false" style="color:var(--blue)">Full disclaimer →</a>
   </div>
 
-  <!-- EMAIL SUBSCRIBE — bottom, subtle -->
+  <!-- EMAIL SUBSCRIBE -->
   <div class="email-subscribe" id="email-sub-box">
-    <div class="email-sub-eyebrow">📬 Stay informed</div>
-    <div class="email-sub-headline">Get the weekly<br><em>inflation update.</em></div>
-    <div class="email-sub-desc">CPI changes, real wage data, and one actionable tip — every Monday. Free.</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <div style="background:var(--red);border-radius:8px;padding:6px 10px;font-size:18px;line-height:1">💾</div>
+      <div>
+        <div class="email-sub-eyebrow" style="margin-bottom:2px">Save My Results</div>
+        <div style="font-size:11px;color:var(--t3);font-family:'Space Mono',monospace" id="save-score-preview"></div>
+      </div>
+    </div>
+    <div class="email-sub-headline" style="font-size:15px;margin-bottom:6px">Get your score sent to your inbox.<br><em>Review it anytime.</em></div>
+    <div class="email-sub-desc">Your inflation card, defense score, and personalized breakdown — delivered instantly. No weekly emails unless you want them.</div>
     <div id="email-sub-form-wrap">
       <div class="email-sub-form">
         <input type="email" class="email-sub-input" id="sub-email" placeholder="your@email.com" onkeydown="if(event.key==='Enter')submitEmail()">
-        <button class="email-sub-btn" onclick="submitEmail()">Subscribe</button>
+        <button class="email-sub-btn" onclick="submitEmail()">Send My Score →</button>
       </div>
-      <div class="email-sub-note">No spam · Unsubscribe anytime</div>
+      <div class="email-sub-note">One email · No spam · Unsubscribe anytime</div>
     </div>
     <div class="email-sub-success" id="email-sub-success">
       <span class="email-sub-success-icon">✅</span>
-      <div class="email-sub-success-msg">You're subscribed.</div>
-      <div class="email-sub-success-sub">First report arrives Monday.</div>
+      <div class="email-sub-success-msg">Sent! Check your inbox.</div>
+      <div class="email-sub-success-sub">Your inflation score and full breakdown is on its way.</div>
     </div>
   </div>
-  </div>
 
-  <!-- NEXT: shown after Calculate -->
+  <!-- NEXT CTA -->
   <div class="next-cta" id="dash-next-cta" style="display:none">
-    <span class="next-cta-label">② Up next</span>
+    <span class="next-cta-label">Up next</span>
     <button class="next-cta-btn" onclick="journeyNext('wage')">
       <div style="flex:1">
         <div class="next-cta-title">See how inflation changed your REAL salary →</div>
@@ -2121,22 +2128,7 @@ const COUNTRIES=[
   {flag:'🇨🇭',name:'Switzerland',inf:1.1,  tax:11.5,note:'Lowest combined pain'},
 ];
 
-const QUIZZES=[
-  {q:'At 3.8% inflation + 22% tax, your $100k cash savings has what real after-tax annual loss?',opts:['$1,860','$2,964','$3,800','$4,900'],ans:1,ex:'Inflation costs $3,800 but after-tax the real loss is ~$2,964. The tax deduction offsets some of the loss. <strong>This is why after-tax matters.</strong>'},
-  {q:'Bracket creep happens when inflation pushes your salary into a higher tax bracket. Who benefits?',opts:['You','Your employer','The government','Nobody'],ans:2,ex:'The <strong>government collects more tax</strong> without passing any new law. Your real income stagnates but your tax bill grows silently.'},
-  {q:'If inflation is 5% and your HYSA pays 4%, what is your real return?',opts:['+1%','0%','-1%','Depends on tax'],ans:3,ex:'<strong>It depends on your tax bracket.</strong> At 22%, the 4% interest nets ~3.12% after tax — still below 5% inflation. Real return: -0.88%.'},
-  {q:'The S&P 500 has beaten inflation in every 20-year period since 1928. True or false?',opts:['True','False','Only in the US','Only after 1980'],ans:0,ex:'<strong>True.</strong> Every 20-year rolling period since 1928, the S&P 500 has beaten inflation. The challenge is surviving 30-40% drawdowns.'},
-  {q:'At 85% inflation (Turkey 2022), your ₺100,000 had what purchasing power by year end?',opts:['₺100,000','₺85,000','₺54,000','₺15,000'],ans:2,ex:'At 85% inflation prices nearly doubled. Your ₺100,000 had the purchasing power of roughly <strong>₺54,000</strong> by December 2022.'},
-  {q:'What percentage of US workers received a real pay raise (above inflation) in 2024?',opts:['67%','51%','38%','29%'],ans:2,ex:'Only about <strong>38% of workers</strong> received raises that beat inflation. The rest took an effective pay cut in purchasing power terms.'},
-  {q:'Which is the bigger annual loss: 4% inflation on $200k, or 2% inflation on $500k?',opts:['4% on $200k ($8k)','2% on $500k ($10k)','They are equal','Depends on tax'],ans:1,ex:'2% on $500k = <strong>$10,000/year</strong> vs 4% on $200k = $8,000. <strong>Total balance matters more than rate alone.</strong>'},
-  {q:'Canada: what drives inflation the most?',opts:['Food prices','Energy costs','Housing costs','Import prices'],ans:2,ex:'<strong>Housing costs</strong> are the primary driver of Canadian inflation. Canadian home prices rose over 50% from 2020-2022, making shelter the dominant CPI component.'},
-  {q:'China CPI is unusually low at 0.4% in 2026. What economic risk does this signal?',opts:['Economic strength','Deflation risk','Currency manipulation','Trade surplus'],ans:1,ex:'<strong>Deflation risk.</strong> When inflation falls below 0%, prices fall — which sounds good but causes people to delay purchases, hurting economic growth. Japan suffered this for decades.'},
-  {q:'Russia inflation is running at 9.1% in 2026. What is the primary cause?',opts:['Energy subsidies','War spending + sanctions','Strong ruble','Low interest rates'],ans:1,ex:'<strong>War spending and Western sanctions</strong> have driven Russian inflation. Military spending creates demand without supply, while sanctions restrict imported goods — a classic inflation recipe.'},
-  {q:'France has 45% top tax rate + 2.1% inflation. How does this compare to UAE (0% tax, 2.3% inflation)?',opts:['France is better','UAE is much better','They are similar','Depends on income'],ans:1,ex:'<strong>UAE is dramatically better for high earners.</strong> A French earner in the top bracket faces 47.1% combined pain vs UAE 2.3%. On €500k income the difference is over €200,000/year.'},
-  {q:'Argentina 211% inflation: prices double roughly every how many months?',opts:['Every 12 months','Every 6 months','Every 4 months','Every 2 months'],ans:2,ex:'At 211% annual inflation, using the Rule of 70: 70 ÷ 211 ≈ <strong>4 months</strong> to double. Argentines must convert pesos to USD immediately upon receiving income.'},
-  {q:'Switzerland has the lowest Combined Pain Index at 12.6%. What makes it special?',opts:['High wages only','Low inflation + low tax','No income tax','Strong exports'],ans:1,ex:'Switzerland combines <strong>1.1% inflation</strong> (one of the world lowest) with <strong>11.5% top tax rate</strong> (far below most developed nations). This makes it the best environment for savers globally.'},
-  {q:'The US dollar has lost what percentage of its purchasing power since 1913 (when the Fed was created)?',opts:['40%','70%','90%','97%'],ans:3,ex:'The dollar has lost <strong>97% of its purchasing power</strong> since 1913. What cost $1 then costs approximately $32 today. This is the cumulative effect of 110 years of persistent inflation.'},
-];
+// ── CPI BANNER ────────────────────────────────────────────────────
 
 const INSIGHTS=[
   {txt:"The Fed's 2% inflation target and actual 3.81% inflation means your savings lose value 91% faster than the central bank considers acceptable.",impact:"On $100,000 in cash: $10.44 lost today in purchasing power."},
@@ -2150,7 +2142,7 @@ const INSIGHTS=[
 
 // ── STATE ─────────────────────────────────────────────────────────
 const st={amount:0,currency:'USD',earn:0,tax:22,inf:3.81};
-let startTime=null, rafId=null, lossPS=0, netLossPS=0, lastSec=-1;
+let startTime=null, rafId=null, lossPS=0, netLossPS=0, lastSec=-1; // netLossPS = lossPS (unified)
 let lossChart=null, worldChart=null, projChart=null;
 
 // ── UTILS ─────────────────────────────────────────────────────────
@@ -2163,7 +2155,12 @@ function fmt(v,c){
 }
 function fmtLive(v,c){
   const s=SYM[c]||'$',a=Math.abs(v);
-  return s+(c==='KRW'||c==='JPY'?a.toFixed(2):a.toFixed(6));
+  if(c==='KRW'||c==='JPY'){
+    if(a<0.01) return s+a.toFixed(4);
+    if(a<1)    return s+a.toFixed(3);
+    return s+a.toFixed(2);
+  }
+  return s+a.toFixed(6);
 }
 function toast(m){
   const t=document.getElementById('toast');
@@ -2178,55 +2175,20 @@ function showPage(id){
     document.querySelectorAll('.ntab').forEach(b=>b.classList.remove('on'));
     const pg=document.getElementById('pg-'+id);
     if(pg) pg.classList.add('on');
-    const map={dash:0,wage:1,personal:2,world:3,report:4,mbti:5,sleep:6,disclaimer:99,sources:99};
+    // New tab order: dash=0, wage=1, world=2, report=3, personal=4, mbti=5, sleep=6
+    const map={dash:0,wage:1,world:2,report:3,personal:4,mbti:5,sleep:6,disclaimer:99,sources:99};
     const tabs=document.querySelectorAll('.ntab');
     if(map[id]!==undefined && tabs[map[id]]) tabs[map[id]].classList.add('on');
     window.scrollTo({top:0,behavior:'smooth'});
     if(id==='world') renderWorld();
     if(id==='personal') renderPersonal();
     if(id==='report') renderReport();
-    // Journey bar
     updateJourneyBar(id);
     markVisited(id);
     gtag('event','page_view_tab',{tab:id});
   }catch(e){console.error('showPage error:',e)}
 }
 
-// ── QUIZ ──────────────────────────────────────────────────────────
-function initQuiz(){
-  try{
-    const now=new Date();
-    const doy=Math.floor((now-new Date(now.getFullYear(),0,0))/864e5);
-    const q=QUIZZES[doy%QUIZZES.length];
-    document.getElementById('qdate').textContent=now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    document.getElementById('qq').textContent=q.q;
-    const opts=document.getElementById('qopts');
-    opts.innerHTML='';
-    q.opts.forEach((o,i)=>{
-      const b=document.createElement('button');
-      b.className='qopt'; b.textContent=o;
-      b.onclick=()=>answerQ(i,q.ans,q.ex);
-      opts.appendChild(b);
-    });
-    const sd=localStorage.getItem('mb_qd');
-    if(sd===now.toDateString()) renderQAns(parseInt(localStorage.getItem('mb_qa')||'-1'),q.ans,q.ex);
-  }catch(e){console.error('initQuiz:',e)}
-}
-function answerQ(c,ans,ex){
-  localStorage.setItem('mb_qd',new Date().toDateString());
-  localStorage.setItem('mb_qa',c);
-  renderQAns(c,ans,ex);
-}
-function renderQAns(c,ans,ex){
-  document.querySelectorAll('.qopt').forEach((b,i)=>{
-    b.disabled=true;
-    if(i===ans) b.classList.add('correct');
-    else if(i===c) b.classList.add('wrong');
-  });
-  const r=document.getElementById('qres');
-  r.style.display='block';
-  r.innerHTML=(c===ans?'✅ Correct! ':'❌ Wrong — ')+ex;
-}
 
 // ── CPI BANNER ────────────────────────────────────────────────────
 function initCPI(){
@@ -2271,11 +2233,29 @@ function checkRet(){
     const sD=localStorage.getItem('mb_d'),inf=INF[sC]||3.81;
     const ps=(sA*(Math.max(inf-sE,0)/100))/YS;
     let msg='';
+    let daysSince=0;
     if(sD){
-      const days=Math.round((Date.now()-parseInt(sD))/864e5);
-      if(days>0) msg=` Since <strong>${days}d ago</strong>, ~<strong>${fmt(ps*days*86400,sC)}</strong> erased.`;
+      daysSince=Math.round((Date.now()-parseInt(sD))/864e5);
+      if(daysSince>0){
+        const lost=ps*daysSince*86400;
+        const lostFmt=fmt(lost,sC);
+        // Real-life comparison
+        const coffees=Math.round(lost/7.5);
+        const netflix=Math.round(lost/15.5*10)/10;
+        let comparison='';
+        if(coffees>=1) comparison=' That\'s <strong>'+coffees+' coffees</strong>.';
+        else if(netflix>=0.1) comparison=' That\'s <strong>'+netflix.toFixed(1)+ ' months of Netflix</strong>.';
+        msg=`<div style="margin-top:10px;padding:14px 16px;background:rgba(220,38,38,.08);border-radius:8px;border:1px solid rgba(220,38,38,.2)">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(220,38,38,.7);font-weight:700;margin-bottom:6px">Since your last visit (${daysSince}d ago)</div>
+          <div style="font-size:22px;font-weight:700;color:#DC2626;font-family:'Space Mono',monospace;line-height:1">–${lostFmt}</div>
+          <div style="font-size:12px;color:rgba(0,0,0,.5);margin-top:4px">in purchasing power.${comparison}</div>
+        </div>`;
+      }
     }
-    document.getElementById('ret-txt').innerHTML=`Welcome back. ${SYM[sC]||'$'}${sA.toLocaleString()} ${sC} is losing <strong>${fmt(ps*86400,sC)}/day</strong>.${msg}`;
+    document.getElementById('ret-txt').innerHTML=
+      `<strong style="font-size:15px">Welcome back.</strong><br>
+      <span style="font-size:13px;color:var(--t2)">${SYM[sC]||'$'}${sA.toLocaleString()} ${sC} · losing <strong style="color:var(--red)">${fmt(ps*86400,sC)}/day</strong> to inflation right now.</span>
+      ${msg}`;
     document.getElementById('amount').value=sA;
     document.getElementById('currency').value=sC;
     document.getElementById('earn').value=sE;
@@ -2312,55 +2292,87 @@ function ignite(){
   localStorage.setItem('mb_t',st.tax);
   localStorage.setItem('mb_d',Date.now());
 
-  // 세후 실질 수익률
   const afterTaxEarn = st.earn * (1 - st.tax/100);
-  const realReturn = afterTaxEarn - st.inf; // 양수=이득, 음수=손실
+  const realReturn = afterTaxEarn - st.inf;
   const isGaining = realReturn > 0;
 
-  // 초당 변화량 (양수=이득, 음수=손실)
   lossPS = (a * (realReturn/100)) / YS;
   netLossPS = lossPS;
   const sym=SYM[st.currency]||'$';
 
-  // Show blocks
-  ['counter-wrap','bracket-card','chart-card','compare-card','defense-card','reality-card'].forEach(id=>{
+  // Show shock moment
+  const shockEl = document.getElementById('shock-moment');
+  if(shockEl) shockEl.style.display='block';
+
+  // Show remaining blocks
+  ['bracket-card','chart-card','compare-card','defense-card','reality-card'].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.style.display='block';
   });
   const sr=document.getElementById('share-row');
   if(sr) sr.style.display='flex';
 
-  // 카운터 색상/레이블 전환
-  const counterWrap = document.getElementById('counter-wrap');
-  const grossNum = document.getElementById('gross-num');
-  const netNum = document.getElementById('net-num');
-  const grossBox = grossNum ? grossNum.closest('.counter-box') : null;
-  const netBox = netNum ? netNum.closest('.counter-box') : null;
+  // Update shock headline
+  const annualLossAbs = Math.abs(lossPS) * YS;
+  const shockHeadline = document.getElementById('shock-headline');
+  const shockSub = document.getElementById('shock-sub');
+  const shockCounterLabel = document.getElementById('shock-counter-label');
 
   if(isGaining){
-    if(counterWrap){ counterWrap.style.borderColor='var(--green)'; counterWrap.style.background='#F0FDF4'; }
-    if(grossNum) grossNum.style.color='var(--green)';
-    if(netNum) netNum.style.color='var(--green)';
-    const gl=document.querySelector('#counter-wrap .counter-label');
-    const nl=document.querySelectorAll('#counter-wrap .counter-label')[1];
-    if(gl) gl.textContent='PURCHASING POWER GAINED';
-    if(nl) nl.textContent='AFTER-TAX REAL GAIN';
+    if(shockHeadline) shockHeadline.innerHTML = 'Your money is <span style="color:#34D399">beating inflation.</span>';
+    if(shockSub) shockSub.textContent = '+' + fmt(annualLossAbs, st.currency) + ' real gain per year';
+    if(shockCounterLabel) shockCounterLabel.textContent = 'PURCHASING POWER GAINED THIS SESSION';
+    const gn = document.getElementById('gross-num');
+    if(gn) gn.style.color = '#34D399';
   } else {
-    if(counterWrap){ counterWrap.style.borderColor=''; counterWrap.style.background=''; }
-    if(grossNum) grossNum.style.color='';
-    if(netNum) netNum.style.color='';
-    const gl=document.querySelector('#counter-wrap .counter-label');
-    const nl=document.querySelectorAll('#counter-wrap .counter-label')[1];
-    if(gl) gl.textContent='GROSS LOSS (BEFORE TAX)';
-    if(nl) nl.textContent='AFTER-TAX REAL LOSS';
+    // Calculate "days of work stolen"
+    const dailyWage = a / 250; // rough proxy
+    const daysStolen = Math.round(annualLossAbs / (a / 365));
+    if(shockHeadline) shockHeadline.innerHTML = 'Inflation stole <span style="color:#F87171">' + daysStolen + ' days</span> of your money\'s value this year.';
+    if(shockSub) shockSub.textContent = '–' + fmt(annualLossAbs, st.currency) + ' in purchasing power · ' + st.inf + '% inflation rate';
+    if(shockCounterLabel) shockCounterLabel.textContent = 'PURCHASING POWER LOST THIS SESSION';
+    const gn = document.getElementById('gross-num');
+    if(gn) gn.style.color = '#F87171';
+  }
+
+  // Build shock comparisons
+  const shockItems = document.getElementById('shock-items');
+  if(shockItems && !isGaining) {
+    const comparisons = [
+      { emoji:'☕', label:'Starbucks lattes',    price:7.5   },
+      { emoji:'🍕', label:'pizzas',              price:15    },
+      { emoji:'📺', label:'months of Netflix',   price:15.5  },
+      { emoji:'⛽', label:'gallons of gas',       price:3.4   },
+      { emoji:'🎬', label:'movie tickets',        price:15    },
+      { emoji:'🍔', label:'fast food combos',     price:12    },
+      { emoji:'✈️', label:'domestic flights',     price:250   },
+      { emoji:'🛒', label:'weeks of groceries',   price:150   },
+    ];
+    shockItems.innerHTML = comparisons.slice(0,6).map(c => {
+      const qty = Math.round(annualLossAbs / c.price);
+      return `<div style="
+        background:var(--card2);border:1px solid var(--border);
+        border-radius:var(--radius-sm);padding:14px;text-align:center;
+      ">
+        <div style="font-size:24px;margin-bottom:6px">${c.emoji}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--red);line-height:1">${qty.toLocaleString()}</div>
+        <div style="font-size:11px;color:var(--t2);margin-top:4px">${c.label}</div>
+      </div>`;
+    }).join('');
+  } else if(shockItems) {
+    shockItems.innerHTML = '';
+    document.getElementById('shock-comparisons').style.display='none';
   }
 
   // Stats
   const absPS=Math.abs(lossPS);
-  const pfx=isGaining?'+':'';
+  const pfx=isGaining?'+':'–';
   document.getElementById('ps').textContent=pfx+fmt(absPS,st.currency)+'/s';
   document.getElementById('pm').textContent=pfx+fmt(absPS*60,st.currency);
   document.getElementById('ph').textContent=pfx+fmt(absPS*3600,st.currency);
+  document.getElementById('pd').textContent=pfx+fmt(absPS*86400,st.currency);
+  document.getElementById('py').textContent=pfx+fmt(absPS*YS,st.currency);
+  document.getElementById('pyn').textContent=pfx+fmt(absPS*YS,st.currency);
   document.getElementById('pd').textContent=pfx+fmt(absPS*86400,st.currency);
   document.getElementById('py').textContent=pfx+fmt(absPS*YS,st.currency);
   document.getElementById('pyn').textContent=pfx+fmt(absPS*YS,st.currency);
@@ -2406,7 +2418,7 @@ function ignite(){
   if(rafId) cancelAnimationFrame(rafId);
   startTime=performance.now(); lastSec=-1;
   tick();
-  setTimeout(()=>{const el=document.getElementById('counter-wrap');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'})},100);
+  setTimeout(()=>{const el=document.getElementById('shock-moment');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'})},100);
 }
 
 // ── TICK ──────────────────────────────────────────────────────────
@@ -2638,11 +2650,57 @@ function buildDefense(){
         </div>
       </div>`).join('');
 
-    // Score preview in Live Tracker
-    const prev = document.getElementById('dash-preview-score');
-    if(prev){ prev.textContent = score; prev.style.color = g.color; }
+    // Store globally for other pages to use
+    window._mbScore = score;
+    window._mbGrade = g;
+
+    // Score preview in Live Tracker — instant card
     const previewBox = document.getElementById('dash-score-preview');
-    if(previewBox) previewBox.style.display = 'block';
+    if(previewBox) previewBox.style.display='block';
+
+    // Update instant card
+    const annualLoss = Math.abs(lossPS) * YS;
+    const isGaining = lossPS > 0;
+    const aTaxEarn = st.earn * (1 - st.tax/100);
+    const realRet = aTaxEarn - st.inf;
+
+    const icDate = document.getElementById('ic-date');
+    if(icDate) icDate.textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+
+    const icScore = document.getElementById('ic-score');
+    if(icScore){ icScore.textContent = score; icScore.style.color = g.color; }
+
+    const icLossLabel = document.getElementById('ic-loss-label');
+    const icLossNum = document.getElementById('ic-loss-num');
+    if(icLossLabel) icLossLabel.textContent = isGaining ? 'ANNUAL REAL GAIN' : 'ANNUAL PURCHASING POWER LOSS';
+    if(icLossNum){
+      icLossNum.textContent = (isGaining?'+':'–') + fmt(annualLoss, st.currency) + '/yr';
+      icLossNum.style.color = isGaining ? '#34D399' : '#F87171';
+    }
+
+    const icDay = document.getElementById('ic-per-day');
+    if(icDay){ icDay.textContent=(isGaining?'+':'–')+fmt(Math.abs(lossPS)*86400,st.currency); icDay.style.color=isGaining?'#34D399':'#F87171'; }
+
+    const icInf = document.getElementById('ic-inf');
+    if(icInf) icInf.textContent = st.inf + '%';
+
+    const icRR = document.getElementById('ic-real-return');
+    if(icRR){ icRR.textContent=(realRet>=0?'+':'')+realRet.toFixed(2)+'%'; icRR.style.color=realRet>=0?'#34D399':'#F87171'; }
+
+    const icGrade = document.getElementById('ic-grade');
+    if(icGrade) icGrade.textContent = g.emoji + ' ' + g.grade + ' — ' + g.msg;
+
+    // Store for share
+    window._instantCardData = { score, grade:g.grade, emoji:g.emoji, annualLoss, isGaining, currency:st.currency, inf:st.inf, realRet, amount:st.amount };
+
+    // Update "Save My Results" email box preview
+    const savePreview = document.getElementById('save-score-preview');
+    if(savePreview){
+      const isGainingPrev = lossPS > 0;
+      const annAbs = Math.abs(lossPS) * YS;
+      savePreview.textContent = 'Score: ' + score + '/100 · ' + g.emoji + ' ' + g.grade + ' · ' + (isGainingPrev?'+':'–') + fmt(annAbs, st.currency) + '/yr';
+      savePreview.style.color = g.color;
+    }
 
     // Report score sync
     document.getElementById('rpt-score').textContent = score;
@@ -2802,38 +2860,38 @@ function renderReport(){
 
   const sym=SYM[st.currency]||'$';
   const inf=st.inf,tax=st.tax,earn=st.earn,amt=st.amount,cur=st.currency;
-  const gap=Math.max(inf-earn,0);
-  const annLoss=amt*(gap/100);
-  const annLossNet=annLoss*(1-(tax/100)*0.5);
+  const afterTaxEarnRpt = earn * (1 - tax/100);
+  const realReturnRpt = afterTaxEarnRpt - inf;
+  const annLoss = Math.abs(lossPS) * YS;
+  const annLossNet = annLoss;
 
-  let score=100;
-  if(gap>0) score-=Math.min(gap*9,45);
-  if(earn===0) score-=20; else if(earn<inf*0.5) score-=10;
-  if(tax>=32&&gap>0) score-=12;
-  if(cur==='TRY'||cur==='BRL'||cur==='INR') score-=25; else if(inf>=5) score-=8;
-  if(earn>=inf) score+=10;
-  score=Math.max(0,Math.min(100,Math.round(score)));
-  const col=score>=70?'var(--green)':score>=40?'var(--amber)':'var(--red)';
+  // Use unified score from buildDefense
+  const score = window._mbScore !== undefined ? window._mbScore : 50;
+  const g = window._mbGrade || {color:'var(--amber)'};
+  const col = g.color;
 
   const fiveYrNom=amt*Math.pow(1+earn/100,5);
-  const fiveYrReal=amt*Math.pow(1+(earn-inf)/100,5);
+  const fiveYrReal=amt*Math.pow(1+(realReturnRpt)/100,5);
   const fiveYrSP=amt*Math.pow(1+(10-inf)/100,5);
 
+  const isGainingRpt = lossPS > 0;
+  const pfxRpt = isGainingRpt ? '+' : '–';
   document.getElementById('rpt-date').textContent=now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
   document.getElementById('rpt-score').textContent=score;
   document.getElementById('rpt-score').style.color=col;
-  document.getElementById('rpt-annual').textContent='–'+fmt(annLoss,cur)+'/yr';
-  document.getElementById('rpt-net').textContent='After-tax real loss: –'+fmt(annLossNet,cur)+'/yr';
-  document.getElementById('rpt-day').textContent='–'+fmt(annLoss/365,cur);
+  document.getElementById('rpt-annual').textContent=pfxRpt+fmt(annLoss,cur)+'/yr';
+  document.getElementById('rpt-net').textContent=(isGainingRpt?'After-tax real gain: +':'After-tax real loss: –')+fmt(annLossNet,cur)+'/yr';
+  document.getElementById('rpt-day').textContent=pfxRpt+fmt(annLoss/365,cur);
   document.getElementById('rpt-inf').textContent=inf+'%';
   document.getElementById('rpt-tax').textContent=tax+'%';
   document.getElementById('rpt-5nominal').textContent=fmt(fiveYrNom,cur);
-  document.getElementById('rpt-5real').textContent=fmt(Math.max(0,fiveYrReal),cur)+' (–'+fmt(Math.max(0,amt-fiveYrReal),cur)+')';
+  document.getElementById('rpt-5real').textContent=fmt(Math.max(0,fiveYrReal),cur)+(fiveYrReal<amt?' (–'+fmt(Math.max(0,amt-fiveYrReal),cur)+')':' (+'+fmt(Math.max(0,fiveYrReal-amt),cur)+')');
   document.getElementById('rpt-5sp').textContent=fmt(fiveYrSP,cur)+' (+'+fmt(fiveYrSP-amt,cur)+')';
 
+  const gapRpt = Math.max(inf - earn, 0);
   let action='';
   if(earn===0) action='Move your '+sym+amt.toLocaleString()+' to a High-Yield Savings Account. You are losing '+fmt(annLoss,cur)+'/yr to inflation for free. A HYSA pays 4.5-5% with zero risk.';
-  else if(gap>2) action='Move savings not needed for 5+ years into an S&P 500 index fund. Your '+earn+'% return vs '+inf+'% inflation costs '+fmt(annLoss,cur)+'/yr. Index funds historically return ~10%/yr.';
+  else if(gapRpt>2) action='Move savings not needed for 5+ years into an S&P 500 index fund. Your '+earn+'% return vs '+inf+'% inflation costs '+fmt(annLoss,cur)+'/yr. Index funds historically return ~10%/yr.';
   else if(tax>=32) action='Maximize 401(k) and IRA contributions. At '+tax+'%, every $1,000 contributed saves $'+(tax*10)+' in immediate tax — your highest-return available move right now.';
   else action='Your setup is above average. Fine-tune: calculate your personal inflation rate (My Inflation tab) and ensure your account pays at least 4.5%.';
   document.getElementById('rpt-action').textContent=action;
@@ -2930,8 +2988,8 @@ function dlRpt(){
   gtag('event','download_report');
   // Build a clean off-screen card to capture as PNG
   const sym=SYM[st.currency]||'$';
-  const pY=lossPS*YS, pYn=netLossPS*YS;
-  const gap=Math.max(st.inf-st.earn,0);
+  const pY=Math.abs(lossPS)*YS, pYn=pY;
+  const isGainingDl=lossPS>0;
   const fiveYrReal=fmt(Math.max(0,st.amount*Math.pow(1+(st.earn-st.inf)/100,5)),st.currency);
   const fiveYrSP=fmt(st.amount*Math.pow(1+(10-st.inf)/100,5),st.currency);
   const score=document.getElementById('rpt-score')?document.getElementById('rpt-score').textContent:'—';
@@ -3153,297 +3211,38 @@ function shareCompletion(){
 }
 
 // ── ACTION PLAN ──────────────────────────────────────────────────
-const ACTION_PLANS={
-  USD:{flag:'🇺🇸',country:'United States',urgent:null,steps:[
-    {time:'now',  title:'Move cash to a High-Yield Savings Account',desc:'Big bank savings pay 0.5%. HYSA accounts (Marcus, Ally, SoFi) pay 4.5–5%. Same FDIC insurance. Takes 10 minutes to open.'},
-    {time:'month',title:'Start automatic investing in S&P 500 ETF', desc:'VOO or SPY — set up a recurring buy of any amount. Historical real return ~7%/yr after inflation. Time in market beats timing the market.'},
-    {time:'month',title:'Maximize tax-advantaged accounts',          desc:'401(k) to employer match (free money). Then Roth IRA ($7,000/yr limit). Taxes saved = inflation hedge built in.'},
-    {time:'year', title:'Buy I-Bonds up to $10,000/yr',             desc:'US Treasury I-Bonds pay inflation rate + fixed rate. Guaranteed to beat CPI. Purchase at TreasuryDirect.gov.'},
-  ]},
-  EUR:{flag:'🇪🇺',country:'Eurozone',urgent:null,steps:[
-    {time:'now',  title:'Move savings to a high-rate savings account',desc:'Many EU banks offer 3–4% on term deposits. Compare rates on Raisin.eu before your money sits idle.'},
-    {time:'month',title:'Invest in a Euro-denominated world ETF',    desc:'iShares Core MSCI World (IWDA) or Vanguard FTSE All-World (VWRL). Globally diversified, available on most EU brokers.'},
-    {time:'month',title:'Use your annual tax-free allowance',        desc:'Many EU countries offer tax-advantaged investment accounts. Check your country\'s equivalent — PEA in France, Depot in Germany.'},
-    {time:'year', title:'Consider inflation-linked bonds',           desc:'EU governments issue inflation-linked bonds (OATi, BTPei). They pay principal adjusted for actual CPI.'},
-  ]},
-  GBP:{flag:'🇬🇧',country:'United Kingdom',urgent:null,steps:[
-    {time:'now',  title:'Open a Cash ISA or Stocks & Shares ISA',   desc:'ISA allowance is £20,000/yr — all growth tax-free forever. Moneybox, Vanguard UK, or Hargreaves Lansdown take 10 minutes to set up.'},
-    {time:'now',  title:'Check NS&I Premium Bonds',                  desc:'100% government-backed. Tax-free prizes equivalent to ~4.4% for average holders. Max £50,000. No risk to capital.'},
-    {time:'month',title:'Invest in FTSE All-World or S&P 500 ETF',  desc:'Vanguard FTSE Global All Cap or iShares Core S&P 500. Low cost, globally diversified. Set up a monthly direct debit.'},
-    {time:'year', title:'Maximise your pension contributions',       desc:'Government adds 20% tax relief on top. Higher rate taxpayers get 40%. Most powerful inflation hedge available to UK workers.'},
-  ]},
-  JPY:{flag:'🇯🇵',country:'Japan',urgent:null,steps:[
-    {time:'now',  title:'Open a NISA account immediately',           desc:'New NISA allows ¥3.6M/yr in tax-free investing — growth and dividends never taxed. Available at SBI, Rakuten, Monex.'},
-    {time:'month',title:'Invest in global ETFs via NISA',            desc:'eMAXIS Slim 全世界株式 (All Country) — Japan\'s most popular low-cost global fund. Yen weakness makes global assets stronger in JPY terms.'},
-    {time:'month',title:'Start iDeCo for retirement',                desc:'Individual-type Defined Contribution pension. Contributions are tax-deductible. Reduces income tax now while building inflation-protected assets.'},
-    {time:'year', title:'Consider foreign currency assets',          desc:'With JPY weak and Japan\'s inflation rising, holding some USD or EUR assets provides a hedge against further yen depreciation.'},
-  ]},
-  KRW:{flag:'🇰🇷',country:'South Korea',urgent:null,steps:[
-    {time:'now',  title:'파킹통장으로 즉시 이동',                      desc:'카카오뱅크·토스뱅크 파킹통장은 연 3.5~4% 제공. 일반 은행 예금보다 훨씬 높음. 오늘 앱에서 10분이면 개설 가능.'},
-    {time:'month',title:'ISA 계좌 개설 후 ETF 투자',                 desc:'개인종합자산관리계좌(ISA)는 연 2,000만원까지 비과세. KODEX 200, TIGER 미국S&P500 ETF로 인플레이션 헤지.'},
-    {time:'month',title:'연금저축/IRP 세액공제 활용',                 desc:'연금저축 연 400만원 + IRP 300만원 = 최대 700만원 세액공제. 13.2~16.5% 환급. 인플레이션보다 강력한 수익.'},
-    {time:'year', title:'리츠(REITs) 또는 부동산 ETF 편입',          desc:'실물 부동산 없이도 부동산 수익에 노출 가능. TIGER 부동산인프라고배당, KODEX 글로벌리얼티 등 고려.'},
-  ]},
-  CAD:{flag:'🇨🇦',country:'Canada',urgent:null,steps:[
-    {time:'now',  title:'Maximize your TFSA contribution',           desc:'Tax-Free Savings Account — all growth and withdrawals tax-free. 2024 limit: $7,000. Open at any bank or Wealthsimple.'},
-    {time:'month',title:'Invest in low-cost index ETFs',             desc:'XEQT or VEQT (all-in-one equity ETFs) — globally diversified, auto-rebalancing, MER under 0.25%. Available on Questrade commission-free.'},
-    {time:'month',title:'Contribute to RRSP for tax refund',         desc:'RRSP contributions reduce your taxable income now. Get a refund this spring and invest it.'},
-    {time:'year', title:'Consider real return bonds',                desc:'Government of Canada Real Return Bonds adjust principal with CPI. Direct inflation protection.'},
-  ]},
-  AUD:{flag:'🇦🇺',country:'Australia',urgent:null,steps:[
-    {time:'now',  title:'Check your super fund performance',         desc:'Many Australians leave money in underperforming default funds. Switch to a high-growth option (Australian Super, Hostplus).'},
-    {time:'now',  title:'Open a high-interest savings account',      desc:'ING, Macquarie, and UBank currently offer 5%+ on savings. Compare at Canstar.com.au.'},
-    {time:'month',title:'Invest via ETF platform',                   desc:'Stake, Pearler, or Selfwealth offer low-cost ASX and US ETF access. VGS (global) or VAS (Australian) are popular starting points.'},
-    {time:'year', title:'Make voluntary super contributions',        desc:'Concessional contributions taxed at 15% vs your marginal rate. Every dollar contributed saves tax and beats inflation.'},
-  ]},
-  CHF:{flag:'🇨🇭',country:'Switzerland',urgent:null,steps:[
-    {time:'now',  title:'Utilise your Pillar 3a pension account',    desc:'Contributions up to CHF 7,056/yr are tax-deductible. Invest in equity funds within 3a for real returns above inflation.'},
-    {time:'month',title:'Invest in global index funds',              desc:'IBKR or Swissquote offer access to VT or VWRL. CHF is strong — global equities give inflation protection without currency risk.'},
-    {time:'month',title:'Consider Swiss real estate funds',          desc:'UBS Swiss Real Estate Fund provides inflation-linked returns accessible without owning property.'},
-    {time:'year', title:'Maximise Pillar 2 buybacks',               desc:'Voluntary buybacks into occupational pension are tax-deductible at marginal rate — one of Switzerland\'s most powerful tax tools.'},
-  ]},
-  CNY:{flag:'🇨🇳',country:'China',urgent:null,steps:[
-    {time:'now',  title:'Move idle cash to money market funds',      desc:'Yu\'E Bao and similar platforms offer ~2% annualised. Much better than standard bank deposits with full liquidity.'},
-    {time:'month',title:'Invest in broad A-share index funds',       desc:'CSI 300 or CSI 500 index funds through Alipay or major brokers. Low cost, diversified exposure to China\'s largest companies.'},
-    {time:'month',title:'Consider gold as inflation hedge',          desc:'Gold ETFs (Hua An Gold ETF) are accessible and have historically preserved purchasing power in China.'},
-    {time:'year', title:'Explore QDII funds for global diversification',desc:'QDII funds allow Chinese investors to access overseas markets (US, HK, Europe). Reduces concentration in CNY assets.'},
-  ]},
-  INR:{flag:'🇮🇳',country:'India',urgent:null,steps:[
-    {time:'now',  title:'Start a Systematic Investment Plan (SIP)',  desc:'₹500/month into a Nifty 50 or flexi-cap mutual fund via Zerodha Coin, Groww, or Paytm Money. Small amounts compound significantly.'},
-    {time:'now',  title:'Move idle savings to liquid mutual funds',  desc:'Liquid funds offer 6–7% with next-day redemption. Far better than savings accounts while remaining accessible.'},
-    {time:'month',title:'Open a PPF account',                        desc:'Public Provident Fund: 7.1% guaranteed by government, tax-free returns, EEE status. ₹1.5L/yr limit.'},
-    {time:'year', title:'Consider NPS for retirement + tax savings', desc:'National Pension System: additional ₹50,000 deduction under 80CCD(1B). Equity exposure beats inflation long-term.'},
-  ]},
-  BRL:{flag:'🇧🇷',country:'Brazil',urgent:null,steps:[
-    {time:'now',  title:'Invest in Tesouro IPCA+',                   desc:'Brazilian government bonds linked directly to IPCA (inflation index) + a real rate. 100% government-guaranteed. Buy at any bank.'},
-    {time:'now',  title:'Move cash to IPCA-linked CDB',              desc:'Certificates of Deposit linked to CDI or IPCA beat standard poupança significantly. Compare on Renda Fixa platforms.'},
-    {time:'month',title:'Invest in BDRs for international exposure', desc:'Brazilian Depositary Receipts let you invest in Apple, Amazon, Google in BRL. Hedge against currency devaluation.'},
-    {time:'year', title:'Contribute to PGBL or VGBL pension',        desc:'PGBL offers income tax deduction up to 12% of gross income. Long-term equity compounding beats inflation historically.'},
-  ]},
-  MXN:{flag:'🇲🇽',country:'Mexico',urgent:null,steps:[
-    {time:'now',  title:'Invest in CETES (government bonds)',         desc:'Mexican government bonds currently paying ~10%+. Available directly at cetesdirecto.com with no fees. No minimum.'},
-    {time:'now',  title:'Review your AFORE pension allocation',       desc:'Switch to a higher-return SIEFORE fund if under 45. The allocation difference can mean 30–40% more at retirement.'},
-    {time:'month',title:'Open a brokerage account for ETFs',          desc:'GBM or Kuspit offer access to Mexican and US ETFs. NAFTRAC (IPC) or VOO for global diversification.'},
-    {time:'year', title:'Dollar-cost average into USD assets',        desc:'MXN volatility is high. Holding some savings in USD or dollar-denominated assets protects against peso depreciation.'},
-  ]},
-  ZAR:{flag:'🇿🇦',country:'South Africa',urgent:null,steps:[
-    {time:'now',  title:'Open a Tax-Free Savings Account (TFSA)',     desc:'R36,000/yr, R500,000 lifetime — all returns tax-free. Use for index funds, not cash. Available at Easy Equities, Allan Gray.'},
-    {time:'now',  title:'Invest in RSA Retail Savings Bonds',         desc:'Government-backed, higher rates than bank deposits. CPI-linked option available. No risk to capital. Buy online at RSA Retail Bonds.'},
-    {time:'month',title:'Get offshore exposure via ETFs',             desc:'Satrix MSCI World or Ashburton 1200 give global diversification in ZAR. Rand weakness means offshore assets grow faster locally.'},
-    {time:'year', title:'Maximise your retirement annuity',           desc:'RA contributions up to 27.5% of income are tax-deductible. Reduces tax now, grows in equity long-term.'},
-  ]},
-  RUB:{flag:'🇷🇺',country:'Russia',urgent:null,steps:[
-    {time:'now',  title:'Consider inflation-linked OFZ bonds',        desc:'OFZ-IN bonds (inflation-indexed government bonds) pay CPI + a real rate. Available through major Russian brokers.'},
-    {time:'now',  title:'Diversify into gold',                        desc:'Gold has historically preserved purchasing power in high-inflation environments. Gold ETFs or physical gold are accessible.'},
-    {time:'month',title:'Invest in domestic blue-chip equities',      desc:'Russian companies with pricing power (energy, materials) historically outperform inflation in local currency terms.'},
-    {time:'year', title:'Review your currency diversification',       desc:'Holding some assets in non-RUB denominations can provide additional protection against domestic inflation.'},
-  ]},
-  TRY:{flag:'🇹🇷',country:'Turkey',urgent:'⚠️ At 38%+ inflation, standard savings accounts are losing value faster than most investments can compensate. Immediate action is critical.',steps:[
-    {time:'now',  title:'Convert cash to USD or EUR immediately',     desc:'At 38% inflation, every day your lira sits in savings you lose ~0.1% of its value. Convert to hard currency as your primary strategy.'},
-    {time:'now',  title:'Buy gold (altın) as inflation hedge',        desc:'Turkish gold coins (Cumhuriyet altını) and gold-backed accounts (gram altın) are traditional and effective inflation protection.'},
-    {time:'month',title:'Invest in inflation-linked TÜFE bonds',      desc:'Turkish Treasury issues CPI-linked bonds. They guarantee your principal grows with official inflation. Buy through your bank.'},
-    {time:'month',title:'Invest in Turkish equities (BIST)',           desc:'Companies with pricing power — especially exporters earning USD/EUR — have historically beaten local inflation.'},
-  ]},
-  ARG:{flag:'🇦🇷',country:'Argentina',urgent:'🚨 At 211% annual inflation, holding pesos overnight is a financial decision. Emergency action required.',steps:[
-    {time:'now',  title:'Convert pesos to USD the day salary arrives', desc:'Argentines who wait even 48 hours lose measurable purchasing power. Convert immediately via legal channels (MEP/CCL dollar).'},
-    {time:'now',  title:'Use dollar-denominated savings accounts',     desc:'Cuenta DNI and fintech apps (Mercado Pago, Ualá) offer UVA or dollar-linked savings with better protection than peso accounts.'},
-    {time:'month',title:'Buy UVA-linked instruments',                  desc:'UVA bonds and fixed terms adjust daily with CPI. They are the minimum viable protection in Argentina.'},
-    {time:'month',title:'Invest in Cedears (foreign company shares)',  desc:'Cedears let you own Apple, Amazon, Alphabet shares — priced in pesos but tracking dollar assets. Available on Balanz, IOL.'},
-  ]},
-};
 
-function renderActionPlan(currency){
-  const amount = st.amount || 0;
-  const inf = st.inf || INF[currency] || 3.81;
-  const sym = SYM[currency] || '$';
-  const plan = ACTION_PLANS[currency] || null;
-  const isKRW = currency==='KRW'||currency==='JPY';
 
-  // Format helper — compact for large numbers
-  function fmtA(n){
-    if(isKRW){
-      if(n>=100000000) return sym+(n/100000000).toFixed(1)+'억';
-      if(n>=10000) return sym+(n/10000).toFixed(0)+'만';
-      return sym+Math.round(n).toLocaleString();
-    }
-    if(n>=1000000) return sym+(n/1000000).toFixed(2)+'M';
-    if(n>=1000) return sym+(n/1000).toFixed(1)+'k';
-    return sym+n.toFixed(0);
-  }
-
-  // Key numbers
-  const annualLoss      = amount * (inf/100);
-  const lowRate         = 0.5;   // typical big-bank rate
-  const highRate        = currency==='USD'?4.5:currency==='GBP'?5.0:currency==='AUD'?5.0:
-                          currency==='CAD'?4.2:currency==='KRW'?3.8:currency==='INR'?7.0:
-                          currency==='BRL'?12.0:currency==='MXN'?10.0:currency==='TRY'?35.0:
-                          currency==='ARG'?90.0:3.5;
-  const lowInterest     = amount * (lowRate/100);
-  const highInterest    = amount * (highRate/100);
-  const interestGain    = highInterest - lowInterest;
-  const coverPct        = annualLoss>0 ? Math.round((interestGain/annualLoss)*100) : 0;
-  const sp500Rate       = 10.0;
-  const sp500Real       = amount * ((sp500Rate - inf)/100);
-  const taxSavingRate   = currency==='USD'?22:currency==='GBP'?20:currency==='KRW'?16.5:
-                          currency==='AUD'?32.5:currency==='CAD'?26:20;
-  const maxContrib      = currency==='USD'?7000:currency==='GBP'?20000:currency==='KRW'?7000000:
-                          currency==='AUD'?27500:currency==='CAD'?7000:5000;
-  const taxSaving       = Math.min(amount*0.15, maxContrib*(taxSavingRate/100));
-  const fiveYrSP        = amount * Math.pow(1+(sp500Rate/100), 5) - amount;
-  const fiveYrCash      = amount * Math.pow(1-(inf/100), 5);
-  const fiveYrDiff      = amount - fiveYrCash;
-
-  // Per-currency dynamic step builder
-  function buildSteps(){
-    const flag = plan?plan.flag:'🌍';
-    const country = plan?plan.country:'Your Country';
-
-    // HYSA / high-yield account name by country
-    const hysaName = {
-      USD:'HYSA (Marcus, Ally, SoFi)',
-      GBP:'Cash ISA or Marcus UK',
-      AUD:'ING or Macquarie Savings',
-      CAD:'EQ Bank or Wealthsimple Save',
-      KRW:'카카오뱅크·토스뱅크 파킹통장',
-      JPY:'NISA 계좌',
-      INR:'Liquid Mutual Fund',
-      BRL:'CDB IPCA+',
-      MXN:'CETES',
-      TRY:'USD-linked account',
-      ARG:'USD or UVA account',
-    }[currency] || 'High-Yield Savings Account';
-
-    const etfName = {
-      USD:'VOO or SPY (S&P 500 ETF)',
-      GBP:'Vanguard FTSE Global All Cap',
-      EUR:'iShares Core MSCI World (IWDA)',
-      AUD:'VGS or VAS ETF',
-      CAD:'XEQT or VEQT',
-      KRW:'TIGER 미국S&P500 ETF',
-      JPY:'eMAXIS Slim 全世界株式',
-      INR:'Nifty 50 Index Fund SIP',
-      BRL:'Cedears or Tesouro IPCA+',
-      MXN:'NAFTRAC or VOO via GBM',
-      ZAR:'Satrix MSCI World',
-    }[currency] || 'MSCI World ETF';
-
-    const taxAcctName = {
-      USD:'Roth IRA + 401(k)',
-      GBP:'Stocks & Shares ISA',
-      AUD:'Super voluntary contributions',
-      CAD:'TFSA + RRSP',
-      KRW:'연금저축 + IRP',
-      JPY:'iDeCo',
-      INR:'PPF + NPS',
-      BRL:'PGBL / VGBL',
-      MXN:'AFORE',
-      ZAR:'TFSA + Retirement Annuity',
-      CHF:'Pillar 3a',
-    }[currency] || 'Tax-Advantaged Account';
-
-    // Urgent override for hyperinflation
-    let urgent = plan ? plan.urgent : null;
-
-    const steps = [];
-
-    if(currency==='ARG'){
-      steps.push({time:'now',
-        title:'Convert pesos to USD immediately',
-        desc:`At ${inf}% annual inflation, ${fmtA(amount)} in pesos loses ${fmtA(annualLoss)} in purchasing power this year. Converting to USD is the single most impactful move — do it the same day salary arrives.`
-      });
-      steps.push({time:'now',
-        title:'Move to UVA-linked instruments',
-        desc:`UVA accounts and bonds adjust daily with CPI. They are the minimum viable protection for peso savings in Argentina.`
-      });
-      steps.push({time:'month',
-        title:'Buy Cedears for global exposure',
-        desc:`Cedears let you hold Apple, Amazon, Alphabet shares priced in pesos but tracking USD assets. Available on Balanz and IOL.`
-      });
-      steps.push({time:'year',
-        title:'Build a dollar-denominated emergency fund',
-        desc:`Target 6 months of expenses in USD. This is your inflation firewall.`
-      });
-    } else if(currency==='TRY'){
-      steps.push({time:'now',
-        title:'Convert lira to USD or EUR immediately',
-        desc:`Your ${fmtA(amount)} in lira is losing ${fmtA(annualLoss)} in purchasing power this year (${inf}% inflation). At this rate, waiting a week costs you ${fmtA(annualLoss/52)}.`
-      });
-      steps.push({time:'now',
-        title:'Buy gold (gram altın)',
-        desc:`Gold has historically matched or beaten Turkish inflation. Gram altın accounts at banks are accessible and liquid.`
-      });
-      steps.push({time:'month',
-        title:'Invest in TÜFE-linked government bonds',
-        desc:`Turkish Treasury CPI-linked bonds guarantee your principal grows with official inflation. Buy through your bank's mobile app.`
-      });
-      steps.push({time:'year',
-        title:'Build USD-denominated emergency fund',
-        desc:`Target 6 months of expenses in hard currency. This is your inflation firewall.`
-      });
-    } else {
-      // Step 1: High-yield savings
-      steps.push({time:'now',
-        title:`Move to ${hysaName}`,
-        desc:`Your ${fmtA(amount)} in a standard account earns ~${fmtA(lowInterest)}/yr (${lowRate}%). ${hysaName} pays ~${highRate}%, earning ${fmtA(highInterest)}/yr instead. That's +${fmtA(interestGain)}/yr — covering ${coverPct}% of your ${fmtA(annualLoss)} annual inflation loss.`
-      });
-
-      // Step 2: ETF investing
-      steps.push({time:'month',
-        title:`Start investing in ${etfName}`,
-        desc:`If ${fmtA(amount)} grows at the S&P 500's historical ~${sp500Rate}% annually, your real gain after ${inf}% inflation is +${fmtA(sp500Real)}/yr. Over 5 years that's +${fmtA(fiveYrSP)} — vs losing ${fmtA(fiveYrDiff)} in purchasing power by staying in cash.`
-      });
-
-      // Step 3: Tax-advantaged
-      if(taxSaving > 0){
-        steps.push({time:'month',
-          title:`Maximize ${taxAcctName}`,
-          desc:`Contributing up to ${fmtA(maxContrib)}/yr into a tax-advantaged account saves you ~${fmtA(taxSaving)} in taxes. That's an instant ${Math.round(taxSaving/Math.max(amount,1)*100*100)/100}% return before any investment growth — better than most savings accounts.`
-        });
-      }
-
-      // Step 4: Emergency fund framing
-      const emergencyFund = amount * 0.15;
-      const excessCash = Math.max(0, amount - emergencyFund*2);
-      if(excessCash > 0){
-        steps.push({time:'year',
-          title:'Reduce your cash drag',
-          desc:`You need ~${fmtA(emergencyFund*2)} in cash (3–6 months expenses). Everything above that is losing ${fmtA(excessCash*(inf/100))}/yr sitting idle. Moving ${fmtA(excessCash)} into investments could generate +${fmtA(excessCash*(sp500Rate/100-inf/100))}/yr in real returns.`
-        });
-      } else {
-        steps.push({time:'year',
-          title:'Build your inflation firewall',
-          desc:`Even small, consistent monthly investments beat inflation over time. ${fmtA(100)}/month invested at ${sp500Rate}% becomes ${fmtA(100*12*((Math.pow(1+sp500Rate/1200,120)-1)/(sp500Rate/1200)))} in 10 years — ${fmtA(100*12*10)} in contributions becoming much more in real terms.`
-        });
-      }
-    }
-
-    return {flag, country, urgent, steps};
-  }
-
-  const {flag, country, urgent, steps} = buildSteps();
-
-  const box = document.getElementById('action-plan');
-  if(!box) return;
-  const tagMap = {now:['tag-now','Do Today'],month:['tag-month','This Month'],year:['tag-year','This Year']};
-
-  document.getElementById('ap-country').innerHTML =
-    flag + ' ' + country + ' — Personalized for ' + fmtA(amount);
-  document.getElementById('ap-urgent').innerHTML =
-    urgent ? '<div class="action-urgent">'+urgent+'</div>' : '';
-  document.getElementById('ap-steps').innerHTML = steps.map((s,i)=>{
-    const [tc,tl] = tagMap[s.time] || ['tag-year','Long Term'];
-    return '<div class="action-step">'+
-      '<div class="action-step-num">0'+(i+1)+'</div>'+
-      '<div>'+
-      '<div class="action-step-title">'+s.title+'</div>'+
-      '<div class="action-step-desc">'+s.desc+'</div>'+
-      '<span class="action-step-tag '+tc+'">'+tl+'</span>'+
-      '</div></div>';
-  }).join('');
-  box.style.display = 'block';
+// ── INSTANT CARD SHARE / DOWNLOAD ────────────────────────────────
+function shareInstantCard(){
+  const d=window._instantCardData;
+  if(!d){toast('Calculate first!');return;}
+  const sym=SYM[d.currency]||'$';
+  const lossStr=(d.isGaining?'+':'–')+fmt(d.annualLoss,d.currency);
+  const txt=
+    d.emoji+' My Inflation Card\n\n'+
+    'Defense Score: '+d.score+'/100 — '+d.grade+'\n'+
+    (d.isGaining?'Real gain: ':'Real loss: ')+lossStr+'/yr\n'+
+    'Real return: '+(d.realRet>=0?'+':'')+d.realRet.toFixed(2)+'%/yr\n'+
+    d.inf+'% inflation · '+sym+d.amount.toLocaleString()+' '+d.currency+'\n\n'+
+    'What\'s YOUR score? → inflationclock.com';
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(txt),'_blank');
+  gtag('event','share_result',{method:'twitter',page:'instant_card'});
 }
 
-try{initQuiz()}catch(e){console.error('initQuiz:',e)}
+function downloadInstantCard(){
+  const card=document.getElementById('instant-card');
+  if(!card){toast('Calculate first!');return;}
+  html2canvas(card,{scale:2,backgroundColor:'#1a0000',useCORS:true,logging:false}).then(canvas=>{
+    const link=document.createElement('a');
+    link.download='my-inflation-card-'+new Date().toISOString().slice(0,10)+'.png';
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+    toast('Card saved! Share the damage 🔥');
+    gtag('event','download_report',{type:'instant_card'});
+  }).catch(()=>toast('Download failed — try again'));
+}
+
 const GFORM_URL='https://docs.google.com/forms/u/0/d/e/1FAIpQLSeVuT43qu5PxuSMF0aq4zcrJK1NYU289nMgXlrZ_FThmSUPDw/formResponse';
 
 function submitEmail(){
@@ -3457,24 +3256,28 @@ function submitEmail(){
     toast('Please enter a valid email address');
     return;
   }
+  const score = window._mbScore || '—';
+  const grade = window._mbGrade ? window._mbGrade.grade : '—';
+  const annLoss = Math.abs(lossPS) * YS;
+  const isGaining = lossPS > 0;
+  const resultStr = 'Score: '+score+'/100 | '+grade+' | '+(isGaining?'+':'–')+fmt(annLoss, st.currency)+'/yr | '+st.inf+'% inflation | '+st.earn+'% return | '+st.tax+'% tax | '+st.currency;
+
   const body=new FormData();
-  body.append('entry.1404257243', 'Subscriber');
+  body.append('entry.1404257243', resultStr);
   body.append('entry.555030497', email);
   fetch(GFORM_URL,{method:'POST',mode:'no-cors',body})
     .finally(()=>{
       document.getElementById('email-sub-form-wrap').style.display='none';
       document.getElementById('email-sub-success').style.display='block';
       gtag('event','email_signup');
-      toast('Subscribed! 🔥');
+      toast('Sent! Check your inbox 📬');
     });
 }
 
-try{initQuiz()}catch(e){console.error('initQuiz:',e)}
 try{initCPI()}catch(e){console.error('initCPI:',e)}
 try{checkRet()}catch(e){console.error('checkRet:',e)}
 try{initCommunity()}catch(e){console.error('initCommunity:',e)}
-</script>
-<script>
+
 /* ── SLEEP TRACKER ── */
 
 // Build hour/minute dropdowns
@@ -3631,8 +3434,7 @@ function sleepCopy(){
     }
   }catch(e){}
 })();
-</script>
-<script>
+
 /* ── MY TYPE (MBTI) ── */
 const MBTI_TYPES = [
   { id:'sleepwalker', emoji:'🌙', name:'The Sleepwalker', sub:'Asleep at the Wheel',
